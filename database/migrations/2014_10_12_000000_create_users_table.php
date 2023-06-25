@@ -24,13 +24,13 @@ return new class extends Migration
             $table->enum('gender', ['male', 'female']);
             $table->date('dob');
             $table->string('nrc');
-            $table->string('blood_type');
+            $table->enum('blood_type', ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-', 'A-', 'A-']);
             $table->enum('status', ['active', 'away']);
             $table->text('remark')->nullable();
             $table->text('disease')->nullable();
             $table->text('address');
-            $table->integer('city_id');
-            $table->integer('township_id');
+            $table->foreignId('city_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();;
+            $table->foreignId('township_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();;
             $table->string('latitude');
             $table->string('longitude');
             $table->rememberToken();
