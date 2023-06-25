@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('townships', function (Blueprint $table) {
             $table->id();
             $table->text('name');
-            $table->foreignId('city_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('city_id')->constrained('cities')->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });
     }

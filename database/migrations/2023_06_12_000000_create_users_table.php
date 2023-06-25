@@ -24,7 +24,7 @@ return new class extends Migration
             $table->enum('gender', ['male', 'female']);
             $table->date('dob');
             $table->string('nrc');
-            $table->enum('blood_type', ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-', 'A-', 'A-']);
+            $table->enum('blood_type', ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']);
             $table->enum('status', ['active', 'away']);
             $table->text('remark')->nullable();
             $table->text('disease')->nullable();

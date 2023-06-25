@@ -18,8 +18,8 @@ return new class extends Migration
             $table->text('name');
             $table->string('latitude');
             $table->string('longitude');
-            $table->foreignId('city_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('township_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('city_id')->constrained('cities')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('township_id')->constrained('townships')->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });
     }
