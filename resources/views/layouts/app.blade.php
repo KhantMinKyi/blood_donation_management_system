@@ -13,17 +13,17 @@
 
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 
-  <!-- Bootstrap Link CSS Files -->
+  <!-- Bootstrap 4 Link CSS Files -->
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 
   <!--Fontawesome Link CSS Files-->
   <link rel="stylesheet" href="css/all.min.css">
 
   <!--Style Link CSS Files-->
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/user-styles.css">
 
   <!-- Custom Link CSS Files -->
-  <link rel="stylesheet" href="css/custom.css">
+  <link rel="stylesheet" href="css/user-custom.css">
 
   <!-- Donar Link CSS Files -->
   <link rel="stylesheet" href="css/donar.css">
