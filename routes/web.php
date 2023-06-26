@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -18,8 +19,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
-
-Route::get('/home', function() {
+Route::get('/home', function () {
     return view('homepage');
+});
+
+Route::get('/login', [AdminController::class, 'login']);
+Route::group(['middleware' => ['admin']], function () {
+    Route::resource('admins', AdminController::class);
 });
