@@ -1,0 +1,7 @@
+.signin-section {
+  background-color: var(--background-grey-color);
+}
+
+.signin-section h1 {
+  color: var(--text-black-color);
+}

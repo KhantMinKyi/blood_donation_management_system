@@ -1,0 +1,11 @@
+.about-section {
+  background-color: var(--background-grey-color);
+}
+
+.about-section h1 {
+  color: var(--text-black-color);
+}
+
+.about-section p {
+  color: var(--text-black-color);
+}
