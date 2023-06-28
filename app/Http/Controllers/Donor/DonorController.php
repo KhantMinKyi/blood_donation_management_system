@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Donor;
 
 use App\Http\Controllers\Controller;
-use App\Models\Admin;
+use App\Models\Donor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class AdminController extends Controller
+class DonorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return Admin::where('id', auth('admin')->user()->id)->with('hospital')->get();
+        return Donor::where('id', auth('donor')->user()->id)->get();
     }
 
     /**
@@ -86,7 +86,7 @@ class AdminController extends Controller
     }
     public function loginform()
     {
-        return view('loginform');
+        return redirect('/');
     }
     public function login(Request $request)
     {
@@ -94,7 +94,7 @@ class AdminController extends Controller
             'user_name' => 'required',
             'password' => 'required'
         ]);
-        $admin = Admin::where('user_name', $request->user_name)->first();
+        $admin = Donor::where('user_name', $request->user_name)->first();
         if (!$admin) {
             return response()->json(['error' => 'USer Not Found']);
         }
@@ -102,7 +102,7 @@ class AdminController extends Controller
             return response()->json(['error' => 'Password is Wrong , Try Again']);
         }
         auth('admin')->login($admin);
-        return redirect('/admins')->with('success', 'Welcome To Our Website ' . $admin->name);
+        return redirect('/donors')->with('success', 'Welcome To Our Website ' . $admin->name);
     }
     public function logout()
     {

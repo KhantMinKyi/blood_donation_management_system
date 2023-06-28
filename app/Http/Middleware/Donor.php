@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class Admin
+class Donor
 {
     /**
      * Handle an incoming request.
@@ -16,8 +16,8 @@ class Admin
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!auth()->guard('admin')->check()) {
-            return redirect('/admin/loginform')->with('error', 'Please Login First');
+        if (!auth()->guard('donor')->check()) {
+            return redirect('/donor/loginform')->with('error', 'Please Login First');
         }
         return $next($request);
     }
