@@ -9,33 +9,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="description" content="Blood Donation Website">
-  <meta name="author" content="Exceptional Programmers">
+  <meta name="author" content="Fifth Year IT Group 2">
 
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 
   <!-- Bootstrap 4 Link CSS Files -->
-  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
 
   <!--Fontawesome Link CSS Files-->
-  <link rel="stylesheet" href="css/all.min.css">
+  <link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
 
   <!--Style Link CSS Files-->
-  <link rel="stylesheet" href="css/user-styles.css">
+  <link rel="stylesheet" href="{{ asset('css/user-styles.css') }}">
 
   <!-- Custom Link CSS Files -->
-  <link rel="stylesheet" href="css/user-custom.css">
+  <link rel="stylesheet" href="{{ asset('css/user-custom.css') }}">
 
   <!-- Donar Link CSS Files -->
-  <link rel="stylesheet" href="css/donar.css">
+  <link rel="stylesheet" href="{{ asset('css/donar.css') }}">
 
   <!-- Search Link CSS Files -->
-  <link rel="stylesheet" href="css/search.css">
+  <link rel="stylesheet" href="{{ asset('css/search.css') }}">
 
   <!-- Signin Link CSS Files -->
-  <link rel="stylesheet" href="css/signin.css">
+  <link rel="stylesheet" href="{{ asset('css/signin.css') }}">
 
   <!-- About Link CSS Files -->
-  <link rel="stylesheet" href="css/about.css">
+  <link rel="stylesheet" href="{{ asset('css/about.css') }}">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 
@@ -146,13 +146,13 @@
   <!-- end contact us section -->
 
   <!-- JQuery File -->
-  <script type="text/javascript" src="js/jquery.js"></script>
+  <script type="text/javascript" src="{{ asset('js/jquery.js') }}"></script>
 
   <!-- BootStrap JS File-->
-  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
 
   <!-- Fontawesome Icon JS-->
-  <script defer src="js/all.js"></script>
+  <script defer src="{{ asset('js/all.js') }}"></script>
 
   </div>
 </body>
