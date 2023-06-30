@@ -77,7 +77,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="signin.php">Signin</a>
+          <a class="nav-link" href="{{ url('/login') }}">Signin</a>
         </li>
 
         <li class="nav-item">
