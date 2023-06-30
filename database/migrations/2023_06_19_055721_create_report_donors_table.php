@@ -15,6 +15,16 @@ return new class extends Migration
     {
         Schema::create('report_donors', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('hospital_id')->constrained('hospitals')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('admin_report_id')->nullable()->constrained('report_admins')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('admin_id')->constrained('admins')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('donor_id')->constrained('donors')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('patient_id')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->enum('status', ['pending', 'completed', 'cancel']);
+            $table->enum('donor_confirm', ['done', 'undone', 'done_by_phone']);
+            $table->text('remark')->nullable();
+            $table->dateTime('report_date_time');
+            $table->dateTime('confirm_date_time');
             $table->timestamps();
         });
     }

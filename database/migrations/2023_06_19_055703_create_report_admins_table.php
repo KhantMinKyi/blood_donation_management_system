@@ -15,6 +15,13 @@ return new class extends Migration
     {
         Schema::create('report_admins', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('hospital_id')->constrained('hospitals')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('patient_id')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('admin_id')->constrained('admins')->onUpdate('cascade')->onDelete('cascade');
+            $table->enum('status', ['pending', 'completed', 'cancel']);
+            $table->dateTime('report_date_time');
+            $table->dateTime('confirm_date_time');
+            $table->text('remark')->nullable();
             $table->timestamps();
         });
     }
