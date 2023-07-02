@@ -68,9 +68,9 @@
           <a class="nav-link" href="index.php">Home</a>
         </li>
 
-        <li class="nav-item">
+        <!--<li class="nav-item">
           <a class="nav-link" href="donor.php">Donors</a>
-        </li>
+        </li>-->
 
         <li class="nav-item">
           <a class="nav-link" href="search.php">Search</a>
@@ -94,7 +94,7 @@
             <a class="dropdown-item" href="user/update.php"><i class="fa fa-edit" aria-hidden="true"></i>
               Update Profile</a>
 
-            <a class="dropdown-item" href="#">
+            <a class="dropdown-item" href="{{ url('donar/logout') }}">
               <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
 
               Logout</a>
