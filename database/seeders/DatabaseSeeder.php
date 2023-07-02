@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Admin;
 use App\Models\City;
+use App\Models\Donor;
 use App\Models\Hospital;
 use App\Models\Township;
 use Illuminate\Database\Seeder;
@@ -52,6 +53,24 @@ class DatabaseSeeder extends Seeder
             'status' => 'active',
             'remark' => 'admin remark',
             'hospital_id' => 1,
+            'latitude' => '16.77157947504272',
+            'longitude' => '96.17471875366536',
+        ]);
+        Donor::create([
+            'name' => 'donor',
+            'user_name' => 'donor',
+            'email' => 'donor@gmail.com',
+            'password' => Hash::make('donor'),
+            'phone' => '095025363',
+            'gender' => 'male',
+            'dob' => '1999.09.09',
+            'nrc' => '12/abcd(C)12345',
+            'status' => 'active',
+            'blood_type' => 'A+',
+            'city_id' => 1,
+            'township_id' => 1,
+            'remark' => 'donor remark',
+            'address' => 'donor address',
             'latitude' => '16.77157947504272',
             'longitude' => '96.17471875366536',
         ]);

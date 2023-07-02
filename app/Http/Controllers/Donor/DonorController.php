@@ -86,7 +86,7 @@ class DonorController extends Controller
     }
     public function loginform()
     {
-        return redirect('/');
+        return view('auth.signin');
     }
     public function login(Request $request)
     {
@@ -94,19 +94,19 @@ class DonorController extends Controller
             'user_name' => 'required',
             'password' => 'required'
         ]);
-        $admin = Donor::where('user_name', $request->user_name)->first();
-        if (!$admin) {
+        $donor = Donor::where('user_name', $request->user_name)->first();
+        if (!$donor) {
             return response()->json(['error' => 'USer Not Found']);
         }
-        if (!Hash::check($request->password, $admin->password)) {
+        if (!Hash::check($request->password, $donor->password)) {
             return response()->json(['error' => 'Password is Wrong , Try Again']);
         }
-        auth('admin')->login($admin);
-        return redirect('/donors')->with('success', 'Welcome To Our Website ' . $admin->name);
+        auth('donor')->login($donor);
+        return redirect('/donors')->with('success', 'Welcome To Our Website ' . $donor->name);
     }
     public function logout()
     {
-        auth('admin')->logout();
+        auth('donor')->logout();
         return redirect('/')->with('success', 'Your Are Successfully Logout');
     }
 }
