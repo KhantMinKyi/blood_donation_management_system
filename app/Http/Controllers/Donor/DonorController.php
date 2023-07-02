@@ -91,18 +91,18 @@ class DonorController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'user_name' => 'required',
+            'name' => 'required',
             'password' => 'required'
         ]);
-        $donor = Donor::where('user_name', $request->user_name)->first();
+        $donor = Donor::where('user_name', $request->name)->first();
         if (!$donor) {
-            return response()->json(['error' => 'USer Not Found']);
+            return redirect()->back()->with(['error' => 'USer Not Found']);
         }
         if (!Hash::check($request->password, $donor->password)) {
-            return response()->json(['error' => 'Password is Wrong , Try Again']);
+            return redirect()->back()->with(['error' => 'Password is Wrong , Try Again']);
         }
         auth('donor')->login($donor);
-        return redirect('/donors')->with('success', 'Welcome To Our Website ' . $donor->name);
+        return redirect('/')->with('success', 'Welcome To Our Website ' . $donor->name);
     }
     public function logout()
     {

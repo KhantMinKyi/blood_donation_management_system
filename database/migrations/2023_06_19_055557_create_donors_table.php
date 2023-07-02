@@ -24,7 +24,7 @@ return new class extends Migration
             $table->enum('gender', ['male', 'female']);
             $table->date('dob');
             $table->string('nrc');
-            $table->enum('blood_type', ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']);
+            $table->foreignId('blood_type_id')->constrained('blood_types')->cascadeOnUpdate()->cascadeOnDelete();
             $table->enum('status', ['active', 'away']);
             $table->foreignId('city_id')->constrained('cities')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('township_id')->constrained('townships')->onUpdate('cascade')->onDelete('cascade');
