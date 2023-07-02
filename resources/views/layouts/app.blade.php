@@ -94,7 +94,7 @@
             <a class="dropdown-item" href="user/update.php"><i class="fa fa-edit" aria-hidden="true"></i>
               Update Profile</a>
 
-            <a class="dropdown-item" href="{{ url('donar/logout') }}">
+            <a class="dropdown-item" href="{{ url('donor/logout') }}">
               <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
 
               Logout</a>

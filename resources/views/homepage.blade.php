@@ -70,7 +70,9 @@
                     </select>
                 </div>
                 <div class="form-group center-aligned col-sm-12 col-lg-4 col-md-12 justify-content-center mx-auto">
-                    <button type="submit" class="btn btn-lg btn-background-blue">Search Data</button>
+                   
+                    <button type="submit" class="btn btn-lg btn-background-blue" @auth('donor') @else disabled @endauth>Search Data</button>
+                    
                 </div>
             </form>
         </div>

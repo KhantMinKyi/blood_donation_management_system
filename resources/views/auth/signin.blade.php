@@ -10,7 +10,7 @@
         <div class="card-header">{{ __('Signin') }}</div>
 
         <div class="card-body">
-          <form method="POST" action="{{ url('/donar/login') }}">
+          <form method="POST" action="{{ url('/donor/login') }}">
             @csrf
 
             <div class="row mb-3">
