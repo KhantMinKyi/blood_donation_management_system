@@ -77,7 +77,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="{{ url('/login') }}">Signin</a>
+          <a class="nav-link" href="{{ url('/signin') }}">Signin</a>
         </li>
 
         <li class="nav-item">
