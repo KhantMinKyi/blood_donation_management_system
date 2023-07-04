@@ -31,7 +31,7 @@
           <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
               <ul class="navbar-nav ml-auto">
                   <li class="nav-item">
-                      <a class="nav-link" style="color: white;" href="index.html"  >
+                      <a class="nav-link" style="color: white;" href="admin.blade.php"  >
                   </li>
 
               </ul>
@@ -48,11 +48,12 @@
                     <h2 class="title">Admin Login</h2>
                 </div>
                     <div class="card-body">
-                        <form style="align-content: center; width: 100%; " action="admin_login.html" method="post">
+                        <form style="align-content: center; width: 100%; " action={{url('admin/login')}} method="post">
+                            @csrf
                             <div class="form-row">
                                 <div class="name">Username</div>
                                 <div class="value">
-                                <input type="text" class="form-control" name="username" placeholder="Username" required>
+                                <input type="text" class="form-control" name="user_name" placeholder="Username" required>
                                 </div>
                             </div>
 
