@@ -44,3 +44,8 @@ Route::group(['middleware' => ['donor']], function () {
     Route::resource('donors', DonorController::class);
     Route::get('/donor/logout', [DonorController::class, 'logout']);
 });
+
+//Admin Route
+Route::get('/homepage', function () {
+    return view('admin.users');
+});
