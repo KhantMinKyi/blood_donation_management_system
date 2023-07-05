@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('donor.layouts.app')
 
 @section('content')
 
@@ -10,13 +10,14 @@
             <div class="header">
                 <h1 class="text-center">Donate the blood, save the life</h1>
                 <p class="text-center">Donate the blood to help the others.</p>
+                <h3 class="text-center">Header Design Coming Soon ..</h3>
             </div>
 
 
-            <h1 class="text-center">Search The Donors</h1>
-            <hr class="white-bar text-center">
+            <!--<h1 class="text-center">Search The Donors</h1>-->
+            <!--<hr class="white-bar text-center">-->
 
-            <form action="#" method="get" class="form-inline text-center header-select row d-flex justify-content-center" style="padding: 40px 0px 0px 5px;">
+            <!--<form action="#" method="get" class="form-inline text-center header-select row d-flex justify-content-center" style="padding: 40px 0px 0px 5px;">
                 <div class="form-group text-center justify-content-center col-sm-12 col-lg-4 col-md-6">
 
                     <select style="width: 220px; height: 45px;" name="city" id="city" class="form-control demo-default mx-auto" required>
@@ -74,7 +75,7 @@
                     <button type="submit" class="btn btn-lg btn-background-blue" @auth('donor') @else disabled @endauth>Search Data</button>
                     
                 </div>
-            </form>
+            </form>-->
         </div>
     </div>
 </div>
@@ -92,7 +93,9 @@
 
                 We are a group of exceptional programmers; our aim is to promote education. If you are a student, then contact us to secure your future. We deliver free international standard video lectures and content. We are also providing services in Web & Software Development.
             </p>
+            @guest
             <a href="#" class="background-section-btn btn btn-primary btn-lg text-center center-aligned">Become a Life Saver!</a>
+            @endguest
         </div>
     </div>
 </div>

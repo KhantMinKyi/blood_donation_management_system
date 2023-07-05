@@ -84,9 +84,12 @@ class DonorController extends Controller
     {
         //
     }
+
+    //view location of loginform method Edited by znt on 5 july
     public function loginform()
     {
-        return view('auth.signin');
+        
+        return view('donor.signin');
     }
     public function login(Request $request)
     {

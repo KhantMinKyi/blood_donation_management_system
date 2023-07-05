@@ -65,25 +65,21 @@
       <ul class="navbar-nav form-inline my-2 my-lg-0">
 
         <li class="nav-item">
-          <a class="nav-link" href="index.php">Home</a>
+          <a class="nav-link" href="{{ url('/donor') }}">Home</a>
         </li>
-
-        <!--<li class="nav-item">
-          <a class="nav-link" href="donor.php">Donors</a>
-        </li>-->
 
         <li class="nav-item">
           <a class="nav-link" href="search.php">Search</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="{{ url('/signin') }}">Signin</a>
+          <a class="nav-link" href="{{ url('/donor/signin') }}">Signin</a>
         </li>
 
         <li class="nav-item">
           <a class="nav-link" href="about.php">About Us</a>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown nav-item-dropdownlist">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Donor Name<!-- Donor Name -->
           </a>
