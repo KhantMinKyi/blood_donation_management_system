@@ -85,12 +85,28 @@ class DonorController extends Controller
         //
     }
 
+    public function bloodRequest() 
+    {
+        return view('donor.bloodRequest');
+    }
+
     //view location of loginform method Edited by znt on 5 july
     public function loginform()
     {
         
         return view('donor.signin');
     }
+
+    public function registerForm()
+    {
+        return view('donor.register');
+    }
+
+    public function register()
+    {
+        return 'Register Process Coming Soon';
+    }
+
     public function login(Request $request)
     {
         $request->validate([

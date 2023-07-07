@@ -69,7 +69,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="search.php">Search</a>
+          <a class="nav-link" href="#">Search</a>
         </li>
 
         <li class="nav-item">
@@ -77,11 +77,19 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="about.php">About Us</a>
+          <a class="nav-link" href="{{ url('/donor/registerForm') }}">Register</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url('/donor/bloodRequest') }}">Blood Request</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="#">About Us</a>
         </li>
         <li class="nav-item dropdown nav-item-dropdownlist">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Donor Name<!-- Donor Name -->
+            Donor Name <!-- Donor Name -->
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 
