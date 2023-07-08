@@ -22,6 +22,11 @@ Route::get('/home', function () {
     return view('welcome');
 });
 
+//Main Landing Page Route
+Route::get('/', function () {
+    return view('homePage');
+});
+
 //Login Route
 //Route commented by znt on 5 july because donar home page and signin page are moved to donar folder and added new routes that are commented.
 //Route::get('/signin', function () {
@@ -42,9 +47,7 @@ Route::group(['middleware' => ['admin']], function () {
 });
 // Donor Route
 //New Temporary Route (Donor Page) added by znt on 5th July
-Route::get('/donor', function () {
-    return view('donor.index');
-});
+
 Route::get('/donor/signin', function () {
     return view('donor.signin');
 });

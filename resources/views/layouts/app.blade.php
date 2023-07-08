@@ -65,28 +65,34 @@
       <ul class="navbar-nav form-inline my-2 my-lg-0">
 
         <li class="nav-item">
-          <a class="nav-link" href="{{ url('/donor') }}">Home</a>
+          <a class="nav-link" href="{{ url('/') }}">Home</a>
+        </li>
+
+        @auth('donor')
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url('/donor/bloodRequest') }}">Blood Request</a>
+        </li>
+        @endauth
+
+        <li class="nav-item">
+          <a class="nav-link" href="#">About Us</a>
+        </li>
+
+        @guest('donor')
+        <li class="nav-item">
+          <a class="nav-link" href="#">Patient Signin</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="#">Search</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url('/donor/signin') }}">Signin</a>
+          <a class="nav-link" href="{{ url('/donor/signin') }}">Donor Signin</a>
         </li>
 
         <li class="nav-item">
           <a class="nav-link" href="{{ url('/donor/registerForm') }}">Register</a>
         </li>
+        @endguest
 
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url('/donor/bloodRequest') }}">Blood Request</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="#">About Us</a>
-        </li>
+        @auth('donor')
         <li class="nav-item dropdown nav-item-dropdownlist">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Donor Name <!-- Donor Name -->
@@ -104,6 +110,7 @@
               Logout</a>
           </div>
         </li>
+        @endauth
 
 
       </ul>
@@ -115,7 +122,7 @@
   <!--Content or Body Section Starts-->
 
   @yield('content')
-  
+
   <!--End of Content or Body Section-->
 
   <!--Footer Section Starts-->
