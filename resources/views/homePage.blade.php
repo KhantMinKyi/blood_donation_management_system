@@ -2,22 +2,24 @@
 
 @section('content')
 
-<div class="container-fluid container-fluid-banner">
-  <div class="header-img"></div>
-  <div class="row header-section">
-    <div class="col">
-      <div class="header">
-        <h1 class="text-center">Donate the blood, save the life</h1>
-        <p class="text-center">Donate the blood to help the others.</p>
-        <h3 class="text-center">Header Design Coming Soon ..</h3>
-        @guest('donor')
-        <div class="header-btn-wrap" style="text-align:center; margin-top: 30px;">
-        <a href="#" class="btn btn-primary btn-lg" style="background-color: #30a5ff; margin-right: 30px;">Patient Signin</a>
-        <a href="{{ url('donor/signin') }}" class="btn btn-primary btn-lg" style="background-color: #30a5ff; margin-right: 30px;">Donor Signin</a>
-        </div>
-        @endguest
-      </div>
+<!--Header Section-->
+<div class="container-fluid header-section-wrap">
+  <div class="header row" style="padding: 30px 0;">
+    <div class="header-text col-md-12 col-lg-6">
+  <div class="header-text-wrap">
+  <h1 class="h1">Blood Donation Management System</h1>
+  <h3 class="h3">Donate the blood to save the life</h3>
+  <h3 class="h3">Donate the blood to help the others</h3>
+  <div class="header-button col-md-12">
+      <a href="" class="btn btn-primary">Patient Signin</a>
+      <a href="{{ url('donor/signin') }}" class="btn btn-primary">Donor Signin</a>
     </div>
+  </div>
+    </div>
+    <div class="header-photo col-md-12 col-lg-6">
+      <img src="{{ asset('img/header.png') }}" alt="Header Photo">
+    </div>
+    
   </div>
 </div>
 <!-- header ends -->
