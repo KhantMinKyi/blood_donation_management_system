@@ -10,10 +10,12 @@
   <h1 class="h1">Blood Donation Management System</h1>
   <h3 class="h3">Donate the blood to save the life</h3>
   <h3 class="h3">Donate the blood to help the others</h3>
+  @guest('donor')
   <div class="header-button col-md-12">
-      <a href="" class="btn btn-primary">Patient Signin</a>
-      <a href="{{ url('donor/signin') }}" class="btn btn-primary">Donor Signin</a>
+      <a href="" class="btn btn-primary btn-lg">Patient Signin</a>
+      <a href="{{ url('donor/signin') }}" class="btn btn-primary btn-lg">Donor Signin</a>
     </div>
+    @endguest
   </div>
     </div>
     <div class="header-photo col-md-12 col-lg-6">
