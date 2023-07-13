@@ -16,7 +16,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return Admin::where('id', auth('admin')->user()->id)->with('hospital')->get();
+        return view('Admin.admin');
     }
 
     /**
@@ -86,7 +86,7 @@ class AdminController extends Controller
     }
     public function loginform()
     {
-        return view('loginform');
+        return view('Admin.admin_login');
     }
     public function login(Request $request)
     {
@@ -102,11 +102,35 @@ class AdminController extends Controller
             return response()->json(['error' => 'Password is Wrong , Try Again']);
         }
         auth('admin')->login($admin);
-        return redirect('/admins')->with('success', 'Welcome To Our Website ' . $admin->name);
+        return view('Admin.admin')->with('success', 'Welcome To Our Website ' . $admin->name);
     }
     public function logout()
     {
         auth('admin')->logout();
         return redirect('/')->with('success', 'Your Are Successfully Logout');
+    }
+    public function adminDonationRequest()
+    {
+        return view('Admin.admin_blood_request');
+    }
+    public function adminBloodRequest()
+    {
+        return view('Admin.admin_blood_request');
+    }
+    public function users()
+    {
+        return view('Admin.users');
+    }
+    public function requestHistory()
+    {
+        return view('Admin.request_history');
+    }
+    public function donationHistory()
+    {
+        return view('Admin.donation_history');
+    }
+    public function inventory()
+    {
+        return view('Admin.inventory');
     }
 }

@@ -1,7 +1,7 @@
-
 <!-- all the blood request user has specified -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,30 +10,49 @@
 
     <!-- Bootstrap 4 Link CSS Files -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
-  
+
     <!--Fontawesome Link CSS Files-->
     <link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
-     <!-- Custom Link CSS Files -->
+    <!-- Custom Link CSS Files -->
     <link rel="stylesheet" href="{{ asset('admincss/home.css') }}">
 
 
     <style>
-
-
         .label {
             color: white;
             padding: 8px;
         }
 
-        .success {background-color: #4CAF50;} /* Green */
-        .info {background-color: #2196F3;} /* Blue */
-        .warning {background-color: #ff9800;} /* Orange */
-        .danger {background-color: #f44336;} /* Red */
-        .other {background-color: #e7e7e7; color: black;} /* Gray */
+        .success {
+            background-color: #4CAF50;
+        }
 
+        /* Green */
+        .info {
+            background-color: #2196F3;
+        }
+
+        /* Blue */
+        .warning {
+            background-color: #ff9800;
+        }
+
+        /* Orange */
+        .danger {
+            background-color: #f44336;
+        }
+
+        /* Red */
+        .other {
+            background-color: #e7e7e7;
+            color: black;
+        }
+
+        /* Gray */
     </style>
 
 </head>
+
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-danger">
@@ -43,69 +62,58 @@
         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                <a class="nav-link" style="color: white;" href="index.html">Logout &nbsp; </a>
+                    <a class="nav-link" style="color: white;" href={{ url('admin/logout') }}>Logout &nbsp; </a>
                 </li>
 
             </ul>
         </div>
-      </nav>
-<br><br>
-<div class="wrapper">
-    <div class="sidebar">
-        <ul>
-            <li><a style="text-decoration:none;" href="admin.blade.php">Home</a></li>
-            <li><a style="text-decoration:none;" href="admin_donation_request.blade.php">Donation Request</a></li>
-            <li><a style="text-decoration:none;" href="admin_blood_request.blade.php">Blood Request</a></li>
-            <li><a style="text-decoration:none;" href="users.blade.php"> Users</a></li>
-            <li><a style="text-decoration:none;" href="request_history.blade.php"> Request History</a></li>
-            <li><a style="text-decoration:none;" href="donation_history.blade.php"> Donation History</a></li>
-            <li><a style="text-decoration:none;" href="inventory.blade.php"> Inventory</a></li>
+    </nav>
+    <br><br>
+    <div class="wrapper">
+        @include('Admin.Components.sidebar')
+        <div class="main_content">
+            <br><br>
+            <div class="container">
+                <H4 class="text-center">Blood Request History</H4><br>
 
-        </ul>
+                <h5 class="text-center" style="color: red;"> Records</h5><br>
 
-    </div>
-    <div class="main_content">
-        <br><br>
-        <div class="container">
-            <H4 class="text-center">Blood Request History</H4><br>
+                <table class="table table-light table-hover table-bordered table-striped">
+                    <thead class="bg-info">
+                        <tr>
 
-        <h5 class="text-center" style="color: red;"> Records</h5><br>
+                            <th scope="col">Request ID</th>
+                            <th scope="col">Patient Name</th>
+                            <th scope="col">Unit</th>
+                            <th scope="col">Reasons</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Action</th>
 
-            <table class="table table-light table-hover table-bordered table-striped">
-                <thead class="bg-info">
-                    <tr>
+                        </tr>
+                    </thead>
 
-                        <th scope="col">Request ID</th>
-                        <th scope="col">Patient Name</th>
-                        <th scope="col">Unit</th>
-                        <th scope="col">Reasons</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Action</th>
+                    <tbody>
+                    </tbody>
 
-                    </tr>
-                </thead>
+                </table>
 
-                <tbody>
-                </tbody>
+            </div>
 
-            </table>
+
+
 
         </div>
-
-
-
-
     </div>
-</div>
 
-  <!-- JQuery File -->
-  <script type="text/javascript" src="{{ asset('js/jquery.js') }}"></script>
+    <!-- JQuery File -->
+    <script type="text/javascript" src="{{ asset('js/jquery.js') }}"></script>
 
-  <!-- BootStrap JS File-->
-  <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <!-- BootStrap JS File-->
+    <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
 
-  <!-- Fontawesome Icon JS-->
-  <script defer src="{{ asset('js/all.js') }}"></script>
+    <!-- Fontawesome Icon JS-->
+    <script defer src="{{ asset('js/all.js') }}"></script>
 
 </body>
+
 </html>
