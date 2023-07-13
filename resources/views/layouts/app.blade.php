@@ -37,6 +37,9 @@
   <!-- About Link CSS Files -->
   <link rel="stylesheet" href="{{ asset('css/about.css') }}">
 
+  <!-- Patient Link CSS Files -->
+  <link rel="stylesheet" href="{{ asset('css/patient.css') }}">
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -80,7 +83,7 @@
 
         @guest('donor')
         <li class="nav-item">
-          <a class="nav-link" href="#">Patient Signin</a>
+          <a class="nav-link" href="{{ url('/patient/signin') }}">Patient Signin</a>
         </li>
 
         <li class="nav-item">
@@ -88,8 +91,13 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="{{ url('/donor/registerForm') }}">Register</a>
+          <a class="nav-link" href="{{ url('/donor/registerForm') }}">Donor Register</a>
         </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url('/patient/registerForm') }}">Patient Register</a>
+        </li>
+
         @endguest
 
         @auth('donor')

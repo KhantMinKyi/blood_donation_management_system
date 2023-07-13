@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Donor\DonorController;
 use App\Http\Controllers\Donor\UserController;
+use App\Http\Controllers\Patient\PatientController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -72,3 +73,11 @@ Route::group(['middleware' => ['donor']], function () {
 Route::get('/homepage', function () {
     return view('admin.users');
 });
+
+//Patient Route
+Route::get('/patient', [PatientController::class, 'patientform']);
+Route::get('/patient/signin', [PatientController::class , 'signin']);
+Route::get('/patient/registerForm', [PatientController::class, 'registerForm']);
+Route::post('/patient/register', [PatientController::class, 'register']);
+Route::get('/patient/emergencyForm', [PatientController::class, 'emergencyForm']);
+Route::get('/patient/normalForm', [PatientController::class, 'normalForm']);

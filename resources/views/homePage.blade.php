@@ -12,8 +12,8 @@
   <h3 class="h3">Donate the blood to help the others</h3>
   @guest('donor')
   <div class="header-button col-md-12">
-      <a href="" class="btn btn-primary btn-lg">Patient Signin</a>
-      <a href="{{ url('donor/signin') }}" class="btn btn-primary btn-lg">Donor Signin</a>
+      <a href="{{ url('/patient') }}" class="btn btn-primary btn-lg">Patient Page</a>
+      <a href="#" class="btn btn-primary btn-lg">Donor Page</a>
     </div>
     @endguest
   </div>
