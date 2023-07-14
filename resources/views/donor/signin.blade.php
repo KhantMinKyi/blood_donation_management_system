@@ -5,9 +5,9 @@
 <div class="container-fluid red-background size signin-section">
 <div class="row justify-content-center">
     <div class="col-lg-6 col-md-8 col-sm-12">
-      <h2 class="h2 text-center">Signin Page</h2>
+      <h2 class="h2 text-center">Donor Signin Page</h2>
       <div class="card">
-        <div class="card-header">{{ __('Signin') }}</div>
+        <div class="card-header">{{ __('Donor Signin') }}</div>
 
         <div class="card-body">
           <form method="POST" action="{{ url('/donor/login') }}">

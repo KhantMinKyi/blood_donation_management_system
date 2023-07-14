@@ -2,6 +2,6 @@
 
 @section('content')
 
-<p>
-  emergency
-</p>
+<div class="emergency-patient">
+  <h2>Form for emergency Patient</h2>
+</div>

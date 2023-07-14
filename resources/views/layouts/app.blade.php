@@ -53,7 +53,7 @@
 
 <body>
   <nav id="mainNav" class="navbar fixed-top navbar-default navbar-expand-lg navbar-dark bg-light">
-    <a class="navbar-brand logo-text" href="./index.php">Blood Donation Management System</a>
+    <a class="navbar-brand logo-text" href="{{ url('/') }}">Blood Donation Management System</a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>

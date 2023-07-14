@@ -2,6 +2,6 @@
 
 @section('content')
 
-<p>
-  normal
-</p>
+<div class="normal-patient">
+  <h2>Form for normal Patient</h2>
+</div>
