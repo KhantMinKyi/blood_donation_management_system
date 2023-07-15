@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('user_name');
-            $table->string('email')->unique();
+            $table->string('admin_id')->unique();
+            $table->string('email')->nullable()->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->foreignId('hospital_id')->nullable()->constrained('hospitals')->cascadeOnUpdate()->nullOnDelete();

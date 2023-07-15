@@ -70,6 +70,7 @@ class DatabaseSeeder extends Seeder
         Admin::create([
             'name' => 'admin',
             'user_name' => 'admin',
+            'admin_id' => 'BD_A0001',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('admin'),
             'phone' => '095025363',
@@ -85,6 +86,7 @@ class DatabaseSeeder extends Seeder
         Donor::create([
             'name' => 'donor',
             'user_name' => 'donor',
+            'donor_id' => 'BD_D0001',
             'email' => 'donor@gmail.com',
             'password' => Hash::make('donor'),
             'phone' => '095025363',

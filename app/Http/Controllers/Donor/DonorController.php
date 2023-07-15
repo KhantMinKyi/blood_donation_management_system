@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Donor;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUpdateDonorRequest;
 use App\Models\Donor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -37,7 +38,6 @@ class DonorController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
@@ -69,9 +69,16 @@ class DonorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreUpdateDonorRequest $request, $id)
     {
-        //
+        $validated = $request->validated();
+        $donor = Donor::find($id);
+        if (!$donor) {
+            return redirect()->back()->with('error',  'User Not Found');
+        }
+        $validated['donor_id'] = $request->donor_id;
+        $donor->update($validated);
+        return redirect('/')->with('success', 'Update Successfully' . $donor->name);
     }
 
     /**
@@ -85,7 +92,7 @@ class DonorController extends Controller
         //
     }
 
-    public function bloodRequest() 
+    public function bloodRequest()
     {
         return view('donor.bloodRequest');
     }
@@ -93,7 +100,7 @@ class DonorController extends Controller
     //view location of loginform method Edited by znt on 5 july
     public function loginform()
     {
-        
+
         return view('donor.signin');
     }
 
@@ -102,9 +109,13 @@ class DonorController extends Controller
         return view('donor.register');
     }
 
-    public function register()
+    public function register(StoreUpdateDonorRequest $request)
     {
-        return 'Register Process Coming Soon';
+        $validated = $request->validated();
+        $validated['donor_id'] = "BD_D" . random_int(100000, 999999);
+        $donor = Donor::create($validated);
+        auth('donor')->login($donor);
+        return redirect('/')->with('success', 'Welcome To Our Website ' . $donor->name);
     }
 
     public function login(Request $request)

@@ -19,8 +19,23 @@ class Donor extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'user_name',
+        'donor_id',
         'email',
         'password',
+        'phone',
+        'gender',
+        'dob',
+        'nrc',
+        'status',
+        'blood_type_id',
+        'city_id',
+        'disease',
+        'township_id',
+        'remark',
+        'address',
+        'latitude',
+        'longitude'
     ];
 
     /**
