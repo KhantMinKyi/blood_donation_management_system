@@ -76,8 +76,13 @@ Route::get('/homepage', function () {
 
 //Patient Route
 Route::get('/patient', [PatientController::class, 'patientform']);
-Route::get('/patient/signin', [PatientController::class , 'signin']);
+Route::get('/patient/signin', [PatientController::class, 'signin']);
 Route::get('/patient/registerForm', [PatientController::class, 'registerForm']);
 Route::post('/patient/register', [PatientController::class, 'register']);
 Route::get('/patient/emergencyForm', [PatientController::class, 'emergencyForm']);
 Route::get('/patient/normalForm', [PatientController::class, 'normalForm']);
+Route::post('/patient/login', [PatientController::class, 'login']);
+Route::group(['middleware' => ['patient']], function () {
+    Route::resource('patients', PatientController::class);
+    Route::get('/patient/logout', [PatientController::class, 'logout']);
+});

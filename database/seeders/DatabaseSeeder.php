@@ -9,6 +9,7 @@ use App\Models\BloodType;
 use App\Models\City;
 use App\Models\Donor;
 use App\Models\Hospital;
+use App\Models\Patient;
 use App\Models\Township;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -99,6 +100,25 @@ class DatabaseSeeder extends Seeder
             'township_id' => 1,
             'remark' => 'donor remark',
             'address' => 'donor address',
+            'latitude' => '16.77157947504272',
+            'longitude' => '96.17471875366536',
+        ]);
+        Patient::create([
+            'name' => 'patient',
+            'user_name' => 'patient',
+            'patient_id' => 'BD_P0001',
+            'email' => 'patient@gmail.com',
+            'password' => Hash::make('patient'),
+            'phone' => '095025363',
+            'gender' => 'male',
+            'dob' => '1999.09.09',
+            'nrc' => '12/abcd(C)12345',
+            'status' => 'active',
+            'blood_type_id' => 1,
+            'city_id' => 1,
+            'township_id' => 1,
+            'remark' => 'patient remark',
+            'address' => 'patient address',
             'latitude' => '16.77157947504272',
             'longitude' => '96.17471875366536',
         ]);
