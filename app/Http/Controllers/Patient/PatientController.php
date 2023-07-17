@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Patient;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
+use App\Models\Hospital;
 use App\Models\Patient;
+use App\Models\ReportAdmin;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -84,27 +88,7 @@ class PatientController extends Controller
     {
         //
     }
-    public function login(Request $request)
-    {
-        $request->validate([
-            'name' => 'required',
-            'password' => 'required'
-        ]);
-        $patient = Patient::where('user_name', $request->name)->first();
-        if (!$patient) {
-            return redirect()->back()->with(['error' => 'USer Not Found']);
-        }
-        if (!Hash::check($request->password, $patient->password)) {
-            return redirect()->back()->with(['error' => 'Password is Wrong , Try Again']);
-        }
-        auth('patient')->login($patient);
-        return redirect('/patient')->with('success', 'Welcome To Our Website ' . $patient->name);
-    }
-    public function logout()
-    {
-        auth('patient')->logout();
-        return redirect('/patient')->with('success', 'Your Are Successfully Logout');
-    }
+
     public function patientform()
     {
         return view('patient.patient');
@@ -128,5 +112,82 @@ class PatientController extends Controller
     public function emergencyForm()
     {
         return view('patient.emergencyform');
+    }
+    public function login(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'password' => 'required'
+        ]);
+        $patient = Patient::where('user_name', $request->name)->first();
+        if (!$patient) {
+            return redirect()->back()->with(['error' => 'USer Not Found']);
+        }
+        if (!Hash::check($request->password, $patient->password)) {
+            return redirect()->back()->with(['error' => 'Password is Wrong , Try Again']);
+        }
+        auth('patient')->login($patient);
+        return redirect('/patient')->with('success', 'Welcome To Our Website ' . $patient->name);
+    }
+    public function logout()
+    {
+        auth('patient')->logout();
+        return redirect('/patient')->with('success', 'Your Are Successfully Logout');
+    }
+    public function patientReport(Request $request)
+    {
+        $validated = $request->validate([
+            'latitude' => 'nullable',
+            'longitude' => 'nullable',
+            'remark' => 'nullable',
+        ]);
+        $user = auth('patient')->user();
+        // Check User Validate
+        if ($user) {
+            $validated['latitude'] = $user->latitude;
+            $validated['longitude'] = $user->longitude;
+            $hospitals = Hospital::where('city_id', $user->city_id)->where('township_id', $user->township_id)->get();
+        } else {
+            $hospitals = Hospital::where('city_id', $request->city_id)->where('township_id', $request->township_id)->get();
+        }
+
+        $hospital_locations = [];
+        $distances = [];
+        // Hospitals loop
+        foreach ($hospitals as $hospital) {
+            $hospital_latitude = $hospital->latitude;
+            $hospital_longitude = $hospital->longitude;
+            array_push($hospital_locations, ['latitude' => $hospital_latitude, 'longitude' => $hospital_longitude]);
+        }
+        // Finding Nearest hospital
+        foreach ($hospital_locations as $hospital_location) {
+            $latitude = $validated['latitude'] - $hospital_location['latitude'];
+            $longitude = $validated['longitude'] - $hospital_location['longitude'];
+            $distance = sqrt(($latitude ** 2) + ($longitude ** 2));
+            array_push($distances, $distance);
+        }
+        asort($distances);
+        $nearest = $hospital_locations[key($distances)];
+        // Get Nearest Hospital
+        $nearest_hospital = Hospital::where('latitude', $nearest['latitude'])->where('longitude', $nearest['longitude'])->first();
+        // Get Hospital Admin
+        $admin = Admin::where('hospital_id', $nearest_hospital->id)->first();
+        ReportAdmin::create([
+            'hospital_id' => $nearest_hospital->id,
+            'patient_id' => $user->id,
+            'admin_id' => $admin->id,
+            'type' => $request->type,
+            'report_date_time' => Carbon::now(),
+            'remark' => $validated['remark'],
+        ]);
+        return response()->json([
+            'user' => $user,
+            'hospital' => $hospitals,
+            'hospital_locations' => $hospital_locations,
+            'distances' => $distances,
+            'nearest' => $nearest,
+            'nearest_hospital' => $nearest_hospital,
+            'admin' => $admin,
+        ]);
     }
 }

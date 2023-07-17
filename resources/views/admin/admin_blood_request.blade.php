@@ -91,12 +91,26 @@
                             <th scope="col">Unit</th>
                             <th scope="col">Reasons</th>
                             <th scope="col">Status</th>
+                            <th scope="col">Type</th>
                             <th scope="col">Action</th>
 
                         </tr>
                     </thead>
 
                     <tbody>
+                        @foreach ($reports as $report)
+                            <tr>
+                                <td>{{ $report->id }}</td>
+                                <td>{{ $report->report_date_time }}</td>
+                                <td>{{ $report->patient->patient_id }}</td>
+                                <td>{{ $report->id }}</td>
+                                <td>{{ $report->remark }}</td>
+                                <td>{{ $report->status }}</td>
+                                <td>{{ Str::upper($report->type) }}</td>
+                                <td></td>
+                            </tr>
+                        @endforeach
+
                     </tbody>
 
                 </table>

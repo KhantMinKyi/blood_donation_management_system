@@ -30,10 +30,10 @@ class StoreUpdateDonorRequest extends FormRequest
             'email' => ['nullable', Rule::unique('donors', 'email')->ignore($this->id, 'id')],
             'password' => 'required',
             'phone' => 'required',
-            'gender' => 'required',
+            'gender' => 'required|in:male,female',
             'dob' => 'required',
             'nrc' => 'required',
-            'status' => 'required',
+            'status' => 'required|in:active,away',
             'blood_type_id' => 'required|exists:App\Models\BloodType,id',
             'city_id' => 'required|exists:App\Models\City,id',
             'township_id' => 'required|exists:App\Models\Township,id',
@@ -42,9 +42,6 @@ class StoreUpdateDonorRequest extends FormRequest
             'address' => 'required',
             'latitude' => 'required',
             'longitude' => 'required',
-
-
-
         ];
     }
 }

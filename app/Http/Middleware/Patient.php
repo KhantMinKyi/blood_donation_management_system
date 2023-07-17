@@ -17,7 +17,7 @@ class Patient
     public function handle(Request $request, Closure $next)
     {
         if (!auth()->guard('patient')->check()) {
-            return redirect('/patient/loginform')->with('error', 'Please Login First');
+            return redirect('/patient/signin')->with('error', 'Please Login First');
         }
         return $next($request);
     }
