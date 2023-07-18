@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\Donor;
 use App\Models\ReportAdmin;
+use App\Services\DistanceCalculatorServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -135,16 +136,13 @@ class AdminController extends Controller
     public function adminBloodRequestDetail(Request $request, $id)
     {
 
-        $report = ReportAdmin::find($id);
+        $report = ReportAdmin::with('admin', 'patient')->find($id);
         if (!$report) {
             return redirect()->back()->with('error', 'Report Id : ' . $id . ' Not Found');
         }
-
-        $admin = $report->admin;
         $hospital = $report->admin->hospital;
         $hospital_latitude = $hospital->latitude;
         $hospital_longitude = $hospital->longitude;
-        $patient = $report->patient;
         $donor_locations = [];
         $near_donors = [];
         $donors = Donor::where('city_id', $hospital->city_id)
@@ -165,13 +163,16 @@ class AdminController extends Controller
             array_push($near_donors, $donors[$key]);
         }
         $nearest = $donors[key($donor_locations)];
+        foreach ($near_donors as $key => $near_donor) {
+            $distanceKilo = new DistanceCalculatorServices();
+            $distanceKilo = $distanceKilo->generateKilometer($hospital_latitude, $hospital_longitude, $near_donor->latitude, $near_donor->longitude);
+            $near_donor['distance'] = round($distanceKilo, 2);
+        }
         return response()->json([
-            'donors' => $donors,
+            'report' => $report,
             'hospital' => $hospital,
             'nearest' => $nearest,
-            'near_donors' => $near_donors,
-            'patient' => $patient,
-            'admin' => $admin
+            'near_donors' => $near_donors
         ]);
         // return view('Admin.admin_blood_request_detail', compact('report', 'admin', 'patient', 'hospital', 'near_donors'));
     }
