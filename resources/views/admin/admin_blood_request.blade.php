@@ -102,7 +102,11 @@
                             <tr>
                                 <td>{{ $report->id }}</td>
                                 <td>{{ $report->report_date_time }}</td>
-                                <td>{{ $report->patient->patient_id }}</td>
+                                @if (isset($report->patient))
+                                    <td>{{ $report->patient->patient_id }}</td>
+                                @else
+                                    <td>Not User </td>
+                                @endif
                                 <td>{{ $report->id }}</td>
                                 <td>{{ $report->remark }}</td>
                                 <td>{{ $report->status }}</td>

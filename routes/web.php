@@ -48,6 +48,7 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('/admin/admin_donation_request', [AdminController::class, 'adminDonationRequest']);
     Route::get('/admin/admin_blood_request', [AdminController::class, 'adminBloodRequest']);
     Route::get('/admin/admin_blood_request/{id}', [AdminController::class, 'adminBloodRequestDetail']);
+    Route::get('/admin/report_donor', [AdminController::class, 'reportDonor']);
     Route::get('/admin/users', [AdminController::class, 'users']);
     Route::get('/admin/request_history', [AdminController::class, 'requestHistory']);
     Route::get('/admin/donation_history', [AdminController::class, 'donationHistory']);
@@ -83,8 +84,8 @@ Route::post('/patient/register', [PatientController::class, 'register']);
 Route::get('/patient/emergencyForm', [PatientController::class, 'emergencyForm']);
 Route::get('/patient/normalForm', [PatientController::class, 'normalForm']);
 Route::post('/patient/login', [PatientController::class, 'login']);
+Route::get('/patient/report_admin', [PatientController::class, 'patientReport']);
 Route::group(['middleware' => ['patient']], function () {
     Route::resource('patients', PatientController::class);
     Route::get('/patient/logout', [PatientController::class, 'logout']);
-    Route::get('/patient/report_admin', [PatientController::class, 'patientReport']);
 });

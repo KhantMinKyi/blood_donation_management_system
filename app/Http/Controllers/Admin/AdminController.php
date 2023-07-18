@@ -125,7 +125,6 @@ class AdminController extends Controller
     {
         $admin = auth('admin')->user();
         $reports = ReportAdmin::where('admin_id', $admin->id)->with('hospital', 'patient', 'admin')->get();
-
         return view('Admin.admin_blood_request', compact('reports'));
     }
 
@@ -147,9 +146,11 @@ class AdminController extends Controller
         $near_donors = [];
         $donors = Donor::where('city_id', $hospital->city_id)
             ->where('township_id', $hospital->township_id)
+            ->where('blood_type_id', $report->blood_type_id)
             ->where('status', 'active')->get();
         if (!$donors) {
             $donors = Donor::where('city_id', $hospital->city_id)
+                ->where('blood_type_id', $report->blood_type_id)
                 ->where('status', 'active')->get();
         }
         foreach ($donors as $donor) {
@@ -176,7 +177,19 @@ class AdminController extends Controller
         ]);
         // return view('Admin.admin_blood_request_detail', compact('report', 'admin', 'patient', 'hospital', 'near_donors'));
     }
+    /**
+     * View Blood request From Patient Detail Function
+     */
+    public function reportDonor(Request $request)
+    {
+        $validated = $request->validate([
+            'admin_report_id' => 'required|exists:App\Models\ReportAdmin,id',
+            'donor_id' => 'required',
+        ]);
+        $admin_report = ReportAdmin::with('hospital', 'patient', 'admin')->find($validated['admin_report_id']);
 
+        return response()->json($admin_report);
+    }
 
     /**
      * View login From Function

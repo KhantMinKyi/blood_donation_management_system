@@ -137,8 +137,13 @@ class PatientController extends Controller
     public function patientReport(Request $request)
     {
         $validated = $request->validate([
+            'patient_name' => 'nullable',
+            'patient_age' => 'nullable|integer',
+            'blood_type_id' => 'nullable|exists:App\Models\BloodType,id',
             'latitude' => 'nullable',
             'longitude' => 'nullable',
+            'city_id' => 'nullable|integer',
+            'township_id' => 'nullable|integer',
             'remark' => 'nullable',
         ]);
         $user = auth('patient')->user();
@@ -146,8 +151,13 @@ class PatientController extends Controller
         if ($user) {
             $validated['latitude'] = $user->latitude;
             $validated['longitude'] = $user->longitude;
+            $validated['patient_name'] = $user->name;
+            $validated['patient_age'] = $user->age;
+            $validated['blood_type_id'] = $user->blood_type_id;
+            $user_id = $user->id;
             $hospitals = Hospital::where('city_id', $user->city_id)->where('township_id', $user->township_id)->get();
         } else {
+            $user_id = null;
             $hospitals = Hospital::where('city_id', $request->city_id)->where('township_id', $request->township_id)->get();
         }
 
@@ -174,8 +184,11 @@ class PatientController extends Controller
         $admin = Admin::where('hospital_id', $nearest_hospital->id)->first();
         ReportAdmin::create([
             'hospital_id' => $nearest_hospital->id,
-            'patient_id' => $user->id,
+            'patient_id' => $user_id,
             'admin_id' => $admin->id,
+            'patient_name' => $request->patient_name,
+            'patient_age' => $request->patient_age,
+            'blood_type_id' => $request->blood_type_id,
             'type' => $request->type,
             'report_date_time' => Carbon::now(),
             'remark' => $validated['remark'],
