@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Donor;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreUpdateDonorRequest;
 use App\Models\Donor;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Stevebauman\Location\Facades\Location;
+use App\Http\Requests\StoreUpdateDonorRequest;
 
 class DonorController extends Controller
 {
@@ -100,13 +102,18 @@ class DonorController extends Controller
     //view location of loginform method Edited by znt on 5 july
     public function loginform()
     {
-
         return view('donor.signin');
     }
 
     public function registerForm()
     {
-        return view('donor.register');
+        $client = new Client();
+        $response = $client->get('http://ip-api.com/json');
+        $data = json_decode($response->getBody(), true);
+        $locationIP = $data['query'];
+        $donorLatLong = Location::get($locationIP);
+        //return view('donor.register');
+        dd($donorLatLong);
     }
 
     public function register(StoreUpdateDonorRequest $request)
