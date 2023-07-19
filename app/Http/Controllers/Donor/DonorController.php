@@ -9,6 +9,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Stevebauman\Location\Facades\Location;
 use App\Http\Requests\StoreUpdateDonorRequest;
+use App\Models\BloodType;
+use App\Models\City;
+use App\Models\Township;
 
 class DonorController extends Controller
 {
@@ -107,13 +110,10 @@ class DonorController extends Controller
 
     public function registerForm()
     {
-        $client = new Client();
-        $response = $client->get('http://ip-api.com/json');
-        $data = json_decode($response->getBody(), true);
-        $locationIP = $data['query'];
-        $donorLatLong = Location::get($locationIP);
-        //return view('donor.register');
-        dd($donorLatLong);
+        $cities = City::all();
+        $townships = Township::all();
+        $blood_types = BloodType::all();
+        return view('donor.register', compact('cities', 'townships', 'blood_types'));
     }
 
     public function register(StoreUpdateDonorRequest $request)
