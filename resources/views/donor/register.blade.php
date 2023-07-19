@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container-fluid red-background size signin-section">
-<div class="row justify-content-center">
+  <div class="row justify-content-center">
     <div class="col-lg-6 col-md-8 col-sm-12">
       <h2 class="h2 text-center">Become a Life Saver</h2>
       <div class="card">
@@ -89,9 +89,9 @@
 
               <div class="col-md-6">
                 <select name="gender" class="form-control">
-                  <option value="none" selected>Select a gender</option>
-                  <option value="0">Male</option>
-                  <option value="1">Female</option>
+                  <option value="" selected>Select a gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
                 </select>
 
                 @error('gender')
@@ -131,6 +131,24 @@
             </div>
 
             <div class="row mb-3">
+              <label class="col-md-4 col-form-label text-md-end">{{ __('Your Status') }}</label>
+
+              <div class="col-md-6">
+                <select name="status" class="form-control">
+                  <option value="" selected>Choose Your Status</option>
+                  <option value="active">Active</option>
+                  <option value="away">Away</option>
+                </select>
+
+                @error('status')
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+              </div>
+            </div>
+
+            <div class="row mb-3">
               <label class="col-md-4 col-form-label text-md-end">{{ __('Blood Type') }}</label>
 
               <div class="col-md-6">
@@ -150,23 +168,7 @@
               </div>
             </div>
 
-            <div class="row mb-3">
-              <label class="col-md-4 col-form-label text-md-end">{{ __('Your Status') }}</label>
 
-              <div class="col-md-6">
-              <select name="status" class="form-control">
-                  <option value="none" selected>Choose Your Status</option>
-                  <option value="0">Active</option>
-                  <option value="1">Away</option>
-                </select>
-
-                @error('status')
-                <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-              </div>
-            </div>
 
             <div class="row mb-3">
               <label class="col-md-4 col-form-label text-md-end">{{ __('City') }}</label>
@@ -206,7 +208,7 @@
                 </span>
                 @enderror
               </div>
-            </div>    
+            </div>
 
             <div class="row mb-3">
               <label class="col-md-4 col-form-label text-md-end">{{ __('Remark') }}</label>
@@ -223,10 +225,24 @@
             </div>
 
             <div class="row mb-3">
+              <label class="col-md-4 col-form-label text-md-end">{{ __('Remark') }}</label>
+
+              <div class="col-md-6">
+                <textarea name="remark" cols="30" rows="3" class="form-control @error('remark') is-invalid @enderror"></textarea>
+
+                @error('remark')
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+              </div>
+            </div>
+
+            <div class="row mb-3">
               <label class="col-md-4 col-form-label text-md-end">{{ __('Disease') }}</label>
 
               <div class="col-md-6">
-                <input type="text" class="form-control @error('disease') is-invalid @enderror" name="disease" required>
+                <textarea name="disease" cols="30" rows="3" class="form-control @error('disease') is-invalid @enderror"></textarea>
 
                 @error('disease')
                 <span class="invalid-feedback" role="alert">
@@ -240,7 +256,7 @@
               <label class="col-md-4 col-form-label text-md-end">{{ __('Address') }}</label>
 
               <div class="col-md-6">
-                <input type="text" class="form-control @error('address') is-invalid @enderror" name="address" required>
+                <textarea name="address" cols="30" rows="3" class="form-control @error('address') is-invalid @enderror" required></textarea>
 
                 @error('address')
                 <span class="invalid-feedback" role="alert">
@@ -277,16 +293,12 @@
                 @enderror
               </div>
             </div>
-            
-            
 
             <div class="row mb-0">
               <div class="col-md-8 offset-md-4">
                 <button type="submit" class="btn btn-primary">
                   {{ __('Register') }}
                 </button>
-
-    
               </div>
             </div>
           </form>

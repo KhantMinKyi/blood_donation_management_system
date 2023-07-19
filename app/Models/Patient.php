@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class Admin extends Authenticatable
+class Patient extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -20,7 +20,7 @@ class Admin extends Authenticatable
     protected $fillable = [
         'name',
         'user_name',
-        'admin_id',
+        'patient_id',
         'email',
         'password',
         'phone',
@@ -28,8 +28,12 @@ class Admin extends Authenticatable
         'dob',
         'nrc',
         'status',
+        'blood_type_id',
+        'city_id',
+        'disease',
+        'township_id',
         'remark',
-        'hospital_id',
+        'address',
         'latitude',
         'longitude'
     ];
@@ -41,12 +45,19 @@ class Admin extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'created_at',
-        'updated_at',
-
+        'remember_token',
     ];
-    public function hospital()
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+    public function bloodType()
     {
-        return $this->belongsTo(Hospital::class)->with('city', 'township');
+        return $this->belongsTo(BloodType::class);
     }
 }

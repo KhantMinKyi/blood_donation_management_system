@@ -16,12 +16,16 @@ return new class extends Migration
         Schema::create('report_admins', function (Blueprint $table) {
             $table->id();
             $table->foreignId('hospital_id')->constrained('hospitals')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('patient_id')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('patient_id')->nullable()->constrained('patients')->onUpdate('cascade')->onDelete('cascade');
+            $table->text('patient_name')->nullable();
+            $table->integer('patient_age')->nullable();
+            $table->foreignId('blood_type_id')->constrained('blood_types')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('admin_id')->constrained('admins')->onUpdate('cascade')->onDelete('cascade');
-            $table->enum('status', ['pending', 'completed', 'cancel']);
+            $table->enum('status', ['pending', 'completed', 'cancel'])->default('pending');
             $table->dateTime('report_date_time');
-            $table->dateTime('confirm_date_time');
+            $table->dateTime('confirm_date_time')->nullable();
             $table->text('remark')->nullable();
+            $table->enum('type', ['emergency', 'normal'])->default('normal');
             $table->timestamps();
         });
     }

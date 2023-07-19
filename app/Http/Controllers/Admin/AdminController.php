@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\Donor;
+use App\Models\ReportAdmin;
+use App\Services\DistanceCalculatorServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -84,10 +87,10 @@ class AdminController extends Controller
     {
         //
     }
-    public function loginform()
-    {
-        return view('Admin.admin_login');
-    }
+
+    /**
+     * Login Function
+     */
     public function login(Request $request)
     {
         $request->validate([
@@ -104,16 +107,98 @@ class AdminController extends Controller
         auth('admin')->login($admin);
         return view('Admin.admin')->with('success', 'Welcome To Our Website ' . $admin->name);
     }
+
+    /**
+     * Logout Admin From Database Function
+     */
     public function logout()
     {
         auth('admin')->logout();
         return redirect('/')->with('success', 'Your Are Successfully Logout');
     }
-    public function adminDonationRequest()
-    {
-        return view('Admin.admin_blood_request');
-    }
+
+
+    /**
+     * View Blood request From Patient Function
+     */
     public function adminBloodRequest()
+    {
+        $admin = auth('admin')->user();
+        $reports = ReportAdmin::where('admin_id', $admin->id)->with('hospital', 'patient', 'admin')->get();
+        return view('Admin.admin_blood_request', compact('reports'));
+    }
+
+
+    /**
+     * View Blood request From Patient Detail Function
+     */
+    public function adminBloodRequestDetail(Request $request, $id)
+    {
+
+        $report = ReportAdmin::with('admin', 'patient')->find($id);
+        if (!$report) {
+            return redirect()->back()->with('error', 'Report Id : ' . $id . ' Not Found');
+        }
+        $hospital = $report->admin->hospital;
+        $hospital_latitude = $hospital->latitude;
+        $hospital_longitude = $hospital->longitude;
+        $donor_locations = [];
+        $near_donors = [];
+        $donors = Donor::where('city_id', $hospital->city_id)
+            ->where('township_id', $hospital->township_id)
+            ->where('blood_type_id', $report->blood_type_id)
+            ->where('status', 'active')->get();
+        if (!$donors) {
+            $donors = Donor::where('city_id', $hospital->city_id)
+                ->where('blood_type_id', $report->blood_type_id)
+                ->where('status', 'active')->get();
+        }
+        foreach ($donors as $donor) {
+            $latitude = $hospital_latitude - $donor['latitude'];
+            $longitude = $hospital_longitude - $donor['longitude'];
+            $distance = sqrt(($latitude ** 2) + ($longitude ** 2));
+            array_push($donor_locations, $distance);
+        }
+        asort($donor_locations);
+        foreach ($donor_locations as $key => $donor_location) {
+            array_push($near_donors, $donors[$key]);
+        }
+        $nearest = $donors[key($donor_locations)];
+        foreach ($near_donors as $key => $near_donor) {
+            $distanceKilo = new DistanceCalculatorServices();
+            $distanceKilo = $distanceKilo->generateKilometer($hospital_latitude, $hospital_longitude, $near_donor->latitude, $near_donor->longitude);
+            $near_donor['distance'] = round($distanceKilo, 2);
+        }
+        return response()->json([
+            'report' => $report,
+            'hospital' => $hospital,
+            'nearest' => $nearest,
+            'near_donors' => $near_donors
+        ]);
+        // return view('Admin.admin_blood_request_detail', compact('report', 'admin', 'patient', 'hospital', 'near_donors'));
+    }
+    /**
+     * View Blood request From Patient Detail Function
+     */
+    public function reportDonor(Request $request)
+    {
+        $validated = $request->validate([
+            'admin_report_id' => 'required|exists:App\Models\ReportAdmin,id',
+            'donor_id' => 'required',
+        ]);
+        $admin_report = ReportAdmin::with('hospital', 'patient', 'admin')->find($validated['admin_report_id']);
+
+        return response()->json($admin_report);
+    }
+
+    /**
+     * View login From Function
+     */
+    public function loginform()
+    {
+        return view('Admin.admin_login');
+    }
+    public function adminDonationRequest()
     {
         return view('Admin.admin_blood_request');
     }
