@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Patient;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUpdatePatientRequest;
 use App\Models\Admin;
 use App\Models\Hospital;
 use App\Models\Patient;
@@ -104,9 +105,13 @@ class PatientController extends Controller
         return view('patient.register');
     }
 
-    public function register()
+    public function register(StoreUpdatePatientRequest $request)
     {
-        return 'Register Process Coming Soon';
+        $validated = $request->validated();
+        $validated['patient_id'] = "BD_P" . random_int(100000, 999999);
+        $patient = Patient::create($validated);
+        auth('patient')->login($patient);
+        return redirect('/')->with('success', 'Welcome To Our Website ' . $patient->name);
     }
 
     public function emergencyForm()
