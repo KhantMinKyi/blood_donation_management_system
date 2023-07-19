@@ -1,0 +1,12 @@
+#lat-long-div {
+  display: none;
+}
+
+#alert-register-message {
+  position: fixed;
+  top: 0;
+  z-index: 1111111111111111111;
+  width: 100%;
+  padding: 10px;
+  background: green;
+}

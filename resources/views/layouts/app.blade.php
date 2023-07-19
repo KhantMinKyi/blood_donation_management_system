@@ -40,6 +40,9 @@
   <!-- Patient Link CSS Files -->
   <link rel="stylesheet" href="{{ asset('css/patient.css') }}">
 
+  <!-- Register Link CSS Files -->
+  <link rel="stylesheet" href="{{ asset('css/register.css') }}">
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -200,7 +203,7 @@
 
   <!-- Fontawesome Icon JS-->
   <script defer src="{{ asset('js/all.js') }}"></script>
-
+  @yield('latLong')
   </div>
 </body>
 

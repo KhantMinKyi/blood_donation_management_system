@@ -4,24 +4,27 @@
 
 <!--Header Section-->
 <div class="container-fluid header-section-wrap">
+  @if(session()->has('success'))
+  <p class="alert" id="alert-register-message">{{ session()->get('success') }}</p>
+  @endif
   <div class="header row" style="padding: 30px 0;">
     <div class="header-text col-md-12 col-lg-6">
-  <div class="header-text-wrap">
-  <h1 class="h1">Blood Donation Management System</h1>
-  <h3 class="h3">Donate the blood to save the life</h3>
-  <h3 class="h3">Donate the blood to help the others</h3>
-  @guest('donor')
-  <div class="header-button col-md-12">
-      <a href="{{ url('/patient') }}" class="btn btn-primary btn-lg">Patient Page</a>
-      <a href="#" class="btn btn-primary btn-lg">Donor Page</a>
-    </div>
-    @endguest
-  </div>
+      <div class="header-text-wrap">
+        <h1 class="h1">Blood Donation Management System</h1>
+        <h3 class="h3">Donate the blood to save the life</h3>
+        <h3 class="h3">Donate the blood to help the others</h3>
+        @guest('donor')
+        <div class="header-button col-md-12">
+          <a href="{{ url('/patient') }}" class="btn btn-primary btn-lg">Patient Page</a>
+          <a href="#" class="btn btn-primary btn-lg">Donor Page</a>
+        </div>
+        @endguest
+      </div>
     </div>
     <div class="header-photo col-md-12 col-lg-6">
       <img src="{{ asset('img/header.png') }}" alt="Header Photo">
     </div>
-    
+
   </div>
 </div>
 <!-- header ends -->
@@ -82,4 +85,13 @@
 </div>
 
 <!-- end aboutus section -->
+@endsection
+
+@section('latLong')
+<script>
+  const div = document.getElementById('#alert-register-message');
+  setTimeout(function() {
+    $("#alert-register-message").fadeOut().empty();
+  }, 2000);
+</script>
 @endsection
