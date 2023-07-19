@@ -119,6 +119,11 @@ class PatientController extends Controller
         return view('patient.normalform');
     }
 
+    public function history()
+    {
+        return view('patient.history');
+    }
+
     public function login(Request $request)
     {
         $request->validate([
@@ -208,9 +213,5 @@ class PatientController extends Controller
             'nearest_hospital' => $nearest_hospital,
             'admin' => $admin,
         ]);
-    }
-
-    public function history(){
-        return view ('patient.history');
     }
 }

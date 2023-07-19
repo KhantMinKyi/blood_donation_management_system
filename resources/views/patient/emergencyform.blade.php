@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container-fluid red-background size signin-section">
-<div class="row justify-content-center">
+  <div class="row justify-content-center">
     <div class="col-lg-6 col-md-8 col-sm-12">
       <h2 class="h2 text-center">Request form for Emergency Patient</h2>
       <div class="card">
@@ -75,7 +75,7 @@
                 </span>
                 @enderror
               </div>
-            </div> 
+            </div>
 
             <div class="row mb-3">
               <label class="col-md-4 col-form-label text-md-end">{{ __('Diseases') }}</label>
@@ -95,7 +95,7 @@
               <label class="col-md-4 col-form-label text-md-end">{{ __('Location') }}</label>
 
               <div class="col-md-6">
-              <button type="submit" class="btn btn-info" name="location">
+                <button type="submit" class="btn btn-info" name="location">
                   {{ __('Share your location') }}
                 </button>
 
@@ -106,14 +106,14 @@
                 @enderror
               </div>
             </div>
-      
+
             <div class="row mb-0">
               <div class="col-md-8 offset-md-4">
                 <button type="submit" class="btn btn-primary">
                   {{ __('Request') }}
                 </button>
 
-    
+
               </div>
             </div>
           </form>

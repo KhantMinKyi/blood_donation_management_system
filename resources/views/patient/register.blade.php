@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container-fluid red-background size signin-section">
-<div class="row justify-content-center">
+  <div class="row justify-content-center">
     <div class="col-lg-6 col-md-8 col-sm-12">
       <h2 class="h2 text-center">Become a Patient</h2>
       <div class="card">
@@ -154,7 +154,7 @@
               <label class="col-md-4 col-form-label text-md-end">{{ __('Your Status') }}</label>
 
               <div class="col-md-6">
-              <select name="status" class="form-control">
+                <select name="status" class="form-control">
                   <option value="none" selected>Choose Your Status</option>
                   <option value="0">Active</option>
                   <option value="1">Away</option>
@@ -206,7 +206,7 @@
                 </span>
                 @enderror
               </div>
-            </div>    
+            </div>
 
             <div class="row mb-3">
               <label class="col-md-4 col-form-label text-md-end">{{ __('Remark') }}</label>
@@ -282,7 +282,7 @@
               <label class="col-md-4 col-form-label text-md-end">{{ __('Location') }}</label>
 
               <div class="col-md-6">
-              <button type="submit" class="btn btn-info" name="location">
+                <button type="submit" class="btn btn-info" name="location">
                   {{ __('Share your location') }}
                 </button>
 
@@ -293,8 +293,8 @@
                 @enderror
               </div>
             </div>
-            
-            
+
+
 
             <div class="row mb-0">
               <div class="col-md-8 offset-md-4">
@@ -302,7 +302,7 @@
                   {{ __('Register') }}
                 </button>
 
-    
+
               </div>
             </div>
           </form>

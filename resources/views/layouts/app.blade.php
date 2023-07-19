@@ -77,6 +77,12 @@
         </li>
         @endauth
 
+        @auth('patient')
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url('/patient/history') }}">History</a>
+        </li>
+        @endauth
+
         <li class="nav-item">
           <a class="nav-link" href="#">About Us</a>
         </li>
@@ -113,6 +119,26 @@
               Update Profile</a>
 
             <a class="dropdown-item" href="{{ url('donor/logout') }}">
+              <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+
+              Logout</a>
+          </div>
+        </li>
+        @endauth
+
+        @auth('patient')
+        <li class="nav-item dropdown nav-item-dropdownlist">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Patient Name <!-- Donor Name -->
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
+            <a class="dropdown-item" href="user/index.php"><i class="fa fa-user" aria-hidden="true"></i>Profile</a>
+
+            <a class="dropdown-item" href="user/update.php"><i class="fa fa-edit" aria-hidden="true"></i>
+              Update Profile</a>
+
+            <a class="dropdown-item" href="{{ url('patient/logout') }}">
               <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
 
               Logout</a>

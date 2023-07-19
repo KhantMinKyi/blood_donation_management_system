@@ -1,25 +1,25 @@
 @charset "UTF-8";
 
-*{
+* {
   box-sizing: border-box;
 }
 
-.patient-container img{
+.patient-container img {
   vertical-align: bottom;
   max-width: 100%;
 }
 
-.patient-clearfix::after{
+.patient-clearfix::after {
   display: block;
   clear: both;
   content: "";
 }
 
-.patient-ft-left{
+.patient-ft-left {
   float: left;
 }
 
-.patient-ft-right{
+.patient-ft-right {
   float: right;
 }
 
@@ -27,25 +27,29 @@
   list-style: none;
 }
 
-.patient-container a{
+.patient-container a {
   display: inline-block;
-  text-decoration: none;
   color: #000;
+  text-decoration: none;
 }
 
-.patient-pc{
+.patient-pc {
   display: block;
 }
 
-.patient-tablet{
+.patient-tablet {
   display: none;
 }
 
-.patient-sp{
+.patient-sp {
   display: none;
 }
 
-.patient-container h1, h2, h3, h4, h5{
+.patient-container h1,
+h2,
+h3,
+h4,
+h5 {
   font-size: 18px;
 }
 
@@ -62,82 +66,82 @@
   margin: 0 auto;
 }
 
-.patient-main-content{
+.patient-main-content {
   background: url(../img/img_patient_main.jpg);
 }
 
-.patient-main-text{
-  text-align: center;
-  font-size: 40px;
+.patient-main-text {
   margin: 0;
   padding-top: 200px;
   padding-bottom: 20px;
+  font-size: 40px;
+  text-align: center;
 }
 
-.patient-secondary-text{
-  text-align: center;
+.patient-secondary-text {
   margin-top: 10px;
   padding-bottom: 20px;
+  text-align: center;
 }
 
-.patient-btn-emergency{
-  border: 1px lightblue solid;
+.patient-btn-emergency {
   display: inline-block;
-  padding: 10px;
-  font-size: 18px;
-  margin-left: 36%;
-  background-color: lightblue;
-  border-radius: 10px;
   margin-bottom: 200px;
+  margin-left: 36%;
+  padding: 10px;
+  border: 1px lightblue solid;
+  background-color: lightblue;
+  font-size: 18px;
+  border-radius: 10px;
 }
 
-.patient-btn-emergency:hover{
+.patient-btn-emergency:hover {
   background-color: white;
   color: red;
   transition: 0.5s;
 }
 
 .patient-btn-normal {
-  border: 1px lightblue solid;
   display: inline-block;
-  padding: 10px;
-  font-size: 18px;
-  background-color: lightblue;
-  border-radius: 10px;
   margin-bottom: 200px;
   margin-left: 8%;
+  padding: 10px;
+  border: 1px lightblue solid;
+  background-color: lightblue;
+  font-size: 18px;
+  border-radius: 10px;
 }
 
-.patient-btn-normal:hover{
+.patient-btn-normal:hover {
   background-color: white;
   color: red;
   transition: 0.5s;
 }
 
-.patient-map{
+.patient-map {
   margin-top: 30px;
 }
 
-.patient-map h2{
+.patient-map h2 {
   color: #000;
-  text-align: center;
   font-size: 40px;
+  text-align: center;
 }
 
 .patient-container iframe {
-  border: 0;
-  margin-left: 10%;
   width: 500px;
   height: 500px;
+  margin-left: 10%;
+  border: 0;
 }
 
-.patient-acc{
+.patient-acc {
   margin-right: 10%;
 }
 
 .patient-acc h2 {
-  color: #000;
   margin-top: 30px;
+  color: #000;
   font-size: 40px;
 }
 
@@ -146,24 +150,22 @@
   font-size: 20px;
 }
 
-.patient-btn-acc{
-  border: 1px lightblue solid;
+.patient-btn-acc {
   display: inline-block;
-  padding: 10px;
-  font-size: 18px;
-  background-color: lightblue;
-  border-radius: 10px;
   margin-bottom: 20px;
+  padding: 10px;
+  border: 1px lightblue solid;
+  background-color: lightblue;
+  font-size: 18px;
+  border-radius: 10px;
 }
 
-.patient-btn-acc:hover{
+.patient-btn-acc:hover {
   background-color: white;
   color: blue;
   transition: 0.5s;
 }
 
-.patient-history p{
+.patient-history p {
   color: #000;
 }
-
-
