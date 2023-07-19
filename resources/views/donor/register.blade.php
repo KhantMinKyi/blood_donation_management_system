@@ -153,11 +153,10 @@
 
               <div class="col-md-6">
                 <select name="blood_type_id" class="form-control">
-                  <option value="none" selected>Select a Blood Type</option>
-                  <option value="0">A</option>
-                  <option value="1">B</option>
-                  <option value="2">O</option>
-                  <option value="3">AB</option>
+                  <option value="" selected>Select a Blood Type</option>
+                  @foreach($blood_types as $blood_type)
+                  <option value="{{ $blood_type->id }}">{{ $blood_type->name }}</option>
+                  @endforeach
                 </select>
 
                 @error('blood_type_id')
@@ -175,11 +174,10 @@
 
               <div class="col-md-6">
                 <select name="city_id" class="form-control">
-                  <option value="none" selected>Select City</option>
-                  <option value="0">Yangon</option>
-                  <option value="1">Mandalay</option>
-                  <option value="2">TaungGyi</option>
-                  <option value="3">Shan Lay</option>
+                  <option value="" selected>Select City</option>
+                  @foreach($cities as $city)
+                  <option value="{{ $city->id }}">{{ $city->name }}</option>
+                  @endforeach
                 </select>
 
                 @error('city_id')
@@ -195,11 +193,10 @@
 
               <div class="col-md-6">
                 <select name="township_id" class="form-control">
-                  <option value="none" selected>Select Township</option>
-                  <option value="0">Botahtaung</option>
-                  <option value="1">Insein</option>
-                  <option value="2">Thuwana</option>
-                  <option value="3">ThingyanKyant</option>
+                <option value="" selected>Select Township</option>
+                  @foreach($townships as $township)
+                  <option value="{{ $township->id }}">{{ $township->name }}</option>
+                  @endforeach
                 </select>
 
                 @error('township_id')
