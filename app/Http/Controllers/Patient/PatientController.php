@@ -31,4 +31,8 @@ class PatientController extends Controller
     public function normalForm(){
         return view('patient.normalform');
     }
+
+    public function history(){
+        return view ('patient.history');
+    }
 }

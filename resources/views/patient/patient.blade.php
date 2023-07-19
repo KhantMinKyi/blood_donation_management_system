@@ -21,8 +21,12 @@
 
     <div class="patient-acc patient-ft-right">
       <h2>Don't have an account yet?</h2>
+
       <p>Open account now and put your mind at ease.</p>
       <a href="{{ url('/patient/registerForm') }}" class="patient-btn-acc">Become a patient</a>
+
+      <p>Check your history here.</p>
+      <a href="{{ url('/patient/history') }}" class="patient-btn-acc">Check history</a>
 
       <p>Learn more about us by clicking this button.</p>
       <a href="#" class="patient-btn-acc">About us</a>

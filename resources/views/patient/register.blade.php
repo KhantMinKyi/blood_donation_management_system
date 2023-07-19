@@ -251,6 +251,34 @@
             </div>
 
             <div class="row mb-3">
+              <label class="col-md-4 col-form-label text-md-end">{{ __('Latitude') }}</label>
+
+              <div class="col-md-6">
+                <input type="text" class="form-control @error('latitude') is-invalid @enderror" name="latitude" required>
+
+                @error('latitude')
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label class="col-md-4 col-form-label text-md-end">{{ __('Longitude') }}</label>
+
+              <div class="col-md-6">
+                <input type="text" class="form-control @error('longitude') is-invalid @enderror" name="longitude" required>
+
+                @error('longitude')
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+              </div>
+            </div>
+
+            <div class="row mb-3">
               <label class="col-md-4 col-form-label text-md-end">{{ __('Location') }}</label>
 
               <div class="col-md-6">

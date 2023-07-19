@@ -532,7 +532,6 @@ body{
 .user-footer-section {
   background-color: var(--primary-color);
   padding: 25px 10px;
-  display: flex;
   justify-content: center;
   align-items: center;
 

@@ -138,7 +138,7 @@
   <footer class="user-footer-section">
     <!--footer-copyright section-->
     <div class="footer-copyright">
-      <p>Copyright@TTU_FifthYear_IT_Group2
+      <p>BLOOD DONATION MANAGEMENT SYSTEM
       </p>
     </div>
     <!--end of footer-copyright section-->
@@ -151,6 +151,8 @@
         <p>blooddonationproject@gmail.com</p>
       </div>
     </div>
+
+
     <!--end of footer-address section-->
     <!--footer-logo section-->
     <div class="footer-logo">

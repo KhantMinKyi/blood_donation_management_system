@@ -162,11 +162,8 @@
   transition: 0.5s;
 }
 
-.normal-patient h2, .emergency-patient h2{
+.patient-history p{
   color: #000;
-  text-align: center;
-  margin-top: 50px;
-  font-size: 30px;
 }
 
 

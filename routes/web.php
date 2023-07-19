@@ -81,3 +81,4 @@ Route::get('/patient/registerForm', [PatientController::class, 'registerForm']);
 Route::post('/patient/register', [PatientController::class, 'register']);
 Route::get('/patient/emergencyForm', [PatientController::class, 'emergencyForm']);
 Route::get('/patient/normalForm', [PatientController::class, 'normalForm']);
+Route::get('/patient/history', [PatientController::class, 'history']);
