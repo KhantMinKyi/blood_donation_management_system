@@ -113,6 +113,12 @@ class PatientController extends Controller
     {
         return view('patient.emergencyform');
     }
+
+    public function normalForm()
+    {
+        return view('patient.normalform');
+    }
+
     public function login(Request $request)
     {
         $request->validate([

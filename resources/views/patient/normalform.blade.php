@@ -13,6 +13,8 @@
           <form method="POST" action="">
             @csrf
 
+            <input type="hidden" name="normal">
+
             <div class="row mb-3">
               <label class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
 
