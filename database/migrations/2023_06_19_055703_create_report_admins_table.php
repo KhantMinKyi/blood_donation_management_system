@@ -22,8 +22,12 @@ return new class extends Migration
             $table->foreignId('blood_type_id')->constrained('blood_types')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('admin_id')->constrained('admins')->onUpdate('cascade')->onDelete('cascade');
             $table->enum('status', ['pending', 'completed', 'cancel'])->default('pending');
+            $table->text('phone');
+            $table->text('latitude');
+            $table->text('longitude');
             $table->dateTime('report_date_time');
             $table->dateTime('confirm_date_time')->nullable();
+            $table->text('diseases')->nullable();
             $table->text('remark')->nullable();
             $table->enum('type', ['emergency', 'normal'])->default('normal');
             $table->timestamps();

@@ -49,4 +49,8 @@ class Admin extends Authenticatable
     {
         return $this->belongsTo(Hospital::class)->with('city', 'township');
     }
+    public function blood_type()
+    {
+        return $this->belongsTo(BloodType::class);
+    }
 }

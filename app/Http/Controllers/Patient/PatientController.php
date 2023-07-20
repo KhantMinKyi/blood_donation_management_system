@@ -161,6 +161,10 @@ class PatientController extends Controller
             'city_id' => 'nullable|integer',
             'township_id' => 'nullable|integer',
             'remark' => 'nullable',
+            'phone' => 'nullable',
+            'diseases' => 'nullable',
+            'latitude' => 'nullable',
+            'longitude' => 'nullable',
         ]);
         $user = auth('patient')->user();
         // Check User Validate
@@ -169,6 +173,7 @@ class PatientController extends Controller
             $validated['longitude'] = $user->longitude;
             $validated['patient_name'] = $user->name;
             $validated['patient_age'] = $user->age;
+            $validated['phone'] = $user->phone;
             $validated['blood_type_id'] = $user->blood_type_id;
             $user_id = $user->id;
             $hospitals = Hospital::where('city_id', $user->city_id)->where('township_id', $user->township_id)->get();
@@ -202,9 +207,13 @@ class PatientController extends Controller
             'hospital_id' => $nearest_hospital->id,
             'patient_id' => $user_id,
             'admin_id' => $admin->id,
-            'patient_name' => $request->patient_name,
-            'patient_age' => $request->patient_age,
-            'blood_type_id' => $request->blood_type_id,
+            'patient_name' => $validated['patient_name'],
+            'patient_age' => $validated['patient_age'],
+            'blood_type_id' => $validated['blood_type_id'],
+            'phone' => $validated['phone'],
+            'diseases' => $validated['diseases'],
+            'latitude' => $validated['latitude'],
+            'longitude' => $validated['longitude'],
             'type' => $request->type,
             'report_date_time' => Carbon::now(),
             'remark' => $validated['remark'],

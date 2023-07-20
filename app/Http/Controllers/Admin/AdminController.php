@@ -144,14 +144,17 @@ class AdminController extends Controller
         $hospital_longitude = $hospital->longitude;
         $donor_locations = [];
         $near_donors = [];
+        $distance_patient = new DistanceCalculatorServices();
+        $distance_patient = $distance_patient->generateKilometer($report->latitude, $report->longitude, $hospital_latitude, $hospital_longitude);
+        $report['distance_patient'] = round($distance_patient, 2);
         $donors = Donor::where('city_id', $hospital->city_id)
             ->where('township_id', $hospital->township_id)
             ->where('blood_type_id', $report->blood_type_id)
-            ->where('status', 'active')->get();
+            ->where('status', 'active')->with('blood_type', 'city', 'township')->get();
         if (!$donors) {
             $donors = Donor::where('city_id', $hospital->city_id)
                 ->where('blood_type_id', $report->blood_type_id)
-                ->where('status', 'active')->get();
+                ->where('status', 'active')->with('blood_type', 'city', 'township')->get();
         }
         foreach ($donors as $donor) {
             $latitude = $hospital_latitude - $donor['latitude'];
@@ -164,18 +167,19 @@ class AdminController extends Controller
             array_push($near_donors, $donors[$key]);
         }
         $nearest = $donors[key($donor_locations)];
+        $near_donors =  array_slice($near_donors, 0, 3);
         foreach ($near_donors as $key => $near_donor) {
-            $distanceKilo = new DistanceCalculatorServices();
-            $distanceKilo = $distanceKilo->generateKilometer($hospital_latitude, $hospital_longitude, $near_donor->latitude, $near_donor->longitude);
-            $near_donor['distance'] = round($distanceKilo, 2);
+            $distance_hospital = new DistanceCalculatorServices();
+            $distance_hospital = $distance_hospital->generateKilometer($hospital_latitude, $hospital_longitude, $near_donor->latitude, $near_donor->longitude);
+            $near_donor['distance_hospital'] = round($distance_hospital, 2);
         }
-        return response()->json([
-            'report' => $report,
-            'hospital' => $hospital,
-            'nearest' => $nearest,
-            'near_donors' => $near_donors
-        ]);
-        // return view('Admin.admin_blood_request_detail', compact('report', 'admin', 'patient', 'hospital', 'near_donors'));
+        // return response()->json([
+        //     'report' => $report,
+        //     'hospital' => $hospital,
+        //     'nearest' => $nearest,
+        //     'near_donors' => $near_donors
+        // ]);
+        return view('Admin.admin_blood_request_detail', compact('report', 'hospital', 'near_donors'));
     }
     /**
      * View Blood request From Patient Detail Function
@@ -200,7 +204,7 @@ class AdminController extends Controller
     }
     public function adminDonationRequest()
     {
-        return view('Admin.admin_blood_request');
+        return view('Admin.admin_donation_request');
     }
     public function users()
     {

@@ -11,13 +11,17 @@ class ReportAdmin extends Model
         'hospital_id',
         'patient_id',
         'admin_id',
+        'phone',
         'patient_name',
         'patient_age',
         'blood_type_id',
         'status',
+        'latitude',
+        'longitude',
         'report_date_time',
         'confirm_date_time',
         'remark',
+        'diseases',
         'type'
     ];
     use HasFactory;
@@ -27,10 +31,14 @@ class ReportAdmin extends Model
     }
     public function patient()
     {
-        return $this->belongsTo(Patient::class);
+        return $this->belongsTo(Patient::class)->with('blood_type', 'city', 'township');
     }
     public function admin()
     {
-        return $this->belongsTo(Admin::class);
+        return $this->belongsTo(Admin::class)->with('blood_type');
+    }
+    public function blood_type()
+    {
+        return $this->belongsTo(BloodType::class);
     }
 }

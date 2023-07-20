@@ -100,7 +100,11 @@
                     <tbody>
                         @foreach ($reports as $report)
                             <tr>
-                                <td>{{ $report->id }}</td>
+                                <td>
+                                    <a href={{ url('/admin/admin_blood_request/' . $report->id) }}>
+                                        {{ $report->id }}
+                                    </a>
+                                </td>
                                 <td>{{ $report->report_date_time }}</td>
                                 @if (isset($report->patient))
                                     <td>{{ $report->patient->patient_id }}</td>

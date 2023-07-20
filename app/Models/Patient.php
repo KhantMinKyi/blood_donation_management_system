@@ -56,8 +56,16 @@ class Patient extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public function bloodType()
+    public function blood_type()
     {
         return $this->belongsTo(BloodType::class);
+    }
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+    public function township()
+    {
+        return $this->belongsTo(Township::class);
     }
 }
