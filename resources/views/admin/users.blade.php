@@ -85,21 +85,25 @@
 
                             <th scope="col">User Id</th>
                             <th scope="col">First Name</th>
-                            <th scope="col">Last Name</th>
-                            <th scope="col">Age</th>
+                            <th scope="col">Blood Type</th>
                             <th scope="col">Gender</th>
                             <th scope="col">Address</th>
+                            <th scope="col">Status</th>
 
                         </tr>
                     </thead>
 
                     <tbody>
-                        <td>1</td>
-                        <td>Ye Yint</td>
-                        <td>Chan Thar</td>
-                        <td>23</td>
-                        <td>Male</td>
-                        <td>Mandalay</td>
+                        @foreach ($donors as $donor)
+                            <tr>
+                                <td>{{ $donor->donor_id }}</td>
+                                <td>{{ $donor->name }}</td>
+                                <td>{{ $donor->blood_type->name }}</td>
+                                <td>{{ $donor->gender }}</td>
+                                <td>{{ $donor->address }}</td>
+                                <td>{{ $donor->status }}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
 
                 </table>

@@ -105,15 +105,19 @@
 
         .buttom-div {
             float: right;
+            margin-bottom: 5px;
+        }
+
+        .buttom-div:hover {
+            color: white;
         }
 
         .buttom {
-            width: 80px;
-            height: 35px;
+            padding: 8px;
             border: 1px solid #4CAF50;
             border-radius: 10px;
             margin-right: 0;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             color: #4CAF50;
         }
 
@@ -271,7 +275,12 @@
                                 <h6>{{ $near_donor->distance_hospital . 'Km Away from Hsopital' }} </h6>
                             </div>
                             <div class="buttom-div">
-                                <button class="buttom">Contact</button>
+                                <form action={{ url('/admin/report_donor') }} method="post">
+                                    @csrf
+                                    <input type="hidden" value={{ $report->id }} name="admin_report_id">
+                                    <input type="hidden" value={{ $near_donor->id }} name="donor_id">
+                                    <button class="buttom" type="submit">Contact</button>
+                                </form>
                             </div>
                             <div class="form-group">
                                 <label for="" class="text-sm">Donor Age</label>

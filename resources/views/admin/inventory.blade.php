@@ -17,9 +17,14 @@
     <link rel="stylesheet" href="{{ asset('admincss/home.css') }}">
 
     <style>
+        .card-body {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-direction: row-reverse;
+            font-weight: bold;
 
-
-
+        }
     </style>
 </head>
 
@@ -53,9 +58,9 @@
                             <div class="card-body">
                                 <div class="blood">
                                     <h2>A+ <i class="fas fa-tint"></i></h2>
-                                </div><br><br>
+                                </div>
                                 <div>
-
+                                    {{ $count_a_plus }}
                                 </div>
                             </div>
                         </div>
@@ -65,8 +70,9 @@
                             <div class="card-body">
                                 <div class="blood">
                                     <h2>B+ <i class="fas fa-tint"></i></h2>
-                                </div><br><br>
+                                </div>
                                 <div>
+                                    {{ $count_b_plus }}
                                 </div>
                             </div>
                         </div>
@@ -76,8 +82,9 @@
                             <div class="card-body">
                                 <div class="blood">
                                     <h2>O+ <i class="fas fa-tint"></i></h2>
-                                </div><br><br>
+                                </div>
                                 <div>
+                                    {{ $count_o_plus }}
                                 </div>
                             </div>
                         </div>
@@ -87,8 +94,9 @@
                             <div class="card-body">
                                 <div class="blood">
                                     <h2>AB+ <i class="fas fa-tint"></i></h2>
-                                </div><br><br>
+                                </div>
                                 <div>
+                                    {{ $count_ab_plus }}
                                 </div>
                             </div>
                         </div>
@@ -101,8 +109,9 @@
                             <div class="card-body">
                                 <div class="blood">
                                     <h2>A- <i class="fas fa-tint"></i></h2>
-                                </div><br><br>
+                                </div>
                                 <div>
+                                    {{ $count_a_minus }}
                                 </div>
                             </div>
                         </div>
@@ -112,8 +121,9 @@
                             <div class="card-body">
                                 <div class="blood">
                                     <h2>B- <i class="fas fa-tint"></i></h2>
-                                </div><br><br>
+                                </div>
                                 <div>
+                                    {{ $count_b_minus }}
                                 </div>
                             </div>
                         </div>
@@ -123,8 +133,9 @@
                             <div class="card-body">
                                 <div class="blood">
                                     <h2>O- <i class="fas fa-tint"></i></h2>
-                                </div><br><br>
+                                </div>
                                 <div>
+                                    {{ $count_o_minus }}
                                 </div>
                             </div>
                         </div>
@@ -134,8 +145,9 @@
                             <div class="card-body">
                                 <div class="blood">
                                     <h2>AB- <i class="fas fa-tint"></i></h2>
-                                </div><br><br>
+                                </div>
                                 <div>
+                                    {{ $count_ab_minus }}
                                 </div>
                             </div>
                         </div>

@@ -191,8 +191,11 @@ class AdminController extends Controller
             'donor_id' => 'required',
         ]);
         $admin_report = ReportAdmin::with('hospital', 'patient', 'admin')->find($validated['admin_report_id']);
-
-        return response()->json($admin_report);
+        $donor = Donor::find($validated['donor_id']);
+        return response()->json([
+            'admin_report' => $admin_report,
+            'donor' => $donor
+        ]);
     }
 
     /**
@@ -206,9 +209,10 @@ class AdminController extends Controller
     {
         return view('Admin.admin_donation_request');
     }
-    public function users()
+    public function donors()
     {
-        return view('Admin.users');
+        $donors = Donor::latest()->get();
+        return view('Admin.users', compact('donors'));
     }
     public function requestHistory()
     {
@@ -220,6 +224,33 @@ class AdminController extends Controller
     }
     public function inventory()
     {
-        return view('Admin.inventory');
+        $donors = Donor::get('blood_type_id');
+        $blood_type_a_plus = Donor::where('blood_type_id', '1')->get();
+        $blood_type_a_minus = Donor::where('blood_type_id', '2')->get();
+        $blood_type_b_plus = Donor::where('blood_type_id', '3')->get();
+        $blood_type_b_minus = Donor::where('blood_type_id', '4')->get();
+        $blood_type_ab_minus = Donor::where('blood_type_id', '5')->get();
+        $blood_type_ab_plus = Donor::where('blood_type_id', '6')->get();
+        $blood_type_o_plus = Donor::where('blood_type_id', '7')->get();
+        $blood_type_o_minus = Donor::where('blood_type_id', '8')->get();
+        $count_a_plus = count($blood_type_a_plus);
+        $count_a_minus = count($blood_type_a_minus);
+        $count_b_plus = count($blood_type_b_plus);
+        $count_b_minus = count($blood_type_b_minus);
+        $count_ab_minus = count($blood_type_ab_minus);
+        $count_ab_plus = count($blood_type_ab_plus);
+        $count_o_plus = count($blood_type_o_plus);
+        $count_o_minus = count($blood_type_o_minus);
+        // return $donors;
+        return view('Admin.inventory', compact(
+            'count_a_plus',
+            'count_a_minus',
+            'count_b_plus',
+            'count_b_minus',
+            'count_ab_minus',
+            'count_ab_plus',
+            'count_o_plus',
+            'count_o_minus',
+        ));
     }
 }

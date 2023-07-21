@@ -48,8 +48,8 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('/admin/admin_donation_request', [AdminController::class, 'adminDonationRequest']);
     Route::get('/admin/admin_blood_request', [AdminController::class, 'adminBloodRequest']);
     Route::get('/admin/admin_blood_request/{id}', [AdminController::class, 'adminBloodRequestDetail']);
-    Route::get('/admin/report_donor', [AdminController::class, 'reportDonor']);
-    Route::get('/admin/users', [AdminController::class, 'users']);
+    Route::post('/admin/report_donor', [AdminController::class, 'reportDonor']);
+    Route::get('/admin/donors', [AdminController::class, 'donors']);
     Route::get('/admin/request_history', [AdminController::class, 'requestHistory']);
     Route::get('/admin/donation_history', [AdminController::class, 'donationHistory']);
     Route::get('/admin/inventory', [AdminController::class, 'inventory']);
