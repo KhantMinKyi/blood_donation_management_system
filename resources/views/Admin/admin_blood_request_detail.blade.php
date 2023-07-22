@@ -283,7 +283,7 @@
                                 </form>
                             </div>
                             <div class="form-group">
-                                <label for="" class="text-sm">Donor Age</label>
+                                <label for="" class="text-sm">Donor Name</label>
                                 <input type="text" name="" class="form-control"
                                     value={{ $near_donor->name }} disabled>
                             </div>

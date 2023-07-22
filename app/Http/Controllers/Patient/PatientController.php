@@ -162,7 +162,6 @@ class PatientController extends Controller
     {
         $validated = $request->validate([
             'patient_name' => 'nullable',
-            'patient_age' => 'nullable|integer',
             'blood_type_id' => 'nullable|exists:App\Models\BloodType,id',
             'latitude' => 'nullable',
             'longitude' => 'nullable',
@@ -180,7 +179,6 @@ class PatientController extends Controller
             $validated['latitude'] = $user->latitude;
             $validated['longitude'] = $user->longitude;
             $validated['patient_name'] = $user->name;
-            $validated['patient_age'] = $user->age;
             $validated['phone'] = $user->phone;
             $validated['blood_type_id'] = $user->blood_type_id;
             $user_id = $user->id;
@@ -216,7 +214,6 @@ class PatientController extends Controller
             'patient_id' => $user_id,
             'admin_id' => $admin->id,
             'patient_name' => $validated['patient_name'],
-            'patient_age' => $validated['patient_age'],
             'blood_type_id' => $validated['blood_type_id'],
             'phone' => $validated['phone'],
             'diseases' => $validated['diseases'],
@@ -226,14 +223,6 @@ class PatientController extends Controller
             'report_date_time' => Carbon::now(),
             'remark' => $validated['remark'],
         ]);
-        return response()->json([
-            'user' => $user,
-            'hospital' => $hospitals,
-            'hospital_locations' => $hospital_locations,
-            'distances' => $distances,
-            'nearest' => $nearest,
-            'nearest_hospital' => $nearest_hospital,
-            'admin' => $admin,
-        ]);
+        return redirect('/patient')->with('success', 'Reported Successfully!');
     }
 }

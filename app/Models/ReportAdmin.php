@@ -13,7 +13,6 @@ class ReportAdmin extends Model
         'admin_id',
         'phone',
         'patient_name',
-        'patient_age',
         'blood_type_id',
         'status',
         'latitude',
