@@ -44,20 +44,6 @@
             </div>
 
             <div class="row mb-3">
-              <label class="col-md-4 col-form-label text-md-end">{{ __('NRC') }}</label>
-
-              <div class="col-md-6">
-                <input type="text" class="form-control @error('nrc') is-invalid @enderror" name="nrc" required>
-
-                @error('nrc')
-                <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-              </div>
-            </div>
-
-            <div class="row mb-3">
               <label class="col-md-4 col-form-label text-md-end">{{ __('Blood Type') }}</label>
 
               <div class="col-md-6">
@@ -91,29 +77,44 @@
               </div>
             </div>
 
-            <div class="row mb-3">
-              <label class="col-md-4 col-form-label text-md-end">{{ __('Location') }}</label>
+            <div id="lat-long-div">
+              <div class="row mb-3">
+                <label class="col-md-4 col-form-label text-md-end">{{ __('Latitude') }}</label>
 
-              <div class="col-md-6">
-                <button type="submit" class="btn btn-info" name="location">
-                  {{ __('Share your location') }}
-                </button>
+                <div class="col-md-6">
+                  <input type="text" class="form-control @error('latitude') is-invalid @enderror" name="latitude" id="latId" required readonly>
 
-                @error('location')
-                <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
-                </span>
-                @enderror
+                  @error('latitude')
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label class="col-md-4 col-form-label text-md-end">{{ __('Longitude') }}</label>
+
+                <div class="col-md-6">
+                  <input type="text" class="form-control @error('longitude') is-invalid @enderror" name="longitude" id="longId" required readonly>
+
+                  @error('longitude')
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
+                </div>
               </div>
             </div>
 
             <div class="row mb-0">
               <div class="col-md-8 offset-md-4">
+                <button type="button" class="btn btn-primary" onclick="getLocation()">
+                  {{ __('Get Location') }}
+                </button>
                 <button type="submit" class="btn btn-primary">
                   {{ __('Request') }}
                 </button>
-
-
               </div>
             </div>
           </form>
@@ -122,5 +123,27 @@
     </div>
   </div>
 </div>
+
+@endsection
+
+@section('latLong')
+<script>
+  var lat = document.getElementById("latId");
+  var long = document.getElementById("longId");
+
+  function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+      lat.value = "Geolocation is not supported by this browser.";
+    }
+  }
+
+  function showPosition(position) {
+    document.getElementById("lat-long-div").style.display = "block";
+    lat.value = position.coords.latitude;
+    long.value = position.coords.longitude;
+  }
+</script>
 
 @endsection

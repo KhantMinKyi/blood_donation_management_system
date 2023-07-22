@@ -11,6 +11,9 @@ use App\Models\ReportAdmin;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Models\BloodType;
+use App\Models\City;
+use App\Models\Township;
 
 class PatientController extends Controller
 {
@@ -102,7 +105,10 @@ class PatientController extends Controller
 
     public function registerForm()
     {
-        return view('patient.register');
+        $cities = City::all();
+        $townships = Township::all();
+        $blood_types = BloodType::all();
+        return view('patient.register', compact('cities', 'townships', 'blood_types'));
     }
 
     public function register(StoreUpdatePatientRequest $request)
@@ -111,7 +117,7 @@ class PatientController extends Controller
         $validated['patient_id'] = "BD_P" . random_int(100000, 999999);
         $patient = Patient::create($validated);
         auth('patient')->login($patient);
-        return redirect('/')->with('success', 'Welcome To Our Website ' . $patient->name);
+        return redirect('/patient')->with('success', 'Welcome To Our Website ' . $patient->name);
     }
 
     public function emergencyForm()

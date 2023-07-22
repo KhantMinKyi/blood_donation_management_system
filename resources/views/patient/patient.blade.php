@@ -22,14 +22,15 @@
   </div> <!--patient-map-->
 
 
-  @guest('patient')
   <div class="patient-acc patient-ft-right">
-    <h2>Don't have an account yet?</h2>
-    @endguest
 
+  @guest('patient')
 
     <p>Open account now and put your mind at ease.</p>
     <a href="{{ url('/patient/registerForm') }}" class="patient-btn-acc">Become a patient</a>
+
+    @endguest
+    
 
     @auth('patient')
     <p>Check your history here.</p>

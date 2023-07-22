@@ -70,7 +70,9 @@
 
       <ul class="navbar-nav form-inline my-2 my-lg-0">
 
-        <li class="nav-item">
+     
+
+      <li class="nav-item">
           <a class="nav-link" href="{{ url('/') }}">Home</a>
         </li>
 
@@ -91,9 +93,6 @@
         </li>
 
         @guest('donor')
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url('/patient/signin') }}">Patient Signin</a>
-        </li>
 
         <li class="nav-item">
           <a class="nav-link" href="{{ url('/donor/signin') }}">Donor Signin</a>
@@ -101,6 +100,14 @@
 
         <li class="nav-item">
           <a class="nav-link" href="{{ url('/donor/registerForm') }}">Donor Register</a>
+        </li>
+
+        @endguest
+
+        @guest('patient')
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url('/patient/signin') }}">Patient Signin</a>
         </li>
 
         <li class="nav-item">

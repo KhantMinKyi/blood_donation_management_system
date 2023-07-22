@@ -84,10 +84,16 @@ h5 {
   text-align: center;
 }
 
+.patient-btn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
 .patient-btn-emergency {
   display: inline-block;
   margin-bottom: 200px;
-  margin-left: 36%;
   padding: 10px;
   border: 1px lightblue solid;
   background-color: lightblue;
@@ -147,7 +153,8 @@ h5 {
 
 .patient-acc p {
   color: #000;
-  font-size: 20px;
+  font-size: 30px;
+  margin-top: 25px;
 }
 
 .patient-btn-acc {

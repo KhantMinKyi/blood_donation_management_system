@@ -89,9 +89,9 @@
 
               <div class="col-md-6">
                 <select name="gender" class="form-control">
-                  <option value="none" selected>Select a gender</option>
-                  <option value="0">Male</option>
-                  <option value="1">Female</option>
+                  <option value="" selected>Select a gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
                 </select>
 
                 @error('gender')
@@ -131,18 +131,16 @@
             </div>
 
             <div class="row mb-3">
-              <label class="col-md-4 col-form-label text-md-end">{{ __('Blood Type') }}</label>
+              <label class="col-md-4 col-form-label text-md-end">{{ __('Your Status') }}</label>
 
               <div class="col-md-6">
-                <select name="blood_type_id" class="form-control">
-                  <option value="none" selected>Select a Blood Type</option>
-                  <option value="0">A</option>
-                  <option value="1">B</option>
-                  <option value="2">O</option>
-                  <option value="3">AB</option>
+                <select name="status" class="form-control">
+                  <option value="" selected>Choose Your Status</option>
+                  <option value="active">Active</option>
+                  <option value="away">Away</option>
                 </select>
 
-                @error('blood_type_id')
+                @error('status')
                 <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
                 </span>
@@ -151,16 +149,17 @@
             </div>
 
             <div class="row mb-3">
-              <label class="col-md-4 col-form-label text-md-end">{{ __('Your Status') }}</label>
+              <label class="col-md-4 col-form-label text-md-end">{{ __('Blood Type') }}</label>
 
               <div class="col-md-6">
-                <select name="status" class="form-control">
-                  <option value="none" selected>Choose Your Status</option>
-                  <option value="0">Active</option>
-                  <option value="1">Away</option>
+                <select name="blood_type_id" class="form-control">
+                  <option value="" selected>Select a Blood Type</option>
+                  @foreach($blood_types as $blood_type)
+                  <option value="{{ $blood_type->id }}">{{ $blood_type->name }}</option>
+                  @endforeach
                 </select>
 
-                @error('status')
+                @error('blood_type_id')
                 <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
                 </span>
@@ -173,11 +172,10 @@
 
               <div class="col-md-6">
                 <select name="city_id" class="form-control">
-                  <option value="none" selected>Select City</option>
-                  <option value="0">Yangon</option>
-                  <option value="1">Mandalay</option>
-                  <option value="2">TaungGyi</option>
-                  <option value="3">Shan Lay</option>
+                  <option value="" selected>Select City</option>
+                  @foreach($cities as $city)
+                  <option value="{{ $city->id }}">{{ $city->name }}</option>
+                  @endforeach
                 </select>
 
                 @error('city_id')
@@ -193,11 +191,10 @@
 
               <div class="col-md-6">
                 <select name="township_id" class="form-control">
-                  <option value="none" selected>Select Township</option>
-                  <option value="0">Botahtaung</option>
-                  <option value="1">Insein</option>
-                  <option value="2">Thuwana</option>
-                  <option value="3">ThingyanKyant</option>
+                  <option value="" selected>Select Township</option>
+                  @foreach($townships as $township)
+                  <option value="{{ $township->id }}">{{ $township->name }}</option>
+                  @endforeach
                 </select>
 
                 @error('township_id')
@@ -212,7 +209,7 @@
               <label class="col-md-4 col-form-label text-md-end">{{ __('Remark') }}</label>
 
               <div class="col-md-6">
-                <input type="text" class="form-control @error('remark') is-invalid @enderror" name="remark" required>
+                <textarea name="remark" cols="30" rows="3" class="form-control @error('remark') is-invalid @enderror"></textarea>
 
                 @error('remark')
                 <span class="invalid-feedback" role="alert">
@@ -226,7 +223,7 @@
               <label class="col-md-4 col-form-label text-md-end">{{ __('Disease') }}</label>
 
               <div class="col-md-6">
-                <input type="text" class="form-control @error('disease') is-invalid @enderror" name="disease" required>
+                <textarea name="disease" cols="30" rows="3" class="form-control @error('disease') is-invalid @enderror"></textarea>
 
                 @error('disease')
                 <span class="invalid-feedback" role="alert">
@@ -240,7 +237,7 @@
               <label class="col-md-4 col-form-label text-md-end">{{ __('Address') }}</label>
 
               <div class="col-md-6">
-                <input type="text" class="form-control @error('address') is-invalid @enderror" name="address" required>
+                <textarea name="address" cols="30" rows="3" class="form-control @error('address') is-invalid @enderror" required></textarea>
 
                 @error('address')
                 <span class="invalid-feedback" role="alert">
@@ -250,59 +247,44 @@
               </div>
             </div>
 
-            <div class="row mb-3">
-              <label class="col-md-4 col-form-label text-md-end">{{ __('Latitude') }}</label>
+            <div id="lat-long-div">
+              <div class="row mb-3">
+                <label class="col-md-4 col-form-label text-md-end">{{ __('Latitude') }}</label>
 
-              <div class="col-md-6">
-                <input type="text" class="form-control @error('latitude') is-invalid @enderror" name="latitude" required>
+                <div class="col-md-6">
+                  <input type="text" class="form-control @error('latitude') is-invalid @enderror" name="latitude" id="latId" required readonly>
 
-                @error('latitude')
-                <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
-                </span>
-                @enderror
+                  @error('latitude')
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label class="col-md-4 col-form-label text-md-end">{{ __('Longitude') }}</label>
+
+                <div class="col-md-6">
+                  <input type="text" class="form-control @error('longitude') is-invalid @enderror" name="longitude" id="longId" required readonly>
+
+                  @error('longitude')
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
+                </div>
               </div>
             </div>
-
-            <div class="row mb-3">
-              <label class="col-md-4 col-form-label text-md-end">{{ __('Longitude') }}</label>
-
-              <div class="col-md-6">
-                <input type="text" class="form-control @error('longitude') is-invalid @enderror" name="longitude" required>
-
-                @error('longitude')
-                <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-              </div>
-            </div>
-
-            <div class="row mb-3">
-              <label class="col-md-4 col-form-label text-md-end">{{ __('Location') }}</label>
-
-              <div class="col-md-6">
-                <button type="submit" class="btn btn-info" name="location">
-                  {{ __('Share your location') }}
-                </button>
-
-                @error('location')
-                <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-              </div>
-            </div>
-
-
 
             <div class="row mb-0">
               <div class="col-md-8 offset-md-4">
+                <button type="button" class="btn btn-primary" onclick="getLocation()">
+                  {{ __('Get Location') }}
+                </button>
                 <button type="submit" class="btn btn-primary">
                   {{ __('Register') }}
                 </button>
-
-
               </div>
             </div>
           </form>
@@ -311,5 +293,27 @@
     </div>
   </div>
 </div>
+
+@endsection
+
+@section('latLong')
+<script>
+  var lat = document.getElementById("latId");
+  var long = document.getElementById("longId");
+
+  function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+      lat.value = "Geolocation is not supported by this browser.";
+    }
+  }
+
+  function showPosition(position) {
+    document.getElementById("lat-long-div").style.display = "block";
+    lat.value = position.coords.latitude;
+    long.value = position.coords.longitude;
+  }
+</script>
 
 @endsection
