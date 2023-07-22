@@ -115,6 +115,7 @@ class PatientController extends Controller
     {
         $validated = $request->validated();
         $validated['patient_id'] = "BD_P" . random_int(100000, 999999);
+        $validated['password'] = Hash::make($validated['password']);
         $patient = Patient::create($validated);
         auth('patient')->login($patient);
         return redirect('/patient')->with('success', 'Welcome To Our Website ' . $patient->name);

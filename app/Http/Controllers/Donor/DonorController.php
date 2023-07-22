@@ -120,6 +120,7 @@ class DonorController extends Controller
     {
         $validated = $request->validated();
         $validated['donor_id'] = "BD_D" . random_int(100000, 999999);
+        $validated['password'] = Hash::make($validated['password']);
         $donor = Donor::create($validated);
         auth('donor')->login($donor);
         return redirect('/')->with('success', 'Welcome To Our Website ' . $donor->name);
