@@ -10,10 +10,10 @@
         <div class="card-header">{{ __('Emergency Blood Request Page') }}</div>
 
         <div class="card-body">
-          <form method="POST" action="">
+          <form method="POST" action="{{ url('/patient/report_admin') }}">
             @csrf
 
-            <input type="hidden" name="emergency">
+            <input type="hidden" name="type" value="emergency">
 
             <div class="row mb-3">
               <label class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
@@ -48,11 +48,10 @@
 
               <div class="col-md-6">
                 <select name="blood_type_id" class="form-control">
-                  <option value="none" selected>Select a Blood Type</option>
-                  <option value="0">A</option>
-                  <option value="1">B</option>
-                  <option value="2">O</option>
-                  <option value="3">AB</option>
+                  <option value="" selected>Select a Blood Type</option>
+                  @foreach($blood_types as $blood_type)
+                  <option value="{{ $blood_type->id }}">{{ $blood_type->name }}</option>
+                  @endforeach
                 </select>
 
                 @error('blood_type_id')
@@ -67,9 +66,23 @@
               <label class="col-md-4 col-form-label text-md-end">{{ __('Diseases') }}</label>
 
               <div class="col-md-6">
-                <input type="text" class="form-control @error('disease') is-invalid @enderror" name="disease" required>
+                <input type="text" class="form-control @error('disease') is-invalid @enderror" name="diseases" required>
 
-                @error('disease')
+                @error('diseases')
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label class="col-md-4 col-form-label text-md-end">{{ __('Remark') }}</label>
+
+              <div class="col-md-6">
+                <textarea name="remark" cols="30" rows="3" class="form-control @error('remark') is-invalid @enderror"></textarea>
+
+                @error('remark')
                 <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
                 </span>

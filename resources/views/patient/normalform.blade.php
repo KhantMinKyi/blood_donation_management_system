@@ -10,10 +10,10 @@
         <div class="card-header">{{ __('Normal Blood Request Page') }}</div>
 
         <div class="card-body">
-          <form method="POST" action="">
+          <form method="POST" action="{{ url('/patient/report_admin') }}">
             @csrf
 
-            <input type="hidden" name="normal">
+            <input type="hidden" name="type" value="normal">
 
             <div class="row mb-3">
               <label class="col-md-4 col-form-label text-md-end">{{ __('Date Of Appointment') }}</label>
@@ -30,12 +30,12 @@
             </div>
 
             <div class="row mb-3">
-              <label class="col-md-4 col-form-label text-md-end">{{ __('Remark') }}</label>
+              <label class="col-md-4 col-form-label text-md-end">{{ __('Diseases') }}</label>
 
               <div class="col-md-6">
-                <input type="text" class="form-control @error('remark') is-invalid @enderror" name="remark" required>
+                <input type="text" class="form-control @error('disease') is-invalid @enderror" name="diseases" required>
 
-                @error('remark')
+                @error('diseases')
                 <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
                 </span>
@@ -44,12 +44,12 @@
             </div>
 
             <div class="row mb-3">
-              <label class="col-md-4 col-form-label text-md-end">{{ __('Diseases') }}</label>
+              <label class="col-md-4 col-form-label text-md-end">{{ __('Remark') }}</label>
 
               <div class="col-md-6">
-                <input type="text" class="form-control @error('disease') is-invalid @enderror" name="disease" required>
+                <textarea name="remark" cols="30" rows="3" class="form-control @error('remark') is-invalid @enderror"></textarea>
 
-                @error('disease')
+                @error('remark')
                 <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
                 </span>

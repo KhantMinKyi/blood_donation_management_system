@@ -2,6 +2,10 @@
 
 @section('content')
 
+<div class="container-fluid header-section-wrap">
+  @if(session()->has('success'))
+  <p class="alert" id="alert-register-message">{{ session()->get('success') }}</p>
+  @endif
 <div class="patient-container">
   <div class="patient-main-content">
     <h2 class="patient-main-text">Request your blood here</h2>
@@ -14,6 +18,7 @@
     </div> <!--patient-btn-->
   </div> <!--patient-main-content-->
 </div> <!--patient-container-->
+</div>
 
 <div class="patient-container patient-clearfix">
   <div class="patient-map patient-ft-left">
@@ -41,3 +46,12 @@
     <a href="#" class="patient-btn-acc">About us</a>
   </div>
 </div> <!--patient-container-->
+
+@section('latLong')
+<script>
+  const div = document.getElementById('#alert-register-message');
+  setTimeout(function() {
+    $("#alert-register-message").fadeOut().empty();
+  }, 2000);
+</script>
+@endsection
