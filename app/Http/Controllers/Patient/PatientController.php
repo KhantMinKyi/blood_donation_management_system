@@ -172,6 +172,7 @@ class PatientController extends Controller
             'diseases' => 'nullable',
             'latitude' => 'nullable',
             'longitude' => 'nullable',
+            'doa' => 'nullable',
         ]);
         $user = auth('patient')->user();
         // Check User Validate
@@ -216,6 +217,7 @@ class PatientController extends Controller
             'patient_name' => $validated['patient_name'],
             'blood_type_id' => $validated['blood_type_id'],
             'phone' => $validated['phone'],
+            'date_of_appointment' => $validated['doa'],
             'diseases' => $validated['diseases'],
             'latitude' => $validated['latitude'],
             'longitude' => $validated['longitude'],

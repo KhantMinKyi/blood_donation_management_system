@@ -189,12 +189,14 @@ class AdminController extends Controller
         $validated = $request->validate([
             'admin_report_id' => 'required|exists:App\Models\ReportAdmin,id',
             'donor_id' => 'required',
+            'report_type' => 'required'
         ]);
         $admin_report = ReportAdmin::with('hospital', 'patient', 'admin')->find($validated['admin_report_id']);
         $donor = Donor::find($validated['donor_id']);
         return response()->json([
             'admin_report' => $admin_report,
-            'donor' => $donor
+            'donor' => $donor,
+            'report_type' => $validated['report_type']
         ]);
     }
 

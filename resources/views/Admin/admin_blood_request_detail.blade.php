@@ -135,6 +135,81 @@
         .distance {
             text-align: center;
         }
+
+        .modal {
+
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+        }
+
+        .modal-content {
+            top: 35%;
+            margin: auto;
+            width: 40%;
+            padding: 10px;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            width: 40px;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .model_div {
+            text-align: center;
+        }
+
+        .model_btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3%;
+
+        }
+
+        .btn_phone {
+            border: 1.5px solid #4CAF50;
+            padding: 8px 12px;
+            border-radius: 10px;
+            margin: 15px;
+            cursor: pointer;
+            background-color: white;
+        }
+
+        .btn_phone:hover {
+            background-color: #4CAF50;
+            box-shadow: #000;
+        }
+
+        .btn_phone:focus,
+        .btn_cancel:focus {
+            outline: none;
+        }
+
+        .btn_cancel {
+            border: 1.5px solid #f44336;
+            padding: 8px 12px;
+            border-radius: 10px;
+            margin: 15px;
+            cursor: pointer;
+        }
+
+        .btn_cancel:hover {
+            background-color: #f44336;
+            box-shadow: #000;
+        }
     </style>
 
 </head>
@@ -175,8 +250,9 @@
                             <th scope="col">User Id</th>
                             <th scope="col">Unit</th>
                             <th scope="col">Reasons</th>
-                            <th scope="col">Status</th>
                             <th scope="col">Type</th>
+                            <th scope="col">Appoint Date</th>
+                            <th scope="col">Status</th>
 
                         </tr>
                     </thead>
@@ -194,8 +270,9 @@
                             @endif
                             <td>{{ $report->id }}</td>
                             <td>{{ $report->remark }}</td>
-                            <td>{{ $report->status }}</td>
                             <td>{{ Str::upper($report->type) }}</td>
+                            <td>{{ date('d-m-yy', strToTime($report->date_of_appointment)) }}</td>
+                            <td>{{ $report->status }}</td>
                         </tr>
 
                     </tbody>
@@ -269,18 +346,13 @@
             <div>
                 <h4 class="header-donor">Near Donors</h4>
                 <div class="donor-div">
-                    @foreach ($near_donors as $near_donor)
+                    @foreach ($near_donors as $key => $near_donor)
                         <div class="donor-info">
                             <div class="distance">
                                 <h6>{{ $near_donor->distance_hospital . 'Km Away from Hsopital' }} </h6>
                             </div>
                             <div class="buttom-div">
-                                <form action={{ url('/admin/report_donor') }} method="post">
-                                    @csrf
-                                    <input type="hidden" value={{ $report->id }} name="admin_report_id">
-                                    <input type="hidden" value={{ $near_donor->id }} name="donor_id">
-                                    <button class="buttom" type="submit">Contact</button>
-                                </form>
+                                <button class="buttom" onclick="showModel({{ $key }})">Contact</button>
                             </div>
                             <div class="form-group">
                                 <label for="" class="text-sm">Donor Name</label>
@@ -323,16 +395,69 @@
                                     width="600" height="450" style="border:0;" allowfullscreen=""
                                     loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                             </div>
+                            <!-- The Modal -->
+                            <div id="myModal{{ $key }}" class="modal">
+                                <!-- Modal content -->
+                                <div class="modal-content">
+                                    <span class="close" onclick="closeModel({{ $key }})">&times;</span>
+                                    <div class="model_div">
+                                        <div>
+                                            <h6>Contact To User - {{ $near_donor->name }}</h6>
+                                            <h6>ဆက်သွယ်ရန်ဖုန်းနံပါတ် - {{ $near_donor->phone }}</h6>
+                                            <h6>အနီးဆုံး အကွာအဝေး - {{ $near_donor->distance_hospital . 'Km' }}</h6>
+                                            <h6>ဆက်သွယ်ရန် သွေးအလှုရှင်၏ လိပ်စာ - {{ $near_donor->address }}</h6>
+                                        </div>
+                                        <div class="model_btn">
+                                            <form action={{ url('/admin/report_donor') }} method="post">
+                                                @csrf
+                                                <input type="hidden" value={{ $report->id }}
+                                                    name="admin_report_id">
+                                                <input type="hidden" value={{ $near_donor->id }} name="donor_id">
+                                                <input type="hidden" value="website" name="report_type">
+                                                <button class="btn_phone">Webiste Contact</button>
+                                            </form>
+                                            <form action={{ url('/admin/report_donor') }} method="post">
+                                                @csrf
+                                                <input type="hidden" value={{ $report->id }}
+                                                    name="admin_report_id">
+                                                <input type="hidden" value={{ $near_donor->id }} name="donor_id">
+                                                <input type="hidden" value="phone" name="report_type">
+                                                <button class="btn_phone">Phone Contact</button>
+                                            </form>
+                                            <a class="btn_cancel">Cancel</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     @endforeach
                 </div>
             </div>
 
 
-
-
         </div>
+
     </div>
+    <script>
+        function showModel(key) {
+            var modal = document.getElementById("myModal" + key);
+            modal.style.display = "block";
+        }
+
+        function closeModel(key) {
+            var modal = document.getElementById("myModal" + key);
+            modal.style.display = "none";
+        }
+    </script>
+    <script>
+        // When the user clicks anywhere outside of the modal, close it
+        var modal = document.getElementByClassName("modal");
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 
     <!-- JQuery File -->
     <script type="text/javascript" src="{{ asset('js/jquery.js') }}"></script>

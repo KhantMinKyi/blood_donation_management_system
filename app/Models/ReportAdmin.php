@@ -21,6 +21,7 @@ class ReportAdmin extends Model
         'confirm_date_time',
         'remark',
         'diseases',
+        'date_of_appointment',
         'type'
     ];
     use HasFactory;

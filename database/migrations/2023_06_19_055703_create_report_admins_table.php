@@ -26,6 +26,7 @@ return new class extends Migration
             $table->text('longitude');
             $table->dateTime('report_date_time');
             $table->dateTime('confirm_date_time')->nullable();
+            $table->dateTime('date_of_appointment')->nullable();
             $table->text('diseases')->nullable();
             $table->text('remark')->nullable();
             $table->enum('type', ['emergency', 'normal'])->default('normal');
