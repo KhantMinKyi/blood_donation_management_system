@@ -59,9 +59,9 @@
                   {{ __('Login') }}
                 </button>
 
-                <button type="submit" class="btn btn-primary">
-                  {{ __('Continue as guest') }}
-                </button>
+              <a href="{{ url('/patient') }}" class="btn btn-primary">Continue as guest</a>
+
+
 
                 @if (Route::has('password.request'))
                 <a class="btn btn-link" href="">
