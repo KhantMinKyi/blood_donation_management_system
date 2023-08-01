@@ -1,4 +1,4 @@
-@extends('layouts.appHomePage')
+@extends('donor.layout')
 
 @section('content')
 
@@ -13,12 +13,6 @@
         <h1 class="h1">Blood Donation Management System</h1>
         <h3 class="h3">Donate the blood to save the life</h3>
         <h3 class="h3">Donate the blood to help the others</h3>
-        @guest('donor')
-        <div class="header-button col-md-12">
-          <a href="{{ url('/patient') }}" class="btn btn-primary btn-lg">Patient Page</a>
-          <a href="{{ url('/donor') }}" class="btn btn-primary btn-lg">Donor Page</a>
-        </div>
-        @endguest
       </div>
     </div>
     <div class="header-photo col-md-12 col-lg-6">

@@ -534,7 +534,7 @@ body{
   padding: 25px 10px;
   justify-content: center;
   align-items: center;
-
+  display: flex;
 }
 
 .user-footer-section p {
@@ -549,7 +549,6 @@ body{
 .user-footer-section .footer-address {
   flex-grow: 4;
   text-align: center;
-  padding-right: 10%;
 }
 
 .user-footer-section .footer-logo {

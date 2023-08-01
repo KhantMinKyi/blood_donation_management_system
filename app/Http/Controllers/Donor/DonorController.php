@@ -25,6 +25,17 @@ class DonorController extends Controller
         return Donor::where('id', auth('donor')->user()->id)->get();
     }
 
+    //showing about us page
+    public function aboutUs()
+    {
+        return view('donor.aboutUs');
+    }
+
+    public function donorHomePage()
+    {
+        return view('donor.index');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
