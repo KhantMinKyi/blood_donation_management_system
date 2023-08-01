@@ -94,7 +94,7 @@ class DonorController extends Controller
         }
         $validated['donor_id'] = $request->donor_id;
         $donor->update($validated);
-        return redirect('/')->with('success', 'Update Successfully' . $donor->name);
+        return redirect('/donor')->with('success', 'Update Successfully' . $donor->name);
     }
 
     /**
@@ -134,7 +134,7 @@ class DonorController extends Controller
         $validated['password'] = Hash::make($validated['password']);
         $donor = Donor::create($validated);
         auth('donor')->login($donor);
-        return redirect('/')->with('success', 'Welcome To Our Website ' . $donor->name);
+        return redirect('/donor')->with('success', 'Welcome To Our Website ' . $donor->name);
     }
 
     public function login(Request $request)
@@ -145,13 +145,13 @@ class DonorController extends Controller
         ]);
         $donor = Donor::where('user_name', $request->name)->first();
         if (!$donor) {
-            return redirect()->back()->with(['error' => 'USer Not Found']);
+            return redirect()->back()->with(['error' => 'User Not Found']);
         }
         if (!Hash::check($request->password, $donor->password)) {
             return redirect()->back()->with(['error' => 'Password is Wrong , Try Again']);
         }
         auth('donor')->login($donor);
-        return redirect('/')->with('success', 'Welcome To Our Website ' . $donor->name);
+        return redirect('/donor')->with('success', 'Welcome To Our Website ' . $donor->name);
     }
     public function logout()
     {
