@@ -124,7 +124,9 @@ class PatientController extends Controller
     public function emergencyForm()
     {
         $blood_types = BloodType::all();
-        return view('patient.emergencyform', compact('blood_types'));
+        $cities = City::all();
+        $townships = Township::all();
+        return view('patient.emergencyform', compact('blood_types', 'cities', 'townships'));
     }
 
     public function normalForm()

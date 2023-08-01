@@ -194,6 +194,7 @@
         }
 
         .btn_phone:focus,
+        .btn_cancel_report:focus,
         .btn_cancel:focus {
             outline: none;
         }
@@ -207,6 +208,18 @@
         }
 
         .btn_cancel:hover {
+            background-color: #f44336;
+            box-shadow: #000;
+        }
+
+        .btn_cancel_report {
+            border: 1.5px solid #f44336;
+            padding: 8px 12px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .btn_cancel_report:hover {
             background-color: #f44336;
             box-shadow: #000;
         }
@@ -253,6 +266,7 @@
                             <th scope="col">Type</th>
                             <th scope="col">Appoint Date</th>
                             <th scope="col">Status</th>
+                            <th scope="col">Action</th>
 
                         </tr>
                     </thead>
@@ -273,6 +287,13 @@
                             <td>{{ Str::upper($report->type) }}</td>
                             <td>{{ date('d-m-yy', strToTime($report->date_of_appointment)) }}</td>
                             <td>{{ $report->status }}</td>
+                            <td>
+                                <form action={{ url('/admin/report_donor') }} method="post">
+                                    @csrf
+                                    <input type="hidden" value={{ $report->id }} name="admin_report_id">
+                                    <button class="btn_cancel_report">Cancel</button>
+                                </form>
+                            </td>
                         </tr>
 
                     </tbody>
@@ -424,7 +445,8 @@
                                                 <input type="hidden" value="phone" name="report_type">
                                                 <button class="btn_phone">Phone Contact</button>
                                             </form>
-                                            <a class="btn_cancel">Cancel</a>
+                                            <a class="btn_cancel"
+                                                onclick="closeModel({{ $key }})">Cancel</a>
                                         </div>
                                     </div>
                                 </div>
