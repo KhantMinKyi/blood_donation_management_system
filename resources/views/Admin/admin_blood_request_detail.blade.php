@@ -285,7 +285,8 @@
                             <td>{{ $report->id }}</td>
                             <td>{{ $report->remark }}</td>
                             <td>{{ Str::upper($report->type) }}</td>
-                            <td>{{ date('d-m-yy', strToTime($report->date_of_appointment)) }}</td>
+                            <td>{{ $report->date_of_appointment ? date('d-m-yy', strToTime($report->date_of_appointment)) : '-' }}
+                            </td>
                             <td>{{ $report->status }}</td>
                             <td>
                                 <form action={{ url('/admin/report_donor') }} method="post">

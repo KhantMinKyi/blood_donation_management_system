@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\Donor;
+use App\Models\Patient;
 use App\Models\ReportAdmin;
 use App\Services\DistanceCalculatorServices;
 use Illuminate\Http\Request;
@@ -19,7 +20,36 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('Admin.admin');
+        $donors = Donor::get('blood_type_id');
+        $patients = Patient::all();
+        $count_users = count($donors) + count($patients);
+        $blood_type_a_plus = Donor::where('blood_type_id', '1')->get();
+        $blood_type_a_minus = Donor::where('blood_type_id', '2')->get();
+        $blood_type_b_plus = Donor::where('blood_type_id', '3')->get();
+        $blood_type_b_minus = Donor::where('blood_type_id', '4')->get();
+        $blood_type_ab_minus = Donor::where('blood_type_id', '5')->get();
+        $blood_type_ab_plus = Donor::where('blood_type_id', '6')->get();
+        $blood_type_o_plus = Donor::where('blood_type_id', '7')->get();
+        $blood_type_o_minus = Donor::where('blood_type_id', '8')->get();
+        $count_a_plus = count($blood_type_a_plus);
+        $count_a_minus = count($blood_type_a_minus);
+        $count_b_plus = count($blood_type_b_plus);
+        $count_b_minus = count($blood_type_b_minus);
+        $count_ab_minus = count($blood_type_ab_minus);
+        $count_ab_plus = count($blood_type_ab_plus);
+        $count_o_plus = count($blood_type_o_plus);
+        $count_o_minus = count($blood_type_o_minus);
+        return view('Admin.admin', compact(
+            'count_a_plus',
+            'count_a_minus',
+            'count_b_plus',
+            'count_b_minus',
+            'count_ab_minus',
+            'count_ab_plus',
+            'count_o_plus',
+            'count_o_minus',
+            'count_users'
+        ));
     }
 
     /**

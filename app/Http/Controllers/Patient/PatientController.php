@@ -212,21 +212,12 @@ class PatientController extends Controller
         $nearest_hospital = Hospital::where('latitude', $nearest['latitude'])->where('longitude', $nearest['longitude'])->first();
         // Get Hospital Admin
         $admin = Admin::where('hospital_id', $nearest_hospital->id)->first();
-        ReportAdmin::create([
-            'hospital_id' => $nearest_hospital->id,
-            'patient_id' => $user_id,
-            'admin_id' => $admin->id,
-            'patient_name' => $validated['patient_name'],
-            'blood_type_id' => $validated['blood_type_id'],
-            'phone' => $validated['phone'],
-            'date_of_appointment' => $validated['doa'],
-            'diseases' => $validated['diseases'],
-            'latitude' => $validated['latitude'],
-            'longitude' => $validated['longitude'],
-            'type' => $request->type,
-            'report_date_time' => Carbon::now(),
-            'remark' => $validated['remark'],
-        ]);
+        $validated['hospital_id'] = $nearest_hospital->id;
+        $validated['patient_id'] = $user_id;
+        $validated['admin_id'] =  $admin->id;
+        $validated['type'] = $request->type;
+        $validated['report_date_time'] = Carbon::now();
+        ReportAdmin::create($validated);
         return redirect('/patient')->with('success', 'Reported Successfully!');
     }
 }
