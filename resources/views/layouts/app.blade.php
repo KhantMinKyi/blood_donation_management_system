@@ -92,17 +92,7 @@
           <a class="nav-link" href="{{ url('/donor/aboutUs') }}">About Us</a>
         </li>
 
-        @guest('donor')
-
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url('/donor/signin') }}">Donor Signin</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url('/donor/registerForm') }}">Donor Register</a>
-        </li>
-
-        @endguest
+       
 
         @guest('patient')
 
