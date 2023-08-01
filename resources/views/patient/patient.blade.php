@@ -43,7 +43,7 @@
     @endauth
 
     <p>Learn more about us by clicking this button.</p>
-    <a href="#" class="patient-btn-acc">About us</a>
+    <a href="{{ url('/patient/aboutUs') }}" class="patient-btn-acc">About us</a>
   </div>
 </div> <!--patient-container-->
 

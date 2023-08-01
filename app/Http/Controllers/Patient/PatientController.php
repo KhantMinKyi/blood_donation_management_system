@@ -103,6 +103,11 @@ class PatientController extends Controller
         return view('patient.signin');
     }
 
+    public function aboutUs()
+    {
+        return view('donor.aboutUs');
+    }
+
     public function registerForm()
     {
         $cities = City::all();
