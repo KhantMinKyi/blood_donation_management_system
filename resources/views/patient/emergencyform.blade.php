@@ -19,9 +19,9 @@
               <label class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
 
               <div class="col-md-6">
-                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" required>
+                <input type="text" class="form-control @error('name') is-invalid @enderror" name="patient_name" required>
 
-                @error('name')
+                @error('patient_name')
                 <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
                 </span>
@@ -69,6 +69,44 @@
                 <input type="text" class="form-control @error('disease') is-invalid @enderror" name="diseases" required>
 
                 @error('diseases')
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label class="col-md-4 col-form-label text-md-end">{{ __('City') }}</label>
+
+              <div class="col-md-6">
+                <select name="city_id" class="form-control">
+                  <option value="" selected>Select City</option>
+                  @foreach($cities as $city)
+                  <option value="{{ $city->id }}">{{ $city->name }}</option>
+                  @endforeach
+                </select>
+
+                @error('city_id')
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label class="col-md-4 col-form-label text-md-end">{{ __('Township') }}</label>
+
+              <div class="col-md-6">
+                <select name="township_id" class="form-control">
+                  <option value="" selected>Select Township</option>
+                  @foreach($townships as $township)
+                  <option value="{{ $township->id }}">{{ $township->name }}</option>
+                  @endforeach
+                </select>
+
+                @error('township_id')
                 <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
                 </span>
