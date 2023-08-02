@@ -5,3 +5,7 @@
 .donar-section .donar-list {
   color: var(--text-black-color);
 }
+
+.donor-navbar-dropdown {
+	left: -70%;
+}

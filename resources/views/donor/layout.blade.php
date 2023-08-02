@@ -69,7 +69,7 @@
 
             </ul>
 
-            <ul class="navbar-nav form-inline my-2 my-lg-0">
+            <ul class="navbar-nav form-inline my-2 my-lg-0 donor-nav">
 
 
 
@@ -104,14 +104,14 @@
                 @endguest
 
                 @auth('donor')
-                    <li class="nav-item dropdown nav-item-dropdownlist">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                    <li class="nav-item dropdown nav-item-dropdownlist donor-nav-item-dropdownlist">
+                        <a class="nav-link dropdown-toggle donor-nav-link-dropdown" href="#" id="navbarDropdownMenuLink" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{ auth('donor')->user()->name }}
 
                             <!-- Donor Name -->
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <div class="dropdown-menu donor-navbar-dropdown" aria-labelledby="navbarDropdownMenuLink">
 
                             <a class="dropdown-item" href="user/index.php"><i class="fa fa-user"
                                     aria-hidden="true"></i>Profile</a>
