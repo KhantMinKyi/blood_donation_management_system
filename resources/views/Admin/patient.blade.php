@@ -75,7 +75,7 @@
         <div class="main_content">
             <br><br>
             <div class="container">
-                <H4 class="text-center">Donors</H4><br>
+                <H4 class="text-center">Patients</H4><br>
 
                 <h5 class="text-center" style="color: red;"> Records</h5><br>
 
@@ -96,7 +96,7 @@
                     <tbody>
                         @foreach ($donors as $donor)
                             <tr>
-                                <td>{{ $donor->donor_id }}</td>
+                                <td>{{ $donor->patient_id }}</td>
                                 <td>{{ $donor->name }}</td>
                                 <td>{{ $donor->blood_type->name }}</td>
                                 <td>{{ $donor->gender }}</td>

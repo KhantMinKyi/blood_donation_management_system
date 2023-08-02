@@ -39,6 +39,7 @@ class AdminController extends Controller
         $count_ab_plus = count($blood_type_ab_plus);
         $count_o_plus = count($blood_type_o_plus);
         $count_o_minus = count($blood_type_o_minus);
+        // return $count_a_plus;
         return view('Admin.admin', compact(
             'count_a_plus',
             'count_a_minus',
@@ -135,7 +136,7 @@ class AdminController extends Controller
             return response()->json(['error' => 'Password is Wrong , Try Again']);
         }
         auth('admin')->login($admin);
-        return view('Admin.admin')->with('success', 'Welcome To Our Website ' . $admin->name);
+        return redirect('/admins')->with('success', 'Welcome To Our Website ' . $admin->name);
     }
 
     /**
@@ -245,6 +246,11 @@ class AdminController extends Controller
     {
         $donors = Donor::latest()->get();
         return view('Admin.users', compact('donors'));
+    }
+    public function patients()
+    {
+        $donors = Patient::latest()->get();
+        return view('Admin.patient', compact('donors'));
     }
     public function requestHistory()
     {
