@@ -88,7 +88,7 @@
                             <th scope="col">Request ID</th>
                             <th scope="col">Request Date</th>
                             <th scope="col">User Id</th>
-                            <th scope="col">Unit</th>
+                            <th scope="col">Blood Type</th>
                             <th scope="col">Reasons</th>
                             <th scope="col">Status</th>
                             <th scope="col">Type</th>
@@ -102,7 +102,7 @@
                             <tr>
                                 <td>
                                     <a href={{ url('/admin/admin_blood_request/' . $report->id) }}>
-                                        {{ $report->id }}
+                                        {{ 'BD_PR0000' . $report->id }}
                                     </a>
                                 </td>
                                 <td>{{ $report->report_date_time }}</td>
@@ -111,7 +111,7 @@
                                 @else
                                     <td>Not User </td>
                                 @endif
-                                <td>{{ $report->id }}</td>
+                                <td>{{ $report->blood_type->name }}</td>
                                 <td>{{ $report->remark }}</td>
                                 <td>{{ $report->status }}</td>
                                 <td>{{ Str::upper($report->type) }}</td>

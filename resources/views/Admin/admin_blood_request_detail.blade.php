@@ -274,7 +274,7 @@
                     <tbody>
                         <tr>
                             <td>
-                                {{ $report->id }}
+                                {{ 'BD_PR0000' . $report->id }}
                             </td>
                             <td>{{ $report->report_date_time }}</td>
                             @if (isset($report->patient))
@@ -308,11 +308,11 @@
                         <input type="text" name="" class="form-control" value={{ $report->patient_name }}
                             disabled>
                     </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="" class="text-sm">Patient Age</label>
                         <input type="text" name="" class="form-control" value={{ $report->patient_age }}
                             disabled>
-                    </div>
+                    </div> --}}
                     <div class="form-group">
                         <label for="" class="text-sm">Patient Diseases</label>
                         <input type="text" name="" class="form-control" value={{ $report->diseases }}
@@ -320,7 +320,8 @@
                     </div>
                     <div class="form-group">
                         <label for="" class="text-sm">Patient Remark</label>
-                        <input type="text" name="" class="form-control" value={{ $report->remark }} disabled>
+                        <input type="text" name="" class="form-control"
+                            value={{ $report->remark ? $report->remark : '-' }} disabled>
                     </div>
                     <div class="form-group">
                         <label for="" class="text-sm">Patient Blood Type</label>

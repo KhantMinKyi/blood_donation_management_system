@@ -227,7 +227,10 @@
                             <div class="card-body">
                                 <div class="blood">
                                     <i class="fas fa-spinner"></i>
-                                </div><br>
+                                </div>
+                                <div>
+                                    {{ count($report_admin) }}
+                                </div>
                                 <div>
                                     Pending Requests <br>
                                 </div>

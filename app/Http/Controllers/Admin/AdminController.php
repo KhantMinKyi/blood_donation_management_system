@@ -22,13 +22,14 @@ class AdminController extends Controller
     {
         $donors = Donor::get('blood_type_id');
         $patients = Patient::all();
+        $report_admin = ReportAdmin::where('status', 'pending')->where('admin_id', auth('admin')->user()->id)->get();
         $count_users = count($donors) + count($patients);
         $blood_type_a_plus = Donor::where('blood_type_id', '1')->get();
         $blood_type_a_minus = Donor::where('blood_type_id', '2')->get();
         $blood_type_b_plus = Donor::where('blood_type_id', '3')->get();
         $blood_type_b_minus = Donor::where('blood_type_id', '4')->get();
-        $blood_type_ab_minus = Donor::where('blood_type_id', '5')->get();
-        $blood_type_ab_plus = Donor::where('blood_type_id', '6')->get();
+        $blood_type_ab_plus = Donor::where('blood_type_id', '5')->get();
+        $blood_type_ab_minus = Donor::where('blood_type_id', '6')->get();
         $blood_type_o_plus = Donor::where('blood_type_id', '7')->get();
         $blood_type_o_minus = Donor::where('blood_type_id', '8')->get();
         $count_a_plus = count($blood_type_a_plus);
@@ -49,6 +50,7 @@ class AdminController extends Controller
             'count_ab_plus',
             'count_o_plus',
             'count_o_minus',
+            'report_admin',
             'count_users'
         ));
     }
@@ -182,7 +184,7 @@ class AdminController extends Controller
             ->where('township_id', $hospital->township_id)
             ->where('blood_type_id', $report->blood_type_id)
             ->where('status', 'active')->with('blood_type', 'city', 'township')->get();
-        if (!$donors) {
+        if (!isset($donors[0])) {
             $donors = Donor::where('city_id', $hospital->city_id)
                 ->where('blood_type_id', $report->blood_type_id)
                 ->where('status', 'active')->with('blood_type', 'city', 'township')->get();
@@ -267,8 +269,8 @@ class AdminController extends Controller
         $blood_type_a_minus = Donor::where('blood_type_id', '2')->get();
         $blood_type_b_plus = Donor::where('blood_type_id', '3')->get();
         $blood_type_b_minus = Donor::where('blood_type_id', '4')->get();
-        $blood_type_ab_minus = Donor::where('blood_type_id', '5')->get();
-        $blood_type_ab_plus = Donor::where('blood_type_id', '6')->get();
+        $blood_type_ab_plus = Donor::where('blood_type_id', '5')->get();
+        $blood_type_ab_minus = Donor::where('blood_type_id', '6')->get();
         $blood_type_o_plus = Donor::where('blood_type_id', '7')->get();
         $blood_type_o_minus = Donor::where('blood_type_id', '8')->get();
         $count_a_plus = count($blood_type_a_plus);

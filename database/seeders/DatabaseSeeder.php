@@ -60,6 +60,10 @@ class DatabaseSeeder extends Seeder
             'name' => 'Botahtaung',
             'city_id' => 1
         ]);
+        Township::create([
+            'name' => 'Thanlyin',
+            'city_id' => 1
+        ]);
         Hospital::create([
             'name' => 'Gandi Hospital',
             'latitude' => '16.77157947504272',
@@ -81,7 +85,20 @@ class DatabaseSeeder extends Seeder
             'city_id' => 1,
             'township_id' => 1
         ]);
-
+        Hospital::create([
+            'name' => 'မြို့နယ်ပြည်သူ့ဆေးရုံ၊ သန်လျင်မြို့',
+            'latitude' => '16.75969014798281',
+            'longitude' => '96.25256042553455',
+            'city_id' => 1,
+            'township_id' => 2
+        ]);
+        Hospital::create([
+            'name' => 'ချမ်းမြေ့မေတ္တာဆေးရုံ',
+            'latitude' => '16.772126245074116',
+            'longitude' => '96.25118416569696',
+            'city_id' => 1,
+            'township_id' => 2
+        ]);
         Admin::create([
             'name' => 'admin',
             'user_name' => 'admin',
@@ -110,7 +127,7 @@ class DatabaseSeeder extends Seeder
             'nrc' => '12/abcd(C)12345',
             'status' => 'active',
             'remark' => 'admin remark',
-            'hospital_id' => 3,
+            'hospital_id' => 2,
             'latitude' => '16.77157947504272',
             'longitude' => '96.17471875366536',
         ]);
@@ -126,9 +143,41 @@ class DatabaseSeeder extends Seeder
             'nrc' => '12/abcd(C)12345',
             'status' => 'active',
             'remark' => 'admin remark',
-            'hospital_id' => 2,
+            'hospital_id' => 3,
             'latitude' => '16.77157947504272',
             'longitude' => '96.17471875366536',
+        ]);
+        Admin::create([
+            'name' => 'admin4',
+            'user_name' => 'admin4',
+            'admin_id' => 'BD_A0004',
+            'email' => 'admin4@gmail.com',
+            'password' => Hash::make('admin'),
+            'phone' => '09879025363',
+            'gender' => 'male',
+            'dob' => '1999.09.09',
+            'nrc' => '12/abcd(C)12345',
+            'status' => 'active',
+            'remark' => 'admin remark',
+            'hospital_id' => 4,
+            'latitude' => '16.75969014798281',
+            'longitude' => '96.25256042553455',
+        ]);
+        Admin::create([
+            'name' => '5',
+            'user_name' => 'admin5',
+            'admin_id' => 'BD_A0005',
+            'email' => 'admin5@gmail.com',
+            'password' => Hash::make('admin'),
+            'phone' => '09879025363',
+            'gender' => 'male',
+            'dob' => '1999.09.09',
+            'nrc' => '12/abcd(C)12345',
+            'status' => 'active',
+            'remark' => 'admin remark',
+            'hospital_id' => 5,
+            'latitude' => '16.772126245074116',
+            'longitude' => '96.25118416569696',
         ]);
         Donor::create([
             'name' => 'donor',
@@ -187,5 +236,8 @@ class DatabaseSeeder extends Seeder
             'latitude' => '16.77875476501006',
             'longitude' => '96.15071654766246',
         ]);
+
+        \App\Models\Donor::factory(20)->create();
+        \App\Models\Patient::factory(20)->create();
     }
 }
