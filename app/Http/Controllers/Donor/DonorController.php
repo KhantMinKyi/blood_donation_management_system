@@ -75,7 +75,8 @@ class DonorController extends Controller
      */
     public function edit($id)
     {
-        //
+        $donor = Donor::find($id);
+        return view('donor.edit', compact('donor'));
     }
 
     /**
