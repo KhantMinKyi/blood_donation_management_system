@@ -97,6 +97,15 @@ class DonorController extends Controller
         return redirect('/donor')->with('success', 'Update Successfully' . $donor->name);
     }
 
+    //donor's specified profile
+    //@param  int  $id
+    public function profile($id)
+    {   
+        $donor = Donor::find($id);
+        if (auth('admin')->user() or auth('donor')->user()->id == $donor->id) return view('donor.profile', compact('donor'));
+        return redirect()->back()->with('success', 'You does not access to view other donor profiles');
+    }
+
     /**
      * Remove the specified resource from storage.
      *

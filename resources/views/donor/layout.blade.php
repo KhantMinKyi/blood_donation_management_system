@@ -113,7 +113,7 @@
                         </a>
                         <div class="dropdown-menu donor-navbar-dropdown" aria-labelledby="navbarDropdownMenuLink">
 
-                            <a class="dropdown-item" href="user/index.php"><i class="fa fa-user"
+                            <a class="dropdown-item" href='{{ url("donor/profile/" . auth('donor')->user()->id) }}'><i class="fa fa-user"
                                     aria-hidden="true"></i>Profile</a>
 
                             <a class="dropdown-item" href="user/update.php"><i class="fa fa-edit" aria-hidden="true"></i>
