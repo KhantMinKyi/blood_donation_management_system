@@ -16,6 +16,10 @@
     <link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
     <!-- Custom Link CSS Files -->
     <link rel="stylesheet" href="{{ asset('admincss/home.css') }}">
+    <link rel="stylesheet" href="src/leaflet.css" />
+    <link rel="stylesheet" href="dist/leaflet-locationpicker.src.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+        integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
     <style>
         hr {
             margin: 3px;
@@ -75,7 +79,7 @@
         }
 
         .map {
-            height: 100%;
+            height: 90%;
         }
 
         .header-donor {
@@ -353,17 +357,18 @@
                 <div class="patient-map">
                     <div>
                         <h4>Patient Location</h4>
-                        <h6>{{ $report->distance_patient . 'Km Away from Hsopital' }} </h6>
+                        <h6><b>{{ $report->distance_patient . ' Km Away from Hospital' }}</b> </h6>
                         <hr>
                     </div>
                     <div class="map">
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3819.9640634569155!2d96.15333890175206!3d16.77846342968354!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30c1ec8182d104e5%3A0x348434ab8f230295!2sDIAMOND%20BEAUTY!5e0!3m2!1sen!2smm!4v1689825340891!5m2!1sen!2smm"
-                            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <div id="map" class="map"></div>
                     </div>
 
                 </div>
+            </div>
+            <div>
+
+
             </div>
             <hr>
             <div>
@@ -372,21 +377,28 @@
                     @foreach ($near_donors as $key => $near_donor)
                         <div class="donor-info">
                             <div class="distance">
-                                <h6>{{ $near_donor->distance_hospital . 'Km Away from Hsopital' }} </h6>
+                                <h6><b>{{ $near_donor->distance_hospital . ' Km Away from Hospital' }}</b> </h6>
                             </div>
                             <div class="buttom-div">
-                                <button class="buttom" onclick="showModel({{ $key }})">Contact</button>
+                                <button class="buttom"
+                                    onclick="showModel({{ $key }},{{ $near_donor->latitude }},{{ $near_donor->longitude }})">Contact</button>
                             </div>
                             <div class="form-group">
                                 <label for="" class="text-sm">Donor Name</label>
                                 <input type="text" name="" class="form-control"
-                                    value={{ $near_donor->name }} disabled>
+                                    value="{{ $near_donor->name }}" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="text-sm">Donor Name</label>
+                                <input type="text" name="" class="form-control"
+                                    value=" {{ $near_donor->latitude }}" disabled>
                             </div>
                             <div class="form-group">
                                 <label for="" class="text-sm">Donor Blood Type</label>
                                 <input type="text" name="" class="form-control"
                                     value={{ $near_donor->blood_type->name }} disabled>
                             </div>
+
                             <div class="form-group">
                                 <label for="" class="text-sm">Donor Phone Number</label>
                                 <input type="text" name="" class="form-control"
@@ -406,17 +418,12 @@
                                 <label for="" class="text-sm">Donor Remark</label>
                                 <input type="text" name="" class="form-control"
                                     value={{ $near_donor->remark }} disabled>
+
                             </div>
                             <div class="form-group">
                                 <label for="" class="text-sm">Donor Township</label>
                                 <input type="text" name="" class="form-control"
                                     value={{ $near_donor->township->name }} disabled>
-                            </div>
-                            <div>
-                                <iframe class="donor-map"
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3819.9640634569155!2d96.15333890175206!3d16.77846342968354!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30c1ec8182d104e5%3A0x348434ab8f230295!2sDIAMOND%20BEAUTY!5e0!3m2!1sen!2smm!4v1689825340891!5m2!1sen!2smm"
-                                    width="600" height="450" style="border:0;" allowfullscreen=""
-                                    loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                             </div>
                             <!-- The Modal -->
                             <div id="myModal{{ $key }}" class="modal">
@@ -429,6 +436,9 @@
                                             <h6>ဆက်သွယ်ရန်ဖုန်းနံပါတ် - {{ $near_donor->phone }}</h6>
                                             <h6>အနီးဆုံး အကွာအဝေး - {{ $near_donor->distance_hospital . 'Km' }}</h6>
                                             <h6>ဆက်သွယ်ရန် သွေးအလှုရှင်၏ လိပ်စာ - {{ $near_donor->address }}</h6>
+                                        </div>
+                                        <div>
+                                            <div id="donor-map{{ $key }}" class="donor-map"></div>
                                         </div>
                                         <div class="model_btn">
                                             <form action={{ url('/admin/report_donor') }} method="post">
@@ -455,6 +465,7 @@
                             </div>
                         </div>
                     @endforeach
+
                 </div>
             </div>
 
@@ -462,10 +473,41 @@
         </div>
 
     </div>
+    <!-- JQuery File -->
+    <script type="text/javascript" src="{{ asset('js/jquery.js') }}"></script>
+
+    <!-- BootStrap JS File-->
+    <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
+
+    <!-- Fontawesome Icon JS-->
+    <script defer src="{{ asset('js/all.js') }}"></script>
+    <script src="http://code.jquery.com/jquery.min.js"></script>
+    <script src="src/jquery.min.js"></script>
+    <script src="src/leaflet.js"></script>
+    <script src="dist/leaflet-locationpicker.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+        integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.3/leaflet-src.js"
+        integrity="sha512-fpi1rrlFr2rHd73hMSMXVnwSHViuYx19zS0NDn6awKeMuQZk7JU4UpyR44bSqGZxzDMzBnVEewram7ZGwhRbZQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.3/leaflet-src.js.map"></script>
+
     <script>
-        function showModel(key) {
+        function showModel(key, donorLat, donorLong) {
             var modal = document.getElementById("myModal" + key);
             modal.style.display = "block";
+            var map = L.map('donor-map' + key).setView([{{ $report->latitude }}, {{ $report->longitude }}], 10);
+
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+            L.marker([donorLat, donorLong]).addTo(map)
+                .bindPopup('Patient Location')
+                .openPopup();
+            L.circleMarker([{{ $report->admin->hospital->latitude }}, {{ $report->admin->hospital->longitude }}]).addTo(
+                    map)
+                .bindPopup('Hospital Location')
+                .openPopup();
         }
 
         function closeModel(key) {
@@ -483,15 +525,21 @@
         }
     </script>
 
-    <!-- JQuery File -->
-    <script type="text/javascript" src="{{ asset('js/jquery.js') }}"></script>
 
-    <!-- BootStrap JS File-->
-    <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script>
+        var map = L.map('map').setView([{{ $report->latitude }}, {{ $report->longitude }}], 10);
 
-    <!-- Fontawesome Icon JS-->
-    <script defer src="{{ asset('js/all.js') }}"></script>
-
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        L.marker([{{ $report->latitude }}, {{ $report->longitude }}]).addTo(map)
+            .bindPopup('Patient Location')
+            .openPopup();
+        L.circleMarker([{{ $report->admin->hospital->latitude }}, {{ $report->admin->hospital->longitude }}]).addTo(map)
+            .bindPopup('Hospital Location')
+            .openPopup();
+    </script>
+    <script></script>
 
 </body>
 
