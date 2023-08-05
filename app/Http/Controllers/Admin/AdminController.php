@@ -191,7 +191,17 @@ class AdminController extends Controller
     }
     public function users()
     {
+<<<<<<< Updated upstream
         return view('Admin.users');
+=======
+        $donors = Donor::orderBy('blood_type_id')->get();
+        return view('Admin.users', compact('donors'));
+    }
+    public function patients()
+    {
+        $donors = Patient::orderBy('blood_type_id')->get();
+        return view('Admin.patient', compact('donors'));
+>>>>>>> Stashed changes
     }
     public function requestHistory()
     {
