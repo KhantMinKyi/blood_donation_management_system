@@ -1,0 +1,41 @@
+.about-section {
+  background-color: var(--background-grey-color);
+}
+
+.about-section h1 {
+  color: var(--text-black-color);
+}
+
+.about-section p {
+  color: var(--text-black-color);
+}
+
+.about-section .size{
+  min-height: 0px;
+  padding: 60px 0 40px 0;
+}
+.about-section img{
+  width: 300px;
+  height: 300px;
+}
+.about-section h2{
+  color: #e74c3c;
+}
+.about-section .white{
+  background-color: white;
+}
+.about-section {
+  font-size: 18px;
+}
+.about-section .right{
+  float: right;
+}
+.about-section h1{
+  color: white;
+}
+
+.about-section .about-us-text {
+  font-weight: 400;
+  font-size: 45px;
+  color: #000000;
+}

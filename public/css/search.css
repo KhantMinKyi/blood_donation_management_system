@@ -1,0 +1,7 @@
+.search-section {
+  background-color: var(--background-grey-color);
+}
+
+.search-section .search-title {
+  color: var(--text-black-color);
+}
