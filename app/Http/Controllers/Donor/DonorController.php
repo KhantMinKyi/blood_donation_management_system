@@ -79,6 +79,12 @@ class DonorController extends Controller
         return view('donor.edit', compact('donor'));
     }
 
+    //Donation History Page of specified donor
+    public function history($id) 
+    {
+        return "coming soon donation history page of donor";
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -91,7 +97,7 @@ class DonorController extends Controller
         $validated = $request->validated();
         $donor = Donor::find($id);
         if (!$donor) {
-            return redirect()->back()->with('error',  'User Not Found');
+            return redirect()->back()->with('success',  'User Not Found');
         }
         $validated['donor_id'] = $request->donor_id;
         $donor->update($validated);

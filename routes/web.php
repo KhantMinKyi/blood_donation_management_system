@@ -66,6 +66,7 @@ Route::get('/donor/bloodRequest', [DonorController::class, 'bloodRequest']);
 Route::get('/donor', [DonorController::class, 'donorHomePage']);
 Route::get('/donor/profile/{id}', [DonorController::class, 'profile']);
 Route::get('/donor/aboutUs', [DonorController::class, 'aboutUs']);
+Route::get('/donor/history/{id}', [DonorController::class, 'history']);
 Route::get('/donor/loginform', [DonorController::class, 'loginform']);
 Route::get('/donor/registerForm', [DonorController::class, 'registerForm']);
 Route::post('/donor/register', [DonorController::class, 'register']);
