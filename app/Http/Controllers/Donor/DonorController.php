@@ -11,6 +11,7 @@ use Stevebauman\Location\Facades\Location;
 use App\Http\Requests\StoreUpdateDonorRequest;
 use App\Models\BloodType;
 use App\Models\City;
+use App\Models\ReportDonor;
 use App\Models\Township;
 
 class DonorController extends Controller
@@ -107,7 +108,7 @@ class DonorController extends Controller
     //donor's specified profile
     //@param  int  $id
     public function profile($id)
-    {   
+    {
         $donor = Donor::find($id);
         if (auth('admin')->user() or auth('donor')->user()->id == $donor->id) return view('donor.profile', compact('donor'));
         return redirect()->back()->with('success', 'You does not access to view other donor profiles');
@@ -126,7 +127,10 @@ class DonorController extends Controller
 
     public function bloodRequest()
     {
-        return view('donor.bloodRequest');
+        $donor_id = auth('donor')->user()->id;
+        $blood_request = ReportDonor::where('id', $donor_id)->where('status', 'pending')->get();
+        // return $blood_request;
+        return view('donor.bloodRequest', compact('blood_request'));
     }
 
     //view location of loginform method Edited by znt on 5 july
@@ -173,5 +177,20 @@ class DonorController extends Controller
     {
         auth('donor')->logout();
         return redirect('/')->with('success', 'Your Are Successfully Logout');
+    }
+    public function StoreBloodRequest(Request $request)
+    {
+        $validated = $request->validate([
+            'status' => 'required',
+            'donor_confirm' => 'required',
+        ]);
+        $donor_id = auth('donor')->user()->id;
+        $report = ReportDonor::find($request->report_id);
+        if (!$report) {
+            return redirect()->back()->with('error', 'Report Not Found');
+        }
+        $report->update($validated);
+        // return $blood_request;
+        return view('donor.bloodRequest');
     }
 }

@@ -26,7 +26,7 @@ return new class extends Migration
             $table->enum('donor_confirm', ['done', 'undone', 'done_by_phone']);
             $table->text('remark')->nullable();
             $table->dateTime('report_date_time');
-            $table->dateTime('confirm_date_time');
+            $table->dateTime('confirm_date_time')->nullable();
             $table->timestamps();
         });
     }

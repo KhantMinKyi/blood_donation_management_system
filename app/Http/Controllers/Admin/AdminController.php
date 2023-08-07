@@ -7,7 +7,9 @@ use App\Models\Admin;
 use App\Models\Donor;
 use App\Models\Patient;
 use App\Models\ReportAdmin;
+use App\Models\ReportDonor;
 use App\Services\DistanceCalculatorServices;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -225,12 +227,19 @@ class AdminController extends Controller
             'report_type' => 'required'
         ]);
         $admin_report = ReportAdmin::with('hospital', 'patient', 'admin')->find($validated['admin_report_id']);
-        $donor = Donor::find($validated['donor_id']);
-        return response()->json([
-            'admin_report' => $admin_report,
-            'donor' => $donor,
-            'report_type' => $validated['report_type']
-        ]);
+        if (!$admin_report) {
+            return redirect()->back()->with('error', 'Report Not Found');
+        }
+        $validated['hospital_id'] = $admin_report->hospital_id;
+        $validated['blood_type_id'] = $admin_report->blood_type_id;
+        $validated['admin_id'] = $admin_report->admin_id;
+        $validated['type'] = $admin_report->type;
+        $validated['donor_confirm'] = 'undone';
+        $validated['remark'] = $admin_report->remark;
+        $validated['report_date_time'] = Carbon::now();
+        ReportDonor::create($validated);
+        // $report_donor = ReportDonor::with('admin', 'hospital', 'donor', 'patient', 'admin_report', 'blood_type')->get();
+        return redirect()->back()->with('success', 'Successfully Contact To Donor');
     }
 
     /**

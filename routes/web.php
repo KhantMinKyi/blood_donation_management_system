@@ -62,7 +62,6 @@ Route::get('/donor/signin', function () {
     return view('donor.signin');
 });
 //End of New Temporary Route (Donor Home Page) added by znt on 5th July
-Route::get('/donor/bloodRequest', [DonorController::class, 'bloodRequest']);
 Route::get('/donor', [DonorController::class, 'donorHomePage']);
 Route::get('/donor/profile/{id}', [DonorController::class, 'profile']);
 Route::get('/donor/aboutUs', [DonorController::class, 'aboutUs']);
@@ -74,6 +73,8 @@ Route::post('/donor/login', [DonorController::class, 'login']);
 Route::group(['middleware' => ['donor']], function () {
     Route::resource('donors', DonorController::class);
     Route::get('/donor/logout', [DonorController::class, 'logout']);
+    Route::get('/donor/bloodRequest', [DonorController::class, 'bloodRequest']);
+    Route::post('/donor/bloodRequest', [DonorController::class, 'StoreBloodRequest']);
 });
 
 //Admin Route

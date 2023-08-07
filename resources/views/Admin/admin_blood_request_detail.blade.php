@@ -15,6 +15,7 @@
     <!--Fontawesome Link CSS Files-->
     <link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
     <!-- Custom Link CSS Files -->
+    {{-- Map Css --}}
     <link rel="stylesheet" href="{{ asset('admincss/home.css') }}">
     <link rel="stylesheet" href="src/leaflet.css" />
     <link rel="stylesheet" href="dist/leaflet-locationpicker.src.css" />
@@ -478,8 +479,9 @@
 
     <!-- BootStrap JS File-->
     <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
-
     <!-- Fontawesome Icon JS-->
+
+    {{-- Start Map CDN Script --}}
     <script defer src="{{ asset('js/all.js') }}"></script>
     <script src="http://code.jquery.com/jquery.min.js"></script>
     <script src="src/jquery.min.js"></script>
@@ -491,7 +493,7 @@
         integrity="sha512-fpi1rrlFr2rHd73hMSMXVnwSHViuYx19zS0NDn6awKeMuQZk7JU4UpyR44bSqGZxzDMzBnVEewram7ZGwhRbZQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.3/leaflet-src.js.map"></script>
-
+    {{-- End Map CDN Script --}}
     <script>
         function showModel(key, donorLat, donorLong) {
             var modal = document.getElementById("myModal" + key);
@@ -524,8 +526,7 @@
             }
         }
     </script>
-
-
+    {{-- Map Script --}}
     <script>
         var map = L.map('map').setView([{{ $report->latitude }}, {{ $report->longitude }}], 10);
 
@@ -539,7 +540,6 @@
             .bindPopup('Hospital Location')
             .openPopup();
     </script>
-    <script></script>
 
 </body>
 
