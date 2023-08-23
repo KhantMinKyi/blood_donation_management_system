@@ -69,31 +69,42 @@
 
             </ul>
 
-            <ul class="navbar-nav form-inline my-2 my-lg-0">
+            <ul class="navbar-nav form-inline my-2 my-lg-0 donor-nav">
 
 
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/') }}">Home</a>
+                    <a class="nav-link" href="{{ url('/patient') }}">Home</a>
                 </li>
 
-                @auth('donor')
+                <!-- @auth('donor')
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/donor/bloodRequest') }}">Blood Request</a>
                     </li>
-                @endauth
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/donor/history/' . auth('donor')->user()->id) }}">History</a>
+                    </li>
+                @endauth -->
 
                 @auth('patient')
-                    <li class="nav-item">
+                <li class="nav-item">
                         <a class="nav-link" href="{{ url('/patient/history') }}">History</a>
                     </li>
                 @endauth
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/donor/aboutUs') }}">About Us</a>
+                    <a class="nav-link" href="{{ url('/patient/aboutUs') }}">About Us</a>
                 </li>
 
+                <!-- @guest('donor')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/donor/signin') }}">Donor Signin</a>
+                    </li>
 
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/donor/registerForm') }}">Donor Register</a>
+                    </li>
+                @endguest -->
 
                 @guest('patient')
                     <li class="nav-item">
@@ -105,18 +116,20 @@
                     </li>
                 @endguest
 
-                @auth('donor')
-                    <li class="nav-item dropdown nav-item-dropdownlist">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                <!-- @auth('donor')
+                    <li class="nav-item dropdown nav-item-dropdownlist donor-nav-item-dropdownlist">
+                        <a class="nav-link dropdown-toggle donor-nav-link-dropdown" href="#" id="navbarDropdownMenuLink" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Donor Name <!-- Donor Name -->
+                            {{ auth('donor')->user()->name }}
+
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <div class="dropdown-menu donor-navbar-dropdown" aria-labelledby="navbarDropdownMenuLink">
 
-                            <a class="dropdown-item" href="user/index.php"><i class="fa fa-user"
-                                    aria-hidden="true"></i>Profile</a>
+                            <a class="dropdown-item" href='{{ url("donor/profile/" . auth('donor')->user()->id) }}'><i class="fa fa-user"
+                                    aria-hidden="true"></i>
+                                    Profile</a>
 
-                            <a class="dropdown-item" href="user/update.php"><i class="fa fa-edit" aria-hidden="true"></i>
+                            <a class="dropdown-item" href="{{ url("donors/" . auth('donor')->user()->id) . "/edit" }}"><i class="fa fa-edit" aria-hidden="true"></i>
                                 Update Profile</a>
 
                             <a class="dropdown-item" href="{{ url('donor/logout') }}">
@@ -125,15 +138,15 @@
                                 Logout</a>
                         </div>
                     </li>
-                @endauth
+                @endauth -->
 
                 @auth('patient')
-                    <li class="nav-item dropdown nav-item-dropdownlist">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                    <li class="nav-item dropdown nav-item-dropdownlist donor-nav-item-dropdownlist">
+                        <a class="nav-link dropdown-toggle donor-nav-link-dropdown" href="#" id="navbarDropdownMenuLink" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{ auth('patient')->user()->name }} <!-- Patient Name -->
+                            {{ auth('patient')->user()->name }}
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <div class="dropdown-menu donor-navbar-dropdown" aria-labelledby="navbarDropdownMenuLink">
 
                             <a class="dropdown-item" href="{{ url("patient/profile/" . auth('patient')->user()->id) }}"><i class="fa fa-user"
                                     aria-hidden="true"></i>Profile</a>

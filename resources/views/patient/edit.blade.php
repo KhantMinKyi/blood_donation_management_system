@@ -4,20 +4,20 @@
 
 <div class="container-fluid red-background size signin-section">
   <div class="row justify-content-center">
-    <div class="col-lg-6 col-md-8 col-sm-12">
-      <h2 class="h2 text-center">Become a Patient</h2>
+  <div class="col-lg-6 col-md-8 col-sm-12">
+      <h2 class="h2 text-center">Edit {{ $patient->name }} Profile</h2>
       <div class="card">
         <div class="card-header">{{ __('Patient Register Page') }}</div>
 
         <div class="card-body">
-          <form method="POST" action="{{ url('/patient/register') }}">
+          <form method="POST" action="">
             @csrf
 
             <div class="row mb-3">
               <label class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
 
               <div class="col-md-6">
-                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" required>
+                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $patient->name }}" required>
 
                 @error('name')
                 <span class="invalid-feedback" role="alert">
@@ -31,7 +31,7 @@
               <label class="col-md-4 col-form-label text-md-end">{{ __('User Name') }}</label>
 
               <div class="col-md-6">
-                <input type="text" class="form-control @error('user_name') is-invalid @enderror" name="user_name" required>
+                <input type="text" class="form-control @error('user_name') is-invalid @enderror" name="user_name" value="{{ $patient->user_name }}" required>
 
                 @error('user_name')
                 <span class="invalid-feedback" role="alert">
@@ -45,7 +45,7 @@
               <label class="col-md-4 col-form-label text-md-end">{{ __('Email') }}</label>
 
               <div class="col-md-6">
-                <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" required>
+                <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $patient->email }}" required>
 
                 @error('email')
                 <span class="invalid-feedback" role="alert">
@@ -60,7 +60,7 @@
               <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
               <div class="col-md-6">
-                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" value="">
+                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ $patient->password }}" required autocomplete="current-password" value="">
 
                 @error('password')
                 <span class="invalid-feedback" role="alert">
@@ -74,7 +74,7 @@
               <label class="col-md-4 col-form-label text-md-end">{{ __('Phone') }}</label>
 
               <div class="col-md-6">
-                <input type="phone" class="form-control @error('phone') is-invalid @enderror" name="phone" required>
+                <input type="phone" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ $patient->phone }}" required>
 
                 @error('phone')
                 <span class="invalid-feedback" role="alert">
@@ -106,7 +106,7 @@
               <label class="col-md-4 col-form-label text-md-end">{{ __('Date Of Birth') }}</label>
 
               <div class="col-md-6">
-                <input type="date" class="form-control @error('dob') is-invalid @enderror" name="dob" required>
+                <input type="date" class="form-control @error('dob') is-invalid @enderror" name="dob" value="{{ $patient->dob }}" required>
 
                 @error('dob')
                 <span class="invalid-feedback" role="alert">
@@ -120,7 +120,7 @@
               <label class="col-md-4 col-form-label text-md-end">{{ __('NRC') }}</label>
 
               <div class="col-md-6">
-                <input type="text" class="form-control @error('nrc') is-invalid @enderror" name="nrc" required>
+                <input type="text" class="form-control @error('nrc') is-invalid @enderror" name="nrc" value="{{ $patient->nrc }}" required>
 
                 @error('nrc')
                 <span class="invalid-feedback" role="alert">
@@ -153,10 +153,10 @@
 
               <div class="col-md-6">
                 <select name="blood_type_id" class="form-control">
-                  <option value="" selected>Select a Blood Type</option>
-                  @foreach($blood_types as $blood_type)
-                  <option value="{{ $blood_type->id }}">{{ $blood_type->name }}</option>
-                  @endforeach
+                  <option value="" selected>still in progress</option>
+                  
+                  <option value=""></option>
+                  
                 </select>
 
                 @error('blood_type_id')
@@ -167,15 +167,16 @@
               </div>
             </div>
 
+
+
             <div class="row mb-3">
               <label class="col-md-4 col-form-label text-md-end">{{ __('City') }}</label>
 
               <div class="col-md-6">
                 <select name="city_id" class="form-control">
-                  <option value="" selected>Select City</option>
-                  @foreach($cities as $city)
-                  <option value="{{ $city->id }}">{{ $city->name }}</option>
-                  @endforeach
+                <option value="" selected>still in progress</option>
+                  
+                  <option value=""></option>
                 </select>
 
                 @error('city_id')
@@ -191,10 +192,9 @@
 
               <div class="col-md-6">
                 <select name="township_id" class="form-control">
-                  <option value="" selected>Select Township</option>
-                  @foreach($townships as $township)
-                  <option value="{{ $township->id }}">{{ $township->name }}</option>
-                  @endforeach
+                <option value="" selected>still in progress</option>
+                  
+                  <option value=""></option>
                 </select>
 
                 @error('township_id')
@@ -209,7 +209,7 @@
               <label class="col-md-4 col-form-label text-md-end">{{ __('Remark') }}</label>
 
               <div class="col-md-6">
-                <textarea name="remark" cols="30" rows="3" class="form-control @error('remark') is-invalid @enderror"></textarea>
+                <textarea name="remark" cols="30" rows="3" class="form-control @error('remark') is-invalid @enderror"> {{ $patient->remark }} </textarea>
 
                 @error('remark')
                 <span class="invalid-feedback" role="alert">
@@ -223,7 +223,7 @@
               <label class="col-md-4 col-form-label text-md-end">{{ __('Disease') }}</label>
 
               <div class="col-md-6">
-                <textarea name="disease" cols="30" rows="3" class="form-control @error('disease') is-invalid @enderror"></textarea>
+                <textarea name="disease" cols="30" rows="3" class="form-control @error('disease') is-invalid @enderror"> {{ $patient->disease }} </textarea>
 
                 @error('disease')
                 <span class="invalid-feedback" role="alert">
@@ -237,7 +237,7 @@
               <label class="col-md-4 col-form-label text-md-end">{{ __('Address') }}</label>
 
               <div class="col-md-6">
-                <textarea name="address" cols="30" rows="3" class="form-control @error('address') is-invalid @enderror" required></textarea>
+                <textarea name="address" cols="30" rows="3" class="form-control @error('address') is-invalid @enderror" required> {{ $patient->address }} </textarea>
 
                 @error('address')
                 <span class="invalid-feedback" role="alert">
@@ -252,7 +252,7 @@
                 <label class="col-md-4 col-form-label text-md-end">{{ __('Latitude') }}</label>
 
                 <div class="col-md-6">
-                  <input type="text" class="form-control @error('latitude') is-invalid @enderror" name="latitude" id="latId" required readonly>
+                  <input type="text" class="form-control @error('latitude') is-invalid @enderror" name="latitude" value="{{ $patient->latitude }}" id="latId" required readonly>
 
                   @error('latitude')
                   <span class="invalid-feedback" role="alert">
@@ -266,7 +266,7 @@
                 <label class="col-md-4 col-form-label text-md-end">{{ __('Longitude') }}</label>
 
                 <div class="col-md-6">
-                  <input type="text" class="form-control @error('longitude') is-invalid @enderror" name="longitude" id="longId" required readonly>
+                  <input type="text" class="form-control @error('longitude') is-invalid @enderror" name="longitude" value="{{ $patient->longitude }}" id="longId" required readonly>
 
                   @error('longitude')
                   <span class="invalid-feedback" role="alert">
@@ -280,10 +280,10 @@
             <div class="row mb-0">
               <div class="col-md-8 offset-md-4">
                 <button type="button" class="btn btn-primary" onclick="getLocation()">
-                  {{ __('Get Location') }}
+                  {{ __('Update Location') }}
                 </button>
                 <button type="submit" class="btn btn-primary">
-                  {{ __('Register') }}
+                  {{ __('Update Profile') }}
                 </button>
               </div>
             </div>
@@ -291,6 +291,9 @@
         </div>
       </div>
     </div>
+      
+      
+    
   </div>
 </div>
 

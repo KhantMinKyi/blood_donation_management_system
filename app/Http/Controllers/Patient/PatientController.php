@@ -24,7 +24,7 @@ class PatientController extends Controller
      */
     public function index()
     {
-        //
+        return Patient::where('id', auth('patient')->user()->id)->get();
     }
 
     /**
@@ -67,7 +67,8 @@ class PatientController extends Controller
      */
     public function edit($id)
     {
-        //
+        $patient = Patient::find($id);
+        return view('patient.edit', compact('patient'));
     }
 
     /**
@@ -77,9 +78,25 @@ class PatientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreUpdatePatientRequest $request, $id)
     {
-        //
+        $validated = $request->validated();
+        $patient = Patient::find($id);
+        if (!$patient) {
+            return redirect()->back()->with('success',  'User Not Found');
+        }
+        $validated['patient_id'] = $request->patient_id;
+        $patient->update($validated);
+        return redirect('/patient')->with('success', 'Update Successfully' . $patient->name);
+    }
+
+    //patient's specified profile
+    //@param  int  $id
+    public function profile($id)
+    {
+        $patient = Patient::find($id);
+        if (auth('admin')->user() or auth('patient')->user()->id == $patient->id) return view('patient.profile', compact('patient'));
+        return redirect()->back()->with('success', 'You does not access to view other patient profiles');
     }
 
     /**
@@ -105,7 +122,7 @@ class PatientController extends Controller
 
     public function aboutUs()
     {
-        return view('donor.aboutUs');
+        return view('patient.aboutUs');
     }
 
     public function registerForm()

@@ -84,6 +84,7 @@ Route::get('/homepage', function () {
 
 //Patient Route
 Route::get('/patient', [PatientController::class, 'patientform']);
+Route::get('/patient/profile/{id}', [PatientController::class, 'profile']);
 Route::get('/patient/signin', [PatientController::class, 'signin']);
 Route::get('/patient/registerForm', [PatientController::class, 'registerForm']);
 Route::post('/patient/register', [PatientController::class, 'register']);
