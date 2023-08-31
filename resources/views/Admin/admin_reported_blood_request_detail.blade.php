@@ -142,6 +142,7 @@
         }
 
         .modal {
+
             background-color: rgb(0, 0, 0);
             /* Fallback color */
             background-color: rgba(0, 0, 0, 0.4);
@@ -221,32 +222,11 @@
             padding: 8px 12px;
             border-radius: 10px;
             cursor: pointer;
-            background-color: white;
         }
 
         .btn_cancel_report:hover {
             background-color: #f44336;
             box-shadow: #000;
-        }
-
-        .btn_cancel_report_back {
-            border: 1.5px solid #2196F3;
-            padding: 8px 12px;
-            border-radius: 10px;
-            cursor: pointer;
-            background-color: white;
-        }
-
-        .btn_cancel_report_back:hover {
-            background-color: #2196F3;
-            box-shadow: #000;
-        }
-
-        .cancel_model_btn_div {
-            display: flex;
-            justify-content: center;
-            gap: 8%;
-            margin-bottom: 20px;
         }
     </style>
 
@@ -274,26 +254,6 @@
         <div class="main_content">
             <br><br>
             <div class="container">
-                <div id="cancelModel" class="modal">
-                    <!-- Modal content -->
-                    <div class="modal-content">
-                        <div class="model_div">
-                            <span class="close" onclick=closeCancelModel()>&times;</span>
-                            <div style="margin-top: 20px;margin-left: 40px;">
-                                <h6>Are You Sure Want to Cancel</h6>
-                            </div>
-                            <div class="cancel_model_btn_div">
-                                <form action="/admin/admin_cancel_report" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="admin_report_id" value="{{ $report->id }}">
-                                    <input type="submit" value="Cancel Report" class="btn_cancel_report">
-                                </form>
-                                <button class="btn_cancel_report_back" onclick=closeCancelModel()>Go Back</button>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
                 <H4 class="text-center">Blood Requests</H4><br>
 
                 <h5 class="text-center" style="color: red;"> Records</h5><br>
@@ -301,15 +261,16 @@
                 <table class="table table-light table-hover table-bordered table-striped">
                     <thead class="bg-info">
                         <tr>
+
+
                             <th scope="col">Request ID</th>
                             <th scope="col">Request Date</th>
-                            <th scope="col">User Id</th>
-                            <th scope="col">Unit</th>
+                            <th scope="col">Donor Id</th>
+                            <th scope="col">Blood Type</th>
                             <th scope="col">Reasons</th>
                             <th scope="col">Type</th>
                             <th scope="col">Appoint Date</th>
                             <th scope="col">Status</th>
-                            <th scope="col">Action</th>
 
                         </tr>
                     </thead>
@@ -317,18 +278,18 @@
                     <tbody>
                         <tr>
                             <td>
-                                {{ 'BD_PR0000' . $report->id }}
+                                {{ 'BD_DR0000' . $donor_report->id }}
                             </td>
-                            <td>{{ $report->report_date_time }}</td>
-                            @if (isset($report->patient))
-                                <td>{{ $report->patient->patient_id }}</td>
+                            <td>{{ $donor_report->report_date_time }}</td>
+                            @if (isset($donor_report->donor))
+                                <td>{{ $donor_report->donor->donor_id }}</td>
                             @else
                                 <td>Not User </td>
                             @endif
-                            <td>{{ $report->id }}</td>
-                            <td>{{ $report->remark }}</td>
+                            <td>{{ $donor_report->admin_report->blood_type->name }}</td>
+                            <td>{{ $donor_report->remark }}</td>
                             <td>{{ Str::upper($report->type) }}</td>
-                            <td>{{ $report->date_of_appointment ? date('d-m-yy', strToTime($report->date_of_appointment)) : '-' }}
+                            <td>{{ $donor_report->admin_report->date_of_appointment ? date('d-m-yy', strToTime($report->date_of_appointment)) : '-' }}
                             </td>
                             <td>{{ $report->status }}</td>
                             {{-- <td>
@@ -338,9 +299,6 @@
                                     <button class="btn_cancel_report">Cancel</button>
                                 </form>
                             </td> --}}
-                            <td>
-                                <button onclick=cancelModel() class="btn_cancel_report">Cancel</button>
-                            </td>
                         </tr>
 
                     </tbody>
@@ -361,7 +319,7 @@
                     </div> --}}
                     <div class="form-group">
                         <label for="" class="text-sm">Patient Diseases</label>
-                        <input type="text" name="" class="form-control" value="{{ $report->diseases }}"
+                        <input type="text" name="" class="form-control" value={{ $report->diseases }}
                             disabled>
                     </div>
                     <div class="form-group">
@@ -398,8 +356,7 @@
                 </div>
                 <div class="patient-map">
                     <div>
-                        <h4>Patient Location</h4>
-                        <h6><b>{{ $report->distance_patient . ' Km Away from Hospital' }}</b> </h6>
+                        <h4>Donor , Patient and Hospital Locations</h4>
                         <hr>
                     </div>
                     <div class="map">
@@ -413,7 +370,7 @@
 
             </div>
             <hr>
-            <div>
+            {{-- <div>
                 <h4 class="header-donor">Near Donors</h4>
                 <div class="donor-div">
                     @foreach ($near_donors as $key => $near_donor)
@@ -505,12 +462,11 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     @endforeach
 
                 </div>
-            </div>
+            </div> --}}
 
 
         </div>
@@ -537,25 +493,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.3/leaflet-src.js.map"></script>
     {{-- End Map CDN Script --}}
     <script>
-        var hospitalIcon = new L.Icon({
-            iconUrl: '{{ asset('img/hospital_logo.png') }}',
-            iconSize: [20, 31],
-            iconAnchor: [20, 31],
-            popupAnchor: [1, -14]
-        });
-        var donorIcon = new L.Icon({
-            iconUrl: '{{ asset('img/donor_logo.png') }}',
-            iconSize: [20, 30],
-            iconAnchor: [20, 30],
-            popupAnchor: [1, -14],
-        });
-        var patientIcon = new L.Icon({
-            iconUrl: '{{ asset('img/patient_logo.png') }}',
-            iconSize: [30, 30],
-            iconAnchor: [20, 20],
-            popupAnchor: [1, -14],
-        });
-
         function showModel(key, donorLat, donorLong) {
             var modal = document.getElementById("myModal" + key);
             modal.style.display = "block";
@@ -564,33 +501,18 @@
             L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(map);
-            L.marker([donorLat, donorLong], {
-                    icon: patientIcon
-                }).addTo(map)
+            L.marker([donorLat, donorLong]).addTo(map)
                 .bindPopup('Patient Location')
                 .openPopup();
-            L.marker([{{ $report->admin->hospital->latitude }}, {{ $report->admin->hospital->longitude }}], {
-                    icon: hospitalIcon
-                }).addTo(
+            L.circleMarker([{{ $donor_report->admin_report->latitude }}, {{ $donor_report->admin_report->longitude }}])
+                .addTo(
                     map)
-                .bindPopup('Hospital Location')
+                .bindPopup('Patient Location')
                 .openPopup();
         }
 
         function closeModel(key) {
             var modal = document.getElementById("myModal" + key);
-            modal.style.display = "none";
-        }
-    </script>
-    {{-- Close Model --}}
-    <script>
-        function cancelModel() {
-            var modal = document.getElementById("cancelModel");
-            modal.style.display = "block";
-        }
-
-        function closeCancelModel() {
-            var modal = document.getElementById("cancelModel");
             modal.style.display = "none";
         }
     </script>
@@ -611,26 +533,38 @@
             iconAnchor: [20, 31],
             popupAnchor: [1, -14]
         });
-        var patientIcon = new L.Icon({
-            iconUrl: '{{ asset('img/patient_logo.png') }}',
-            iconSize: [30, 30],
-            iconAnchor: [20, 20],
+        var donorIcon = new L.Icon({
+            iconUrl: '{{ asset('img/donor_logo.png') }}',
+            iconSize: [20, 30],
+            iconAnchor: [20, 30],
             popupAnchor: [1, -14],
         });
+        var patientIcon = new L.Icon({
+            iconUrl: '{{ asset('img/patient_logo.png') }}',
+            iconSize: [20, 30],
+            iconAnchor: [20, 30],
+            popupAnchor: [1, -14],
+        });
+
         var map = L.map('map').setView([{{ $report->latitude }}, {{ $report->longitude }}], 10);
 
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
-        L.marker([{{ $report->latitude }}, {{ $report->longitude }}], {
+        L.marker([{{ $donor_report->admin_report->latitude }}, {{ $donor_report->admin_report->longitude }}], {
                 icon: patientIcon
             }).addTo(map)
             .bindPopup('Patient Location')
             .openPopup();
-        L.marker([{{ $report->admin->hospital->latitude }}, {{ $report->admin->hospital->longitude }}], {
+        L.marker([{{ $donor_report->admin->latitude }}, {{ $donor_report->admin->longitude }}], {
                 icon: hospitalIcon
             }).addTo(map)
             .bindPopup('Hospital Location')
+            .openPopup();
+        L.marker([{{ $donor_report->donor->latitude }}, {{ $donor_report->donor->longitude }}], {
+                icon: donorIcon
+            }).addTo(map)
+            .bindPopup('Donor Location')
             .openPopup();
     </script>
 

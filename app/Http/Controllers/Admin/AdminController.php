@@ -159,8 +159,35 @@ class AdminController extends Controller
     public function adminBloodRequest()
     {
         $admin = auth('admin')->user();
-        $reports = ReportAdmin::where('admin_id', $admin->id)->with('hospital', 'patient', 'admin')->get();
+        $reports = ReportAdmin::where('admin_id', $admin->id)->where('status', 'pending')->with('hospital', 'patient', 'admin', 'report_donor')->get();
+        $reports_array = [];
+        foreach ($reports as $report) {
+            if ($report->report_donor === null) {
+                array_push($reports_array, $report);
+            }
+        }
+        $reports = $reports_array;
+        // return response()->json($reports);
         return view('Admin.admin_blood_request', compact('reports'));
+    }
+    public function adminReportedBloodRequest(Request $request)
+    {
+        $admin = auth('admin')->user();
+        $reports = ReportDonor::with('hospital', 'patient', 'admin', 'admin_report')
+            ->where('admin_id', $admin->id)
+            ->get()
+            ->sortBy('report_date_time');
+        // return response()->json($reports);
+        return view('Admin.admin_reported_blood_request', compact('reports'));
+    }
+    public function adminReportedBloodRequestDetail(Request $request, $id)
+    {
+        $admin = auth('admin')->user();
+        $donor_report = ReportDonor::with('hospital', 'patient', 'admin', 'donor', 'admin_report')
+            ->find($id);
+        $report = ReportAdmin::with('admin', 'patient')->find($donor_report->admin_report_id);
+        // return response()->json($reports);
+        return view('Admin.admin_reported_blood_request_detail', compact('donor_report', 'report'));
     }
 
 
@@ -238,6 +265,10 @@ class AdminController extends Controller
         $validated['remark'] = $admin_report->remark;
         $validated['report_date_time'] = Carbon::now();
         ReportDonor::create($validated);
+        $confirm_date_time = Carbon::now();
+        $admin_report->update([
+            'confirm_date_time' => $confirm_date_time
+        ]);
         // $report_donor = ReportDonor::with('admin', 'hospital', 'donor', 'patient', 'admin_report', 'blood_type')->get();
         return redirect()->back()->with('success', 'Successfully Contact To Donor');
     }
@@ -249,10 +280,6 @@ class AdminController extends Controller
     {
         return view('Admin.admin_login');
     }
-    public function adminDonationRequest()
-    {
-        return view('Admin.admin_donation_request');
-    }
     public function donors()
     {
         $donors = Donor::latest()->get();
@@ -263,9 +290,20 @@ class AdminController extends Controller
         $donors = Patient::latest()->get();
         return view('Admin.patient', compact('donors'));
     }
-    public function requestHistory()
+    public function cancelHistory()
     {
-        return view('Admin.request_history');
+        $admin = auth('admin')->user();
+        $reports = ReportAdmin::where('admin_id', $admin->id)->where('status', 'cancel')->with('hospital', 'patient', 'admin', 'report_donor', 'blood_type')->get();
+        $reports_array = [];
+        foreach ($reports as $report) {
+            if ($report->report_donor === null) {
+                array_push($reports_array, $report);
+            }
+        }
+        $reports = $reports_array;
+        // return response()->json($reports);
+        return view('Admin.cancel_history', compact('reports'));
+        return view('Admin.cancel_history');
     }
     public function donationHistory()
     {
@@ -301,5 +339,15 @@ class AdminController extends Controller
             'count_o_plus',
             'count_o_minus',
         ));
+    }
+    public function adminCancelReport(Request $request)
+    {
+        $validated = $request->validate([
+            'admin_report_id' => 'required|exists:App\Models\ReportAdmin,id'
+        ]);
+        ReportAdmin::find($validated['admin_report_id'])->update([
+            'status' => 'cancel'
+        ]);
+        return redirect('/admin/admin_blood_request');
     }
 }

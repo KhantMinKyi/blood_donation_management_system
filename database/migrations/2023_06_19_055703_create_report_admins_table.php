@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('patient_name')->nullable();
             $table->foreignId('blood_type_id')->constrained('blood_types')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('admin_id')->constrained('admins')->onUpdate('cascade')->onDelete('cascade');
-            $table->enum('status', ['pending', 'completed', 'cancel'])->default('pending');
+            $table->enum('status', ['pending', 'completed', 'cancel', 'processing'])->default('pending');
             $table->text('phone');
             $table->text('latitude');
             $table->text('longitude');

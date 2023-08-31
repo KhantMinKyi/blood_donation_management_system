@@ -81,7 +81,7 @@ class DonorController extends Controller
     }
 
     //Donation History Page of specified donor
-    public function history($id) 
+    public function history($id)
     {
         return "coming soon donation history page of donor";
     }

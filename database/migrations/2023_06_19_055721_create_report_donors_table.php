@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('admin_id')->constrained('admins')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('donor_id')->constrained('donors')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('patient_id')->nullable()->constrained('patients')->onUpdate('cascade')->onDelete('cascade');
-            $table->enum('status', ['pending', 'completed', 'cancel'])->default('pending');
+            $table->enum('status', ['pending', 'completed', 'cancel', 'processing'])->default('pending');
             $table->enum('type', ['emergency', 'normal'])->default('normal');
             $table->enum('report_type', ['website', 'phone'])->default('website');
             $table->enum('donor_confirm', ['done', 'undone', 'done_by_phone']);

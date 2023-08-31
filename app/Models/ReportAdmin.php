@@ -41,4 +41,8 @@ class ReportAdmin extends Model
     {
         return $this->belongsTo(BloodType::class);
     }
+    public function report_donor()
+    {
+        return $this->hasOne(ReportDonor::class, 'admin_report_id');
+    }
 }

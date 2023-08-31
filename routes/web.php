@@ -45,13 +45,15 @@ Route::post('/admin/login', [AdminController::class, 'login']);
 Route::group(['middleware' => ['admin']], function () {
     Route::resource('admins', AdminController::class);
     Route::get('/admin/logout', [AdminController::class, 'logout']);
-    Route::get('/admin/admin_donation_request', [AdminController::class, 'adminDonationRequest']);
     Route::get('/admin/admin_blood_request', [AdminController::class, 'adminBloodRequest']);
     Route::get('/admin/admin_blood_request/{id}', [AdminController::class, 'adminBloodRequestDetail']);
+    Route::get('/admin/admin_reported_blood_request', [AdminController::class, 'adminReportedBloodRequest']);
+    Route::get('/admin/admin_reported_blood_request/{id}', [AdminController::class, 'adminReportedBloodRequestDetail']);
     Route::post('/admin/report_donor', [AdminController::class, 'reportDonor']);
+    Route::post('/admin/admin_cancel_report', [AdminController::class, 'adminCancelReport']);
     Route::get('/admin/donors', [AdminController::class, 'donors']);
     Route::get('/admin/patients', [AdminController::class, 'patients']);
-    Route::get('/admin/request_history', [AdminController::class, 'requestHistory']);
+    Route::get('/admin/cancel_history', [AdminController::class, 'cancelHistory']);
     Route::get('/admin/donation_history', [AdminController::class, 'donationHistory']);
     Route::get('/admin/inventory', [AdminController::class, 'inventory']);
 });

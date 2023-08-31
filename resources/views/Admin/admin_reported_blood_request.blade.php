@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blood Request</title>
+    <title>Reported Blood Request</title>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 
@@ -49,7 +49,13 @@
             color: black;
         }
 
-        /* Gray */
+        .donor_btn {
+            padding: 6px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            color: #f44336;
+            border: 1px solid #f44336;
+        }
     </style>
 
 </head>
@@ -76,9 +82,9 @@
         <div class="main_content">
             <br><br>
             <div class="container">
-                <H4 class="text-center">Blood Requests</H4><br>
+                <H4 class="text-center">Reported Blood Requests</H4><br>
 
-                <h5 class="text-center" style="color: red;"> Records</h5><br>
+                <h5 class="text-center" style="color: red;"> Reports</h5><br>
 
                 <table class="table table-light table-hover table-bordered table-striped">
                     <thead class="bg-info">
@@ -90,9 +96,8 @@
                             <th scope="col">User Id</th>
                             <th scope="col">Blood Type</th>
                             <th scope="col">Reasons</th>
-                            <th scope="col">Status</th>
                             <th scope="col">Type</th>
-
+                            <th scope="col">Donor Status</th>
                         </tr>
                     </thead>
 
@@ -100,20 +105,25 @@
                         @foreach ($reports as $report)
                             <tr>
                                 <td>
-                                    <a href={{ url('/admin/admin_blood_request/' . $report->id) }}>
-                                        {{ 'BD_PR0000' . $report->id }}
+                                    <a href={{ url('/admin/admin_reported_blood_request/' . $report->id) }}>
+                                        {{ 'BD_DR0000' . $report->id }}
                                     </a>
                                 </td>
-                                <td>{{ $report->report_date_time }}</td>
+                                <td>{{ date('d.m.Y', strToTime($report->report_date_time)) }}</td>
                                 @if (isset($report->patient))
                                     <td>{{ $report->patient->patient_id }}</td>
                                 @else
                                     <td>Not User </td>
                                 @endif
-                                <td>{{ $report->blood_type->name }}</td>
+                                <td>{{ $report->admin_report->blood_type->name }}</td>
                                 <td>{{ $report->remark }}</td>
-                                <td>{{ $report->status }}</td>
                                 <td>{{ Str::upper($report->type) }}</td>
+                                <td>
+                                    <span class="donor_btn"
+                                        @if ($report->donor_confirm === 'done') style="border: 1px solid #4CAF50;color:#4CAF50" @endif>
+                                        {{ $report->donor_confirm }}
+                                    </span>
+                                </td>
                             </tr>
                         @endforeach
 
