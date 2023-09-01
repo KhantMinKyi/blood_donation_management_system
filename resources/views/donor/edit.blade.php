@@ -10,10 +10,11 @@
         <div class="card-header">{{ __('Donor Register Page') }}</div>
 
         <div class="card-body">
-          <form method="POST" action="">
+          <form method="POST" action='{{ url("/donor/update/$donor->id") }}'>
             @csrf
 
             <div class="row mb-3">
+              <input type="hidden" name="donor_id" value="{{ $donor->id }}">
               <label class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
 
               <div class="col-md-6">
@@ -45,7 +46,7 @@
               <label class="col-md-4 col-form-label text-md-end">{{ __('Email') }}</label>
 
               <div class="col-md-6">
-                <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="email" required>
+                <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $donor->email }}" required>
 
                 @error('email')
                 <span class="invalid-feedback" role="alert">
@@ -89,9 +90,13 @@
 
               <div class="col-md-6">
                 <select name="gender" class="form-control">
-                  <option value="" selected>Select a gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
+                  <option value="{{ $donor->gender }}">{{ $donor->gender }}</option>
+                  @if($donor->gender == "male") 
+                  <option value="female">female</option>
+                  @endif
+                  @if($donor->gender == "female") 
+                  <option value="male">male</option>
+                  @endif
                 </select>
 
                 @error('gender')
@@ -135,9 +140,13 @@
 
               <div class="col-md-6">
                 <select name="status" class="form-control">
-                  <option value="" selected>Choose Your Status</option>
-                  <option value="active">Active</option>
-                  <option value="away">Away</option>
+                <option value="{{ $donor->status }}">{{ $donor->status }}</option>
+                  @if($donor->status == "active") 
+                  <option value="away">away</option>
+                  @endif
+                  @if($donor->gender == "away") 
+                  <option value="active">active</option>
+                  @endif
                 </select>
 
                 @error('status')
@@ -153,10 +162,12 @@
 
               <div class="col-md-6">
                 <select name="blood_type_id" class="form-control">
-                  <option value="" selected>still in progress</option>
-                  
-                  <option value=""></option>
-                  
+                <option value="{{ $blood_types->id }}">{{ $blood_types->name }}</option>
+                @foreach($all_blood_types as $allBloodTypes) 
+                @if ($allBloodTypes->id != $blood_types->id)
+                <option value="{{ $allBloodTypes->id }}">{{ $allBloodTypes->name }}</option>
+                @endif
+                @endforeach 
                 </select>
 
                 @error('blood_type_id')
@@ -174,9 +185,12 @@
 
               <div class="col-md-6">
                 <select name="city_id" class="form-control">
-                <option value="" selected>still in progress</option>
-                  
-                  <option value=""></option>
+                <option value="{{ $donorCity->id }}">{{ $donorCity->name }}</option>
+                @foreach($allCity as $cityData) 
+                @if ($cityData->id != $donor->city_id)
+                <option value="{{ $cityData->id }}">{{ $cityData->name }}</option>
+                @endif
+                @endforeach 
                 </select>
 
                 @error('city_id')
@@ -192,9 +206,12 @@
 
               <div class="col-md-6">
                 <select name="township_id" class="form-control">
-                <option value="" selected>still in progress</option>
-                  
-                  <option value=""></option>
+                <option value="{{ $donorTownship->id }}">{{ $donorTownship->name }}</option>
+                @foreach($allTownship as $townshipData) 
+                @if ($townshipData->id != $donor->township_id)
+                <option value="{{ $townshipData->id }}">{{ $townshipData->name }}</option>
+                @endif
+                @endforeach 
                 </select>
 
                 @error('township_id')

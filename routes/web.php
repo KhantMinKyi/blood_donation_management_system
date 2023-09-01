@@ -71,6 +71,7 @@ Route::get('/donor/history/{id}', [DonorController::class, 'history']);
 Route::get('/donor/loginform', [DonorController::class, 'loginform']);
 Route::get('/donor/registerForm', [DonorController::class, 'registerForm']);
 Route::post('/donor/register', [DonorController::class, 'register']);
+Route::post('/donor/update/{id}', [DonorController::class, 'update']);
 Route::post('/donor/login', [DonorController::class, 'login']);
 Route::group(['middleware' => ['donor']], function () {
     Route::resource('donors', DonorController::class);

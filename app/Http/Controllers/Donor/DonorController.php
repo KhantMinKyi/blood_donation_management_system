@@ -77,7 +77,13 @@ class DonorController extends Controller
     public function edit($id)
     {
         $donor = Donor::find($id);
-        return view('donor.edit', compact('donor'));
+        $all_blood_types = BloodType::all();
+        $blood_types = BloodType::find($donor->blood_type_id);
+        $donorTownship = Township::find($donor->township_id);
+        $donorCity = City::find($donor->city_id);
+        $allTownship = Township::all();
+        $allCity = City::all();
+        return view('donor.edit', compact(['donor', 'all_blood_types', 'blood_types', 'donorTownship', 'donorCity', 'allTownship', 'allCity']));
     }
 
     //Donation History Page of specified donor
@@ -102,7 +108,7 @@ class DonorController extends Controller
         }
         $validated['donor_id'] = $request->donor_id;
         $donor->update($validated);
-        return redirect('/donor')->with('success', 'Update Successfully' . $donor->name);
+        return redirect('/donor')->with('success', 'Update Successfully, ' . $donor->name);
     }
 
     //donor's specified profile
