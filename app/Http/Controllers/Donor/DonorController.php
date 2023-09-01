@@ -97,8 +97,8 @@ class DonorController extends Controller
     ->where('donation_records.donor_id', '=', $id)
     ->where('donation_records.type', '=', 'donor')
     ->get(['donation_records.*', 'donors.name as donor_name', 'hospitals.name as hospital_name', 'patients.name as patient_name']);
-
-return view('donor.donationHistory', compact('history'));
+    
+    return view('donor.donationHistory', compact('history'));
     }
 
     /**
