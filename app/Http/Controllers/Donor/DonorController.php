@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers\Donor;
 
+use App\Models\City;
 use App\Models\Donor;
 use GuzzleHttp\Client;
+use App\Models\Township;
+use App\Models\BloodType;
+use App\Models\ReportDonor;
 use Illuminate\Http\Request;
+use App\Models\DonationRecord;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Stevebauman\Location\Facades\Location;
 use App\Http\Requests\StoreUpdateDonorRequest;
-use App\Models\BloodType;
-use App\Models\City;
-use App\Models\ReportDonor;
-use App\Models\Township;
 
 class DonorController extends Controller
 {
@@ -89,7 +91,14 @@ class DonorController extends Controller
     //Donation History Page of specified donor
     public function history($id)
     {
-        return "coming soon donation history page of donor";
+        $history = DonationRecord::join('hospitals', 'hospitals.id', '=', 'donation_records.hospital_id')
+    ->join('donors', 'donors.id', '=', 'donation_records.donor_id')
+    ->join('patients', 'patients.id', '=', 'donation_records.patient_id')
+    ->where('donation_records.donor_id', '=', $id)
+    ->where('donation_records.type', '=', 'donor')
+    ->get(['donation_records.*', 'donors.name as donor_name', 'hospitals.name as hospital_name', 'patients.name as patient_name']);
+
+return view('donor.donationHistory', compact('history'));
     }
 
     /**

@@ -68,4 +68,9 @@ class Patient extends Authenticatable
     {
         return $this->belongsTo(Township::class);
     }
+
+    public function donationRecord()
+    {
+        return $this->hasMany(DonationRecord::class);
+    }
 }

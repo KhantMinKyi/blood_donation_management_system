@@ -7,9 +7,11 @@ namespace Database\Seeders;
 use App\Models\Admin;
 use App\Models\BloodType;
 use App\Models\City;
+use App\Models\DonationRecord;
 use App\Models\Donor;
 use App\Models\Hospital;
 use App\Models\Patient;
+use App\Models\ReportDonor;
 use App\Models\Township;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -235,6 +237,14 @@ class DatabaseSeeder extends Seeder
             'address' => 'patient address',
             'latitude' => '16.77875476501006',
             'longitude' => '96.15071654766246',
+        ]);
+
+        DonationRecord::create([
+            'hospital_id' => 1,
+            'admin_id' => 1,
+            'donor_id' => 1,
+            'patient_id' => 1,
+            'type' => 'donor',
         ]);
 
         \App\Models\Donor::factory(20)->create();
