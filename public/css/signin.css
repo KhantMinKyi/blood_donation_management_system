@@ -27,6 +27,9 @@
 .siginin-container .row .red-bar{
   width: 25%;
 }
+.blood-request {
+  padding-bottom: 266px;
+}
 .siginin-container .form-container{
   background-color: white;
   border: .5px solid #eee;

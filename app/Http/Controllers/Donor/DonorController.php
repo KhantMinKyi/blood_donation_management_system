@@ -6,6 +6,7 @@ use App\Models\City;
 use App\Models\Donor;
 use GuzzleHttp\Client;
 use App\Models\Township;
+use App\Models\Patient;
 use App\Models\BloodType;
 use App\Models\ReportDonor;
 use Illuminate\Http\Request;
@@ -15,6 +16,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Stevebauman\Location\Facades\Location;
 use App\Http\Requests\StoreUpdateDonorRequest;
+use App\Models\Hospital;
 
 class DonorController extends Controller
 {
@@ -68,6 +70,17 @@ class DonorController extends Controller
     public function show($id)
     {
         //
+    }
+
+    public function bloodRequestDetail($id) 
+    {
+        $bloodRequest = ReportDonor::find($id);
+        $patient = Patient::find($bloodRequest->patient_id);
+        $hospital = Hospital::find($bloodRequest->hospital_id);
+        $hospitalLat = $hospital->latitude;
+        $hospitalLong = $hospital->longitude;
+        if (auth('donor')->user()) return view('donor.bloodRequestDetail', compact(['patient', 'hospitalLat', 'hospitalLong']));
+        return redirect()->back()->with('success', 'You do not access to view this page');
     }
 
     /**
@@ -144,8 +157,30 @@ class DonorController extends Controller
     {
         $donor_id = auth('donor')->user()->id;
         $blood_request = ReportDonor::where('id', $donor_id)->where('status', 'pending')->get();
-        // return $blood_request;
         return view('donor.bloodRequest', compact('blood_request'));
+    }
+
+    public function responseRequest($id, $status)
+    {
+        $bloodRequest = ReportDonor::find($id);
+        if ($status == 1) {
+            $statusData = "pending";
+        }
+        elseif ($status == 2) {
+            $statusData = "completed";
+        }
+        elseif ($status == 3) {
+            $statusData = "cancel";
+            $response = "You have successfully canceled this donation request.";
+        }
+        elseif ($status == 4) {
+            $statusData = "processing";
+            $response = "Congratulations! You have successfully accepted this donation request, Please wait Admin's Contact for Your Blood Donation";
+        }
+        $bloodRequest->update([
+            'status' => $statusData,
+        ]);
+        return back()->with('success', $response);
     }
 
     //view location of loginform method Edited by znt on 5 july
@@ -169,7 +204,7 @@ class DonorController extends Controller
         $validated['password'] = Hash::make($validated['password']);
         $donor = Donor::create($validated);
         auth('donor')->login($donor);
-        return redirect('/donor')->with('success', 'Welcome To Our Website ' . $donor->name);
+        return redirect('/donor')->with('success', 'Welcome To Our Website, ' . $donor->name);
     }
 
     public function login(Request $request)
@@ -186,7 +221,7 @@ class DonorController extends Controller
             return redirect()->back()->with(['error' => 'Password is Wrong , Try Again']);
         }
         auth('donor')->login($donor);
-        return redirect('/donor')->with('success', 'Welcome To Our Website ' . $donor->name);
+        return redirect('/donor')->with('success', 'Welcome To Our Website, ' . $donor->name);
     }
     public function logout()
     {

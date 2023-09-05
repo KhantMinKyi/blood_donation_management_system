@@ -247,6 +247,18 @@ class DatabaseSeeder extends Seeder
             'type' => 'donor',
         ]);
 
+        ReportDonor::create([
+            'hospital_id' => 1,
+            'admin_id' => 1,
+            'donor_id' => 1,
+            'patient_id' => 1,
+            'status' => 'pending',
+            'type' => 'normal',
+            'report_type' => 'website',
+            'donor_confirm' => 'undone',
+            'report_date_time' => \Carbon\Carbon::now()->toDateTimeString(),
+        ]);
+
         \App\Models\Donor::factory(20)->create();
         \App\Models\Patient::factory(20)->create();
     }

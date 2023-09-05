@@ -5,7 +5,7 @@
 <div class="container-fluid red-background size signin-section donor-history">
   <div class="row justify-content-center">
     <div class="col-lg-6 col-md-8 col-sm-12">
-      <h2 class="h2 text-center mb-5">Donation History Page</h2>
+      <h2 class="h2 text-center mb-5">Donation History Page ({{ count($history) }})</h2>
       @php
       $data = 0;
       @endphp
