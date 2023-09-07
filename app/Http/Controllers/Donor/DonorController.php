@@ -156,7 +156,7 @@ class DonorController extends Controller
     public function bloodRequest()
     {
         $donor_id = auth('donor')->user()->id;
-        $blood_request = ReportDonor::where('id', $donor_id)->where('status', 'pending')->get();
+        $blood_request = ReportDonor::where('donor_id', $donor_id)->where('status', 'pending')->get();
         return view('donor.bloodRequest', compact('blood_request'));
     }
 
