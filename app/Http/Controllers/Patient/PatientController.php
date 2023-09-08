@@ -68,7 +68,13 @@ class PatientController extends Controller
     public function edit($id)
     {
         $patient = Patient::find($id);
-        return view('patient.edit', compact('patient'));
+        $all_blood_types = BloodType::all();
+        $blood_types = BloodType::find($patient->blood_type_id);
+        $patientTownship = Township::find($patient->township_id);
+        $patientCity = City::find($patient->city_id);
+        $allTownship = Township::all();
+        $allCity = City::all();
+        return view('patient.edit', compact(['patient', 'all_blood_types', 'blood_types', 'patientTownship', 'patientCity', 'allTownship', 'allCity']));
     }
 
     /**
@@ -87,7 +93,7 @@ class PatientController extends Controller
         }
         $validated['patient_id'] = $request->patient_id;
         $patient->update($validated);
-        return redirect('/patient')->with('success', 'Update Successfully' . $patient->name);
+        return redirect('/patient')->with('success', 'Update Successfully, ' . $patient->name);
     }
 
     //patient's specified profile

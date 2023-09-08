@@ -10,10 +10,11 @@
         <div class="card-header">{{ __('Patient Register Page') }}</div>
 
         <div class="card-body">
-          <form method="POST" action="">
+        <form method="POST" action='{{ url("/patient/update/$patient->id") }}'>
             @csrf
 
             <div class="row mb-3">
+            <input type="hidden" name="patient_id" value="{{ $patient->id }}">
               <label class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
 
               <div class="col-md-6">
@@ -89,9 +90,13 @@
 
               <div class="col-md-6">
                 <select name="gender" class="form-control">
-                  <option value="" selected>Select a gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
+                  <option value="{{ $patient->gender }}">{{ $patient->gender }}</option>
+                  @if($patient->gender == "male") 
+                  <option value="female">female</option>
+                  @endif
+                  @if($patient->gender == "female") 
+                  <option value="male">male</option>
+                  @endif
                 </select>
 
                 @error('gender')
@@ -135,9 +140,13 @@
 
               <div class="col-md-6">
                 <select name="status" class="form-control">
-                  <option value="" selected>Choose Your Status</option>
-                  <option value="active">Active</option>
-                  <option value="away">Away</option>
+                <option value="{{ $patient->status }}">{{ $patient->status }}</option>
+                  @if($patient->status == "active") 
+                  <option value="away">away</option>
+                  @endif
+                  @if($patient->gender == "away") 
+                  <option value="active">active</option>
+                  @endif
                 </select>
 
                 @error('status')
@@ -153,10 +162,12 @@
 
               <div class="col-md-6">
                 <select name="blood_type_id" class="form-control">
-                  <option value="" selected>still in progress</option>
-                  
-                  <option value=""></option>
-                  
+                <option value="{{ $blood_types->id }}">{{ $blood_types->name }}</option>
+                @foreach($all_blood_types as $allBloodTypes) 
+                @if ($allBloodTypes->id != $blood_types->id)
+                <option value="{{ $allBloodTypes->id }}">{{ $allBloodTypes->name }}</option>
+                @endif
+                @endforeach 
                 </select>
 
                 @error('blood_type_id')
@@ -167,16 +178,17 @@
               </div>
             </div>
 
-
-
             <div class="row mb-3">
               <label class="col-md-4 col-form-label text-md-end">{{ __('City') }}</label>
 
               <div class="col-md-6">
                 <select name="city_id" class="form-control">
-                <option value="" selected>still in progress</option>
-                  
-                  <option value=""></option>
+                <option value="{{ $patientCity->id }}">{{ $patientCity->name }}</option>
+                @foreach($allCity as $cityData) 
+                @if ($cityData->id != $patient->city_id)
+                <option value="{{ $cityData->id }}">{{ $cityData->name }}</option>
+                @endif
+                @endforeach 
                 </select>
 
                 @error('city_id')
@@ -192,9 +204,12 @@
 
               <div class="col-md-6">
                 <select name="township_id" class="form-control">
-                <option value="" selected>still in progress</option>
-                  
-                  <option value=""></option>
+                <option value="{{ $patientTownship->id }}">{{ $patientTownship->name }}</option>
+                @foreach($allTownship as $townshipData) 
+                @if ($townshipData->id != $patient->township_id)
+                <option value="{{ $townshipData->id }}">{{ $townshipData->name }}</option>
+                @endif
+                @endforeach 
                 </select>
 
                 @error('township_id')
