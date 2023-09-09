@@ -8,12 +8,14 @@ use App\Models\Admin;
 use App\Models\Hospital;
 use App\Models\Patient;
 use App\Models\ReportAdmin;
+use App\Models\ReportDonor;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\BloodType;
 use App\Models\City;
 use App\Models\Township;
+use App\Models\Donor;
 
 class PatientController extends Controller
 {
@@ -129,6 +131,29 @@ class PatientController extends Controller
     public function aboutUs()
     {
         return view('patient.aboutUs');
+    }
+
+    // public function notification()
+    // {
+    //     return view('patient.notification');
+    // }
+
+    public function notification()
+    {
+        $patient_id = auth('patient')->user()->id;
+        $blood_request = ReportDonor::where('patient_id', $patient_id)->where('status', 'processing')->get();
+        return view('patient.notification', compact('blood_request'));
+    }
+
+    public function notificationDetail($id) 
+    {
+        $bloodRequest = ReportDonor::find($id);
+        $donor = Donor::find($bloodRequest->donor_id);
+        $hospital = Hospital::find($bloodRequest->hospital_id);
+        $hospitalLat = $hospital->latitude;
+        $hospitalLong = $hospital->longitude;
+        if (auth('patient')->user()) return view('patient.notificationDetail', compact(['donor', 'hospitalLat', 'hospitalLong']));
+        return redirect()->back()->with('success', 'You do not access to view this page');
     }
 
     public function registerForm()

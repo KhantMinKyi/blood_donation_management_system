@@ -109,6 +109,7 @@
 
     @auth('patient')
     <div class="col-sm-12 col-md-4">
+    <a href="{{ url('/patient/notification') }}">
       <div class="card">
         <h3 class="text-center red">Notification</h3>
         <img src="img/noti.png" alt="Notification" class="img img-responsive" width="168" height="168">
@@ -116,6 +117,7 @@
           We are a group of exceptional programmers; our aim is to promote education. If you are a student, then contact us to secure your future. We deliver free international standard video lectures and content. We are also providing services in Web & Software Development.
         </p>
       </div>
+    </a>
     </div>
     @endauth
   </div>
