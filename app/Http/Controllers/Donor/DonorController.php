@@ -72,7 +72,7 @@ class DonorController extends Controller
         //
     }
 
-    public function bloodRequestDetail($id) 
+    public function bloodRequestDetail($id)
     {
         $bloodRequest = ReportDonor::find($id);
         $patient = Patient::find($bloodRequest->patient_id);
@@ -105,13 +105,13 @@ class DonorController extends Controller
     public function history($id)
     {
         $history = DonationRecord::join('hospitals', 'hospitals.id', '=', 'donation_records.hospital_id')
-    ->join('donors', 'donors.id', '=', 'donation_records.donor_id')
-    ->join('patients', 'patients.id', '=', 'donation_records.patient_id')
-    ->where('donation_records.donor_id', '=', $id)
-    ->where('donation_records.type', '=', 'donor')
-    ->get(['donation_records.*', 'donors.name as donor_name', 'hospitals.name as hospital_name', 'patients.name as patient_name']);
-    
-    return view('donor.donationHistory', compact('history'));
+            ->join('donors', 'donors.id', '=', 'donation_records.donor_id')
+            ->join('patients', 'patients.id', '=', 'donation_records.patient_id')
+            ->where('donation_records.donor_id', '=', $id)
+            ->where('donation_records.type', '=', 'donor')
+            ->get(['donation_records.*', 'donors.name as donor_name', 'hospitals.name as hospital_name', 'patients.name as patient_name']);
+
+        return view('donor.donationHistory', compact('history'));
     }
 
     /**
@@ -165,15 +165,12 @@ class DonorController extends Controller
         $bloodRequest = ReportDonor::find($id);
         if ($status == 1) {
             $statusData = "pending";
-        }
-        elseif ($status == 2) {
+        } elseif ($status == 2) {
             $statusData = "completed";
-        }
-        elseif ($status == 3) {
+        } elseif ($status == 3) {
             $statusData = "cancel";
             $response = "You have successfully canceled this donation request.";
-        }
-        elseif ($status == 4) {
+        } elseif ($status == 4) {
             $statusData = "processing";
             $response = "Congratulations! You have successfully accepted this donation request, Please wait Admin's Contact for Your Blood Donation";
         }

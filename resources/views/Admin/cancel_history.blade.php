@@ -104,7 +104,7 @@
                         @foreach ($reports as $report)
                             <tr>
                                 <td>
-                                    <a href={{ url('/admin/admin_reported_blood_request/' . $report->id) }}>
+                                    <a href={{ url('/admin/donation_history_detail/' . $report->id) }}>
                                         {{ 'BD_DR0000' . $report->id }}
                                     </a>
                                 </td>
