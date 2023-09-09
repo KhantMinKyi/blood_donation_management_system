@@ -88,7 +88,7 @@
 
                 @auth('patient')
                 <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/patient/history') }}">History</a>
+                        <a class="nav-link" href="{{ url('/patient/history/' . auth('patient')->user()->id) }}">History</a>
                     </li>
                 @endauth
 

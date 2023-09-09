@@ -95,7 +95,7 @@
 
     @auth('patient')
     <div class="col-sm-12 col-md-4">
-      <a href="{{ url('/patient/history') }}">
+      <a href="{{ url('/patient/history/' . auth('patient')->user()->id) }}">
       <div class="card">
         <h3 class="text-center red">History</h3>
         <img src="img/history.png" alt="History" class="img img-responsive" width="168" height="168">

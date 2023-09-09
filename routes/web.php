@@ -91,12 +91,12 @@ Route::get('/homepage', function () {
 Route::get('/patient', [PatientController::class, 'patientform']);
 Route::get('/patient/profile/{id}', [PatientController::class, 'profile']);
 Route::get('/patient/signin', [PatientController::class, 'signin']);
+Route::get('/patient/history/{id}', [PatientController::class, 'history']);
 Route::get('/patient/registerForm', [PatientController::class, 'registerForm']);
 Route::post('/patient/register', [PatientController::class, 'register']);
 Route::post('/patient/update/{id}', [PatientController::class, 'update']);
 Route::get('/patient/emergencyForm', [PatientController::class, 'emergencyForm']);
 Route::get('/patient/normalForm', [PatientController::class, 'normalForm']);
-Route::get('/patient/history', [PatientController::class, 'history']);
 Route::get('/patient/notification', [PatientController::class, 'notification']);
 Route::get('/patient/notificationDetail/{id}', [PatientController::class, 'notificationDetail']);
 Route::get('/patient/aboutUs', [PatientController::class, 'aboutUs']);

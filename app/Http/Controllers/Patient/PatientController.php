@@ -16,6 +16,7 @@ use App\Models\BloodType;
 use App\Models\City;
 use App\Models\Township;
 use App\Models\Donor;
+use App\Models\DonationRecord;
 
 class PatientController extends Controller
 {
@@ -145,7 +146,7 @@ class PatientController extends Controller
         return view('patient.notification', compact('blood_request'));
     }
 
-    public function notificationDetail($id) 
+    public function notificationDetail($id)
     {
         $bloodRequest = ReportDonor::find($id);
         $donor = Donor::find($bloodRequest->donor_id);
@@ -187,9 +188,16 @@ class PatientController extends Controller
         return view('patient.normalform');
     }
 
-    public function history()
+    public function history($id)
     {
-        return view('patient.history');
+        $history = DonationRecord::join('hospitals', 'hospitals.id', '=', 'donation_records.hospital_id')
+            ->join('patients', 'patients.id', '=', 'donation_records.patient_id')
+            ->join('donors', 'donors.id', '=', 'donation_records.donor_id')
+            ->where('donation_records.donor_id', '=', $id)
+            ->where('donation_records.type', '=', 'donor')
+            ->get(['donation_records.*', 'donors.name as donor_name', 'hospitals.name as hospital_name', 'patients.name as patient_name']);
+
+        return view('patient.history', compact('history'));
     }
 
     public function login(Request $request)
