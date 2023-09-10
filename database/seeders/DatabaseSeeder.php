@@ -239,6 +239,26 @@ class DatabaseSeeder extends Seeder
             'longitude' => '96.15071654766246',
         ]);
 
+        Patient::create([
+            'name' => 'yeyintchanthar',
+            'user_name' => 'yeyintchanthar',
+            'patient_id' => 'BD_P0002',
+            'email' => 'yeyintchanthar@gmail.com',
+            'password' => Hash::make('yeyintchanthar'),
+            'phone' => '09970570823',
+            'gender' => 'male',
+            'dob' => '1999.01.01',
+            'nrc' => '12/htd(C)12345',
+            'status' => 'active',
+            'blood_type_id' => 1,
+            'city_id' => 1,
+            'township_id' => 1,
+            'remark' => 'yeyintchanthar remark',
+            'address' => 'Thanlyin',
+            'latitude' => '16.77875476501006',
+            'longitude' => '96.15071654766246',
+        ]);
+
         DonationRecord::create([
             'hospital_id' => 1,
             'admin_id' => 1,

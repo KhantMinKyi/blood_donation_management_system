@@ -18,7 +18,7 @@
       @endphp
       <div class="card">
         <div class="card-body">
-          {{ $bloodRequest->donor->name }} accepted your request. <br> <br>
+          {{ $bloodRequest->donor->name }} accepted your request on {{ \Carbon\Carbon::parse($bloodRequest->created_at)->toDateString() }} <br> <br>
           <a href='{{ url("/patient/notificationDetail/$bloodRequest->id") }}' class="btn btn-secondary mr-3">Detail</a>
         </div>
       </div>
