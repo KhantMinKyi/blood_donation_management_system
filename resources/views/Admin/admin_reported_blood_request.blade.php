@@ -56,6 +56,18 @@
             color: #f44336;
             border: 1px solid #f44336;
         }
+
+        .button-group {
+            display: flex;
+            gap: 20px;
+            flex-direction: row-reverse;
+        }
+
+        .btn {
+            padding: 0px 10px;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
     </style>
 
 </head>
@@ -85,12 +97,26 @@
                 <H4 class="text-center">Reported Blood Requests</H4><br>
 
                 <h5 class="text-center" style="color: red;"> Reports</h5><br>
-
+                <form method="get" class="button-group">
+                    @csrf
+                    <div class="button-group">
+                        <input type="submit" class="btn  btn-outline-danger text-dark" value="Undone" name="undone">
+                        <input type="submit" class="btn  btn-outline-success text-dark" value="Done" name="done">
+                        <input type="submit" class="btn  btn-outline-primary text-dark" value="All" name="all">
+                    </div>
+                </form>
+                @php
+                    if (isset($_GET['undone'])) {
+                        $reports = $undone_reports;
+                    } elseif (isset($_GET['done'])) {
+                        $reports = $done_reports;
+                    } elseif (isset($_GET['all'])) {
+                        $reports = $reports;
+                    }
+                @endphp
                 <table class="table table-light table-hover table-bordered table-striped">
                     <thead class="bg-info">
                         <tr>
-
-
                             <th scope="col">Request ID</th>
                             <th scope="col">Request Date</th>
                             <th scope="col">User Id</th>
@@ -138,7 +164,6 @@
 
         </div>
     </div>
-
 
     <!-- JQuery File -->
     <script type="text/javascript" src="{{ asset('js/jquery.js') }}"></script>

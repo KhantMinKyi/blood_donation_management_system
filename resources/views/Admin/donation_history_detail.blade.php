@@ -278,9 +278,11 @@
         <div class="main_content">
             <br><br>
             <div class="container">
-                <H4 class="text-center">Blood Requests</H4><br>
+                <H4 class="text-center">Blood Donation Record</H4><br>
 
-                <h5 class="text-center" style="color: red;"> Records</h5><br>
+                <h5 class="text-center" style="color: red;">
+                    {{ date('d-m-yy', strToTime($donation_record->created_at)) }}</h5>
+                <br>
 
                 <table class="table table-light table-hover table-bordered table-striped">
                     <thead class="bg-info">
@@ -302,27 +304,20 @@
                     <tbody>
                         <tr>
                             <td>
-                                {{ 'BD_DR0000' . $donor_report->id }}
+                                {{ 'BD_DHR0000' . $donation_record->id }}
                             </td>
-                            <td>{{ $donor_report->report_date_time }}</td>
-                            @if (isset($donor_report->donor))
-                                <td>{{ $donor_report->donor->donor_id }}</td>
+                            <td>{{ $donation_record->admin_report->report_date_time }}</td>
+                            @if (isset($donation_record->donor))
+                                <td>{{ $donation_record->donor->donor_id }}</td>
                             @else
                                 <td>Not User </td>
                             @endif
-                            <td>{{ $donor_report->admin_report->blood_type->name }}</td>
-                            <td>{{ $donor_report->remark }}</td>
-                            <td>{{ Str::upper($report->type) }}</td>
-                            <td>{{ $donor_report->admin_report->date_of_appointment ? date('d-m-yy', strToTime($report->date_of_appointment)) : '-' }}
+                            <td>{{ $donation_record->admin_report->blood_type->name }}</td>
+                            <td>{{ $donation_record->admin_report->remark }}</td>
+                            <td>{{ Str::upper($donation_record->admin_report->type) }}</td>
+                            <td>{{ $donation_record->admin_report->date_of_appointment ? date('d-m-yy', strToTime($donation_record->admin_report->date_of_appointment)) : '-' }}
                             </td>
-                            <td>{{ $report->status }}</td>
-                            {{-- <td>
-                                <form action={{ url('/admin/report_donor') }} method="post">
-                                    @csrf
-                                    <input type="hidden" value={{ $report->id }} name="admin_report_id">
-                                    <button class="btn_cancel_report">Cancel</button>
-                                </form>
-                            </td> --}}
+                            <td>{{ $donation_record->admin_report->status }}</td>
                         </tr>
 
                     </tbody>
@@ -333,195 +328,95 @@
                 <div class="patient-info">
                     <div class="form-group">
                         <label for="" class="text-sm">Patient Name </label>
-                        <input type="text" name="" class="form-control" value="{{ $report->patient_name }}"
-                            disabled>
+                        <input type="text" name="" class="form-control"
+                            value="{{ $donation_record->admin_report->patient_name }}" disabled>
                     </div>
-                    {{-- <div class="form-group">
-                        <label for="" class="text-sm">Patient Age</label>
-                        <input type="text" name="" class="form-control" value={{ $report->patient_age }}
-                            disabled>
-                    </div> --}}
                     <div class="form-group">
                         <label for="" class="text-sm">Patient Diseases</label>
-                        <input type="text" name="" class="form-control" value={{ $report->diseases }}
-                            disabled>
+                        <input type="text" name="" class="form-control"
+                            value="{{ $donation_record->admin_report->diseases }}" disabled>
                     </div>
                     <div class="form-group">
                         <label for="" class="text-sm">Patient Remark</label>
                         <input type="text" name="" class="form-control"
-                            value={{ $report->remark ? $report->remark : '-' }} disabled>
-                    </div>
-                    <div class="form-group">
-                        <label for="" class="text-sm">Patient Blood Type</label>
-                        <input type="text" name="" class="form-control" value={{ $report->blood_type->name }}
+                            value="{{ $donation_record->admin_report->remark ? $donation_record->admin_report->remark : '-' }}"
                             disabled>
                     </div>
                     <div class="form-group">
-                        <label for="" class="text-sm">Patient Phone Number</label>
-                        <input type="text" name="" class="form-control" value={{ $report->phone }} disabled>
+                        <label for="" class="text-sm">Patient Blood Type</label>
+                        <input type="text" name="" class="form-control"
+                            value={{ $donation_record->admin_report->blood_type->name }} disabled>
                     </div>
-                    @if (isset($report->patient))
+                    <div class="form-group">
+                        <label for="" class="text-sm">Patient Phone Number</label>
+                        <input type="text" name="" class="form-control"
+                            value={{ $donation_record->admin_report->phone }} disabled>
+                    </div>
+                    @if (isset($donation_record->admin_report->patient))
                         <div class="form-group">
                             <label for="" class="text-sm">Patient ID</label>
                             <input type="text" name="" class="form-control"
-                                value={{ $report->patient->patient_id }} disabled>
+                                value={{ $donation_record->admin_report->patient->patient_id }} disabled>
                         </div>
                         <div class="form-group">
                             <label for="" class="text-sm">City</label>
                             <input type="text" name="" class="form-control"
-                                value={{ $report->patient->city->name }} disabled>
+                                value={{ $donation_record->admin_report->patient->city->name }} disabled>
                         </div>
                         <div class="form-group">
                             <label for="" class="text-sm">Township</label>
                             <input type="text" name="" class="form-control"
-                                value={{ $report->patient->township->name }} disabled>
+                                value={{ $donation_record->admin_report->patient->township->name }} disabled>
                         </div>
                     @endif
                 </div>
-                <div class="patient-map">
-                    <div>
-                        <h4>Donor , Patient and Hospital Locations</h4>
-                        <hr>
+                <div class="patient-info">
+                    <div class="form-group">
+                        <label for="" class="text-sm">Donor Name </label>
+                        <input type="text" name="" class="form-control"
+                            value="{{ $donation_record->donor->name }}" disabled>
                     </div>
-                    <div class="map">
-                        <div id="map" class="map"></div>
+                    <div class="form-group">
+                        <label for="" class="text-sm">Donor Diseases</label>
+                        <input type="text" name="" class="form-control"
+                            value="{{ $donation_record->donor->diseases }}" disabled>
                     </div>
-
-                </div>
-            </div>
-            <div class="div_btn_report">
-                <div style=" flex: 0.15;">
-                    <button class="btn_report" onclick="showModel()">Report Now</button>
-                </div>
-            </div>
-            <div id="myModal" class="modal">
-                <!-- Modal content -->
-                <div class="modal-content">
-                    <span class="close" onclick="closeModel()">&times;</span>
-                    <div class="model_div">
-                        <div>
-                            <h6>Contact To User </h6>
+                    <div class="form-group">
+                        <label for="" class="text-sm">Donor Remark</label>
+                        <input type="text" name="" class="form-control"
+                            value="{{ $donation_record->donor->remark ? $donation_record->admin_report->remark : '-' }}"
+                            disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="text-sm">Donor Blood Type</label>
+                        <input type="text" name="" class="form-control"
+                            value={{ $donation_record->donor->blood_type->name }} disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="text-sm">Donor Phone Number</label>
+                        <input type="text" name="" class="form-control"
+                            value={{ $donation_record->donor->phone }} disabled>
+                    </div>
+                    @if (isset($donation_record->donor))
+                        <div class="form-group">
+                            <label for="" class="text-sm">Donor ID</label>
+                            <input type="text" name="" class="form-control"
+                                value="BD_D000{{ $donation_record->donor->id }}" disabled>
                         </div>
-                        <div class="model_btn">
-                            @if ($report->report_donor->donor_confirm === 'done')
-                                <form action={{ url('/admin/admin_cancel_report') }} method="post">
-                                    @csrf
-                                    <input type="hidden" value={{ $report->id }} name="admin_report_id">
-                                    <input type="hidden" value="completed" name="report_type">
-                                    <button class="btn_phone">Complete Donation</button>
-                                </form>
-                            @endif
-                            <form action={{ url('/admin/admin_cancel_report') }} method="post">
-                                @csrf
-                                <input type="hidden" value={{ $report->id }} name="admin_report_id">
-                                <input type="hidden" value="cancel" name="report_type">
-                                <button class="btn_phone">Cancel Donation</button>
-                            </form>
-                            <a class="btn_cancel" onclick="closeModel()">Cancel</a>
+                        <div class="form-group">
+                            <label for="" class="text-sm">City</label>
+                            <input type="text" name="" class="form-control"
+                                value={{ $donation_record->donor->city->name }} disabled>
                         </div>
-                    </div>
+                        <div class="form-group">
+                            <label for="" class="text-sm">Township</label>
+                            <input type="text" name="" class="form-control"
+                                value={{ $donation_record->donor->township->name }} disabled>
+                        </div>
+                    @endif
                 </div>
             </div>
             <hr>
-            {{-- <div>
-                <h4 class="header-donor">Near Donors</h4>
-                <div class="donor-div">
-                    @foreach ($near_donors as $key => $near_donor)
-                        <div class="donor-info">
-                            <div class="distance">
-                                <h6><b>{{ $near_donor->distance_hospital . ' Km Away from Hospital' }}</b> </h6>
-                            </div>
-                            <div class="buttom-div">
-                                <button class="buttom"
-                                    onclick="showModel({{ $key }},{{ $near_donor->latitude }},{{ $near_donor->longitude }})">Contact</button>
-                            </div>
-                            <div class="form-group">
-                                <label for="" class="text-sm">Donor Name</label>
-                                <input type="text" name="" class="form-control"
-                                    value="{{ $near_donor->name }}" disabled>
-                            </div>
-                            <div class="form-group">
-                                <label for="" class="text-sm">Donor Name</label>
-                                <input type="text" name="" class="form-control"
-                                    value=" {{ $near_donor->latitude }}" disabled>
-                            </div>
-                            <div class="form-group">
-                                <label for="" class="text-sm">Donor Blood Type</label>
-                                <input type="text" name="" class="form-control"
-                                    value={{ $near_donor->blood_type->name }} disabled>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="" class="text-sm">Donor Phone Number</label>
-                                <input type="text" name="" class="form-control"
-                                    value={{ $near_donor->phone }} disabled>
-                            </div>
-                            <div class="form-group">
-                                <label for="" class="text-sm">Donor Status</label>
-                                <input type="text" name="" class="form-control text-success"
-                                    value={{ $near_donor->status }} disabled>
-                            </div>
-                            <div class="form-group">
-                                <label for="" class="text-sm">Donor Diseases</label>
-                                <input type="text" name="" class="form-control"
-                                    value={{ $near_donor->diseases ? $near_donor->diseases : 'Clear' }} disabled>
-                            </div>
-                            <div class="form-group">
-                                <label for="" class="text-sm">Donor Remark</label>
-                                <input type="text" name="" class="form-control"
-                                    value={{ $near_donor->remark }} disabled>
-
-                            </div>
-                            <div class="form-group">
-                                <label for="" class="text-sm">Donor Township</label>
-                                <input type="text" name="" class="form-control"
-                                    value={{ $near_donor->township->name }} disabled>
-                            </div>
-                            <!-- The Modal -->
-                            <div id="myModal{{ $key }}" class="modal">
-                                <!-- Modal content -->
-                                <div class="modal-content">
-                                    <span class="close" onclick="closeModel({{ $key }})">&times;</span>
-                                    <div class="model_div">
-                                        <div>
-                                            <h6>Contact To User - {{ $near_donor->name }}</h6>
-                                            <h6>ဆက်သွယ်ရန်ဖုန်းနံပါတ် - {{ $near_donor->phone }}</h6>
-                                            <h6>အနီးဆုံး အကွာအဝေး - {{ $near_donor->distance_hospital . 'Km' }}</h6>
-                                            <h6>ဆက်သွယ်ရန် သွေးအလှုရှင်၏ လိပ်စာ - {{ $near_donor->address }}</h6>
-                                        </div>
-                                        <div>
-                                            <div id="donor-map{{ $key }}" class="donor-map"></div>
-                                        </div>
-                                        <div class="model_btn">
-                                            <form action={{ url('/admin/report_donor') }} method="post">
-                                                @csrf
-                                                <input type="hidden" value={{ $report->id }}
-                                                    name="admin_report_id">
-                                                <input type="hidden" value={{ $near_donor->id }} name="donor_id">
-                                                <input type="hidden" value="website" name="report_type">
-                                                <button class="btn_phone">Webiste Contact</button>
-                                            </form>
-                                            <form action={{ url('/admin/report_donor') }} method="post">
-                                                @csrf
-                                                <input type="hidden" value={{ $report->id }}
-                                                    name="admin_report_id">
-                                                <input type="hidden" value={{ $near_donor->id }} name="donor_id">
-                                                <input type="hidden" value="phone" name="report_type">
-                                                <button class="btn_phone">Phone Contact</button>
-                                            </form>
-                                            <a class="btn_cancel"
-                                                onclick="closeModel({{ $key }})">Cancel</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-
-                </div>
-            </div> --}}
-
-
         </div>
 
     </div>
@@ -567,7 +462,7 @@
         }
     </script>
     {{-- Map Script --}}
-    <script>
+    {{-- <script>
         var hospitalIcon = new L.Icon({
             iconUrl: '{{ asset('img/hospital_logo.png') }}',
             iconSize: [20, 31],
@@ -607,7 +502,7 @@
             }).addTo(map)
             .bindPopup('Donor Location')
             .openPopup();
-    </script>
+    </script> --}}
 
 </body>
 

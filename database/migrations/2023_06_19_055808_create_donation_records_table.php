@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('admin_id')->constrained('admins')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('donor_id')->nullable()->constrained('donors')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('patient_id')->nullable()->constrained('patients')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('admin_report_id')->nullable()->constrained('report_admins')->onUpdate('cascade')->onDelete('cascade');
             $table->enum('type', ['donor', 'blood_bank']);
 
             $table->timestamps();
