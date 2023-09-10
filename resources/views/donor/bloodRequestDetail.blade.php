@@ -305,7 +305,7 @@
   {{-- Map Script --}}
   <script>
 const map = L.map('map');
-map.setView([{{ auth('donor')->user()->latitude }}, {{ auth('donor')->user()->longitude }}], 12);
+map.setView([{{ auth('donor')->user()->latitude }}, {{ auth('donor')->user()->longitude }}], 10);
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
