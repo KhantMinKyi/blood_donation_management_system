@@ -70,7 +70,7 @@
                     <a href="{{ url('/patient/registerForm') }}">
                         <div class="card">
                             <h3 class="text-center red">Become a patient</h3>
-                            <img src="img/patient.png" alt="Patient" class="img img-responsive" width="168" height="168">
+                            <img src="img/patient.jpg" alt="Patient" class="img img-responsive" width="168" height="168">
                             <p class="text-center">
                                 We are a group of exceptional programmers; our aim is to promote education. If you are a
                                 student, then contact us to secure your future. We deliver free international standard video
@@ -86,7 +86,7 @@
                     <a href="{{ url('/patient/signin') }}">
                         <div class="card">
                             <h3 class="text-center red">Sign In to your account</h3>
-                            <img src="img/sign.png" alt="Sign" class="img img-responsive" width="168" height="168">
+                            <img src="img/sign.jpg" alt="Sign" class="img img-responsive" width="168" height="168">
                             <p class="text-center">
                                 We are a group of exceptional programmers; our aim is to promote education. If you are a
                                 student, then contact us to secure your future. We deliver free international standard video
