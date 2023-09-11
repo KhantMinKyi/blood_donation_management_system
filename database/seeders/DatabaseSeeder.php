@@ -182,13 +182,13 @@ class DatabaseSeeder extends Seeder
             'longitude' => '96.25118416569696',
         ]);
         Donor::create([
-            'name' => 'Min Ye Thu',
-            'user_name' => 'minyethu',
+            'name' => 'Chit Su',
+            'user_name' => 'chitsu',
             'donor_id' => 'BD_D0001',
-            'email' => 'minyethu@gmail.com',
+            'email' => 'chitsu@gmail.com',
             'password' => Hash::make('donor'),
             'phone' => '095025363',
-            'gender' => 'male',
+            'gender' => 'female',
             'dob' => '1999.09.09',
             'nrc' => '၁၂/သကတ(နိုင်)၀၇၈၉၁၄',
             'status' => 'active',
@@ -286,17 +286,18 @@ class DatabaseSeeder extends Seeder
             'type' => 'donor',
         ]);
 
-        ReportDonor::create([
-            'hospital_id' => 1,
-            'admin_id' => 1,
-            'donor_id' => 1,
-            'patient_id' => 1,
-            'status' => 'pending',
-            'type' => 'normal',
-            'report_type' => 'website',
-            'donor_confirm' => 'undone',
-            'report_date_time' => \Carbon\Carbon::now()->toDateTimeString(),
-        ]);
+        // ReportDonor::create([
+        //     'hospital_id' => 1,
+        //     'admin_report_id' => 1,
+        //     'admin_id' => 1,
+        //     'donor_id' => 1,
+        //     'patient_id' => 1,
+        //     'status' => 'pending',
+        //     'type' => 'normal',
+        //     'report_type' => 'website',
+        //     'donor_confirm' => 'undone',
+        //     'report_date_time' => \Carbon\Carbon::now()->toDateTimeString(),
+        // ]);
 
         \App\Models\Donor::factory(20)->create();
         \App\Models\Patient::factory(20)->create();

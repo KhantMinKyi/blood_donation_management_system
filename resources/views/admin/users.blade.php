@@ -8,6 +8,10 @@
     <title>USERS</title>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    {{-- search js --}}
+    <script src="{{ asset('admin_js/script.js') }}"></script>
 
     <!-- Bootstrap 4 Link CSS Files -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
@@ -16,6 +20,7 @@
     <link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
     <!-- Custom Link CSS Files -->
     <link rel="stylesheet" href="{{ asset('admincss/home.css') }}">
+    <link rel="stylesheet" href="{{ asset('admincss/search.css') }}">
 
 
     <style>
@@ -78,11 +83,14 @@
                 <H4 class="text-center">Donors</H4><br>
 
                 <h5 class="text-center" style="color: red;"> Records</h5><br>
-
-                <table class="table table-light table-hover table-bordered table-striped">
+                <div class="form-group float-right">
+                    <input type="text" class="search form-control" placeholder="What you looking for?">
+                </div>
+                <span class="counter float-right"></span>
+                <table class="table table-light table-hover table-bordered table-striped results">
                     <thead class="bg-info">
                         <tr>
-
+                            {{-- <th>No</th> --}}
                             <th scope="col">User Id</th>
                             <th scope="col">First Name</th>
                             <th scope="col">Blood Type</th>
@@ -91,11 +99,15 @@
                             <th scope="col">Status</th>
 
                         </tr>
+                        <tr class="warning no-result">
+                            <td colspan="4"><i class="fa fa-warning"></i> No result</td>
+                        </tr>
                     </thead>
 
                     <tbody>
-                        @foreach ($donors as $donor)
+                        @foreach ($donors as $key => $donor)
                             <tr>
+                                {{-- <th scope="row">{{ $key + 1 }}</th> --}}
                                 <td>{{ $donor->donor_id }}</td>
                                 <td>{{ $donor->name }}</td>
                                 <td>{{ $donor->blood_type->name }}</td>

@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Hash;
 use Stevebauman\Location\Facades\Location;
 use App\Http\Requests\StoreUpdateDonorRequest;
 use App\Models\Hospital;
+use App\Models\ReportAdmin;
 
 class DonorController extends Controller
 {
@@ -172,10 +173,16 @@ class DonorController extends Controller
             $response = "You have successfully canceled this donation request.";
         } elseif ($status == 4) {
             $statusData = "processing";
+            $donorConfirm = "done";
             $response = "Congratulations! You have successfully accepted this donation request, Please wait Admin's Contact for Your Blood Donation";
         }
+        $reportAdmin = ReportAdmin::find($bloodRequest->admin_report_id);
+        $reportAdmin->update([
+            'status' => $statusData,
+        ]);
         $bloodRequest->update([
             'status' => $statusData,
+            'donor_confirm' => $donorConfirm,
         ]);
         return back()->with('success', $response);
     }
