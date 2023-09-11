@@ -182,13 +182,13 @@ class DatabaseSeeder extends Seeder
             'longitude' => '96.25118416569696',
         ]);
         Donor::create([
-            'name' => 'Min Ye Thu',
-            'user_name' => 'minyethu',
+            'name' => 'Chit Su',
+            'user_name' => 'chitsu',
             'donor_id' => 'BD_D0001',
-            'email' => 'minyethu@gmail.com',
+            'email' => 'chitsu@gmail.com',
             'password' => Hash::make('donor'),
             'phone' => '095025363',
-            'gender' => 'male',
+            'gender' => 'female',
             'dob' => '1999.09.09',
             'nrc' => '၁၂/သကတ(နိုင်)၀၇၈၉၁၄',
             'status' => 'active',
