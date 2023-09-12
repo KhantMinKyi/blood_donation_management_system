@@ -54,7 +54,7 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('/admin/donors', [AdminController::class, 'donors']);
     Route::get('/admin/patients', [AdminController::class, 'patients']);
     Route::get('/admin/cancel_history', [AdminController::class, 'cancelHistory']);
-    Route::get('/admin/cancel_hsitory_detail/{id}', [AdminController::class, 'cancelHistoryDetail']);
+    Route::get('/admin/cancel_history_detail/{id}', [AdminController::class, 'cancelHistoryDetail']);
     Route::get('/admin/donation_history', [AdminController::class, 'donationHistory']);
     Route::get('/admin/donation_history_detail/{id}', [AdminController::class, 'donationHistoryDetail']);
     Route::get('/admin/inventory', [AdminController::class, 'inventory']);

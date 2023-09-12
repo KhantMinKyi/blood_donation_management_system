@@ -170,6 +170,7 @@ class DonorController extends Controller
             $statusData = "completed";
         } elseif ($status == 3) {
             $statusData = "cancel";
+            $donorConfirm = "done";
             $response = "You have successfully canceled this donation request.";
         } elseif ($status == 4) {
             $statusData = "processing";

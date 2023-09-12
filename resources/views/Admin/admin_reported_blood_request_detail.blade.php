@@ -403,7 +403,7 @@
                             <h6>Contact To User </h6>
                         </div>
                         <div class="model_btn">
-                            @if ($report->report_donor->donor_confirm === 'done')
+                            @if ($report->report_donor->donor_confirm === 'done' && $report->report_donor->status !== 'cancel')
                                 <form action={{ url('/admin/admin_cancel_report') }} method="post">
                                     @csrf
                                     <input type="hidden" value={{ $report->id }} name="admin_report_id">

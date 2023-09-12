@@ -460,7 +460,7 @@
                             <div class="form-group">
                                 <label for="" class="text-sm">Donor Remark</label>
                                 <input type="text" name="" class="form-control"
-                                    value={{ $near_donor->remark }} disabled>
+                                    value="{{ $near_donor->remark }}" disabled>
 
                             </div>
                             <div class="form-group">

@@ -177,17 +177,20 @@ class AdminController extends Controller
         $reports = ReportDonor::with('hospital', 'patient', 'admin', 'admin_report')
             ->where('admin_id', $admin->id)
             ->whereNot('status', 'completed')
+            ->whereNot('status', 'cancel')
             ->get()
             ->sortBy('report_date_time');
         $done_reports = ReportDonor::with('hospital', 'patient', 'admin', 'admin_report')
             ->where('admin_id', $admin->id)
             ->whereNot('status', 'completed')
+            ->whereNot('status', 'cancel')
             ->where('donor_confirm', 'done')
             ->get()
             ->sortBy('report_date_time');
         $undone_reports = ReportDonor::with('hospital', 'patient', 'admin', 'admin_report')
             ->where('admin_id', $admin->id)
             ->whereNot('status', 'completed')
+            ->whereNot('status', 'cancel')
             ->where('donor_confirm', 'undone')
             ->get()
             ->sortBy('report_date_time');

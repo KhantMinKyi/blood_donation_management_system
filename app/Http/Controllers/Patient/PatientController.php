@@ -193,7 +193,7 @@ class PatientController extends Controller
         $history = DonationRecord::join('hospitals', 'hospitals.id', '=', 'donation_records.hospital_id')
             ->join('patients', 'patients.id', '=', 'donation_records.patient_id')
             ->join('donors', 'donors.id', '=', 'donation_records.donor_id')
-            ->where('donation_records.donor_id', '=', $id)
+            ->where('donation_records.patient_id', '=', $id)
             ->where('donation_records.type', '=', 'donor')
             ->get(['donation_records.*', 'donors.name as donor_name', 'hospitals.name as hospital_name', 'patients.name as patient_name']);
 
@@ -251,10 +251,13 @@ class PatientController extends Controller
             $user_id = null;
             $hospitals = Hospital::where('city_id', $request->city_id)->where('township_id', $request->township_id)->get();
         }
-
+        if (empty($hospitals[0])) {
+            $hospitals = Hospital::all();
+        }
         $hospital_locations = [];
         $distances = [];
         // Hospitals loop
+        // return $hospitals;
         foreach ($hospitals as $hospital) {
             $hospital_latitude = $hospital->latitude;
             $hospital_longitude = $hospital->longitude;
