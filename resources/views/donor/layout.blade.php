@@ -86,11 +86,11 @@
                     </li>
                 @endauth
 
-                @auth('patient')
+                {{-- @auth('patient')
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/patient/history/' . auth('patient')->user()->id) }}">History</a>
                     </li>
-                @endauth
+                @endauth --}}
 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('/donor/aboutUs') }}">About Us</a>
@@ -108,19 +108,21 @@
 
                 @auth('donor')
                     <li class="nav-item dropdown nav-item-dropdownlist donor-nav-item-dropdownlist">
-                        <a class="nav-link dropdown-toggle donor-nav-link-dropdown" href="#" id="navbarDropdownMenuLink" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle donor-nav-link-dropdown" href="#"
+                            id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
                             {{ auth('donor')->user()->name }}
 
                             <!-- Donor Name -->
                         </a>
                         <div class="dropdown-menu donor-navbar-dropdown" aria-labelledby="navbarDropdownMenuLink">
 
-                            <a class="dropdown-item" href='{{ url("donor/profile/" . auth('donor')->user()->id) }}'><i class="fa fa-user"
-                                    aria-hidden="true"></i>
-                                    Profile</a>
+                            <a class="dropdown-item" href='{{ url('donor/profile/' . auth('donor')->user()->id) }}'><i
+                                    class="fa fa-user" aria-hidden="true"></i>
+                                Profile</a>
 
-                            <a class="dropdown-item" href="{{ url("donors/" . auth('donor')->user()->id) . "/edit" }}"><i class="fa fa-edit" aria-hidden="true"></i>
+                            <a class="dropdown-item" href="{{ url('donors/' . auth('donor')->user()->id) . '/edit' }}"><i
+                                    class="fa fa-edit" aria-hidden="true"></i>
                                 Update Profile</a>
 
                             <a class="dropdown-item" href="{{ url('donor/logout') }}">

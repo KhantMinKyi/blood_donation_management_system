@@ -94,20 +94,22 @@
                     <tbody>
                         @if (isset($donation_records))
                             @foreach ($donation_records as $donation_record)
-                                <td>
-                                    <a href={{ url('/admin/donation_history_detail/' . $donation_record->id) }}>
-                                        {{ 'BD_DHR0000' . $donation_record->id }}
-                                    </a>
-                                </td>
-                                <td>{{ $donation_record->donor->name }}</td>
-                                @if (isset($donation_record->patient))
-                                    <td>{{ $donation_record->patient->name }}</td>
-                                @else
-                                    <td>{{ $donation_record->admin_report->patient_name }} </td>
-                                @endif
-                                <td>{{ $donation_record->admin_report->blood_type->name }} </td>
-                                <td>{{ date('H:m A', strToTime($donation_record->created_at)) }}</td>
-                                <td>{{ date('d.m.Y', strToTime($donation_record->created_at)) }}</td>
+                                <tr>
+                                    <td>
+                                        <a href={{ url('/admin/donation_history_detail/' . $donation_record->id) }}>
+                                            {{ 'BD_DHR0000' . $donation_record->id }}
+                                        </a>
+                                    </td>
+                                    <td>{{ $donation_record->donor->name }}</td>
+                                    @if (isset($donation_record->patient))
+                                        <td>{{ $donation_record->patient->name }}</td>
+                                    @else
+                                        <td>{{ $donation_record->admin_report->patient_name }} </td>
+                                    @endif
+                                    <td>{{ $donation_record->admin_report->blood_type->name }} </td>
+                                    <td>{{ date('H:m A', strToTime($donation_record->created_at)) }}</td>
+                                    <td>{{ date('d.m.Y', strToTime($donation_record->created_at)) }}</td>
+                                </tr>
                             @endforeach
                         @endif
                     </tbody>

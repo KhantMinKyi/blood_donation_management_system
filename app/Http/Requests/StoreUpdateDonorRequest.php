@@ -32,7 +32,6 @@ class StoreUpdateDonorRequest extends FormRequest
             'phone' => 'required',
             'gender' => 'required|in:male,female',
             'dob' => 'required',
-            'nrc' => 'required',
             'status' => 'required|in:active,away',
             'blood_type_id' => 'required|exists:App\Models\BloodType,id',
             'city_id' => 'required|exists:App\Models\City,id',
