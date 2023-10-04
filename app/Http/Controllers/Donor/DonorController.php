@@ -196,11 +196,20 @@ class DonorController extends Controller
 
     public function registerForm()
     {
+        $json_data = json_decode(file_get_contents(public_path('json/nrc.json')), true);
+        foreach($json_data as $data) {
+             $nrcTownships = $data;
+        }
         $cities = City::all();
         $townships = Township::all();
         $blood_types = BloodType::all();
-        return view('donor.register', compact('cities', 'townships', 'blood_types'));
+        return view('donor.register', compact('cities', 'townships', 'blood_types', 'nrcTownships'));
     }
+
+    //public function nrc()
+    //{
+    //    return response()->json('hello');
+    //}
 
     public function register(StoreUpdateDonorRequest $request)
     {
