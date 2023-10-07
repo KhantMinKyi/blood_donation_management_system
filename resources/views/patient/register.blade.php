@@ -118,15 +118,42 @@
 
             <div class="row mb-3">
               <label class="col-md-4 col-form-label text-md-end">{{ __('NRC') }}</label>
-
               <div class="col-md-6">
-                <input type="text" class="form-control @error('nrc') is-invalid @enderror" name="nrc" required>
+                <select name="nrc1" class="form-control mb-3">
+                  <option value="" selected></option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                </select>
+                <!--<input type="text" class="form-control mb-3" name="nrc2">-->
 
-                @error('nrc')
-                <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
-                </span>
-                @enderror
+                <select name="nrc2" class="form-control mb-3">
+                  <option value="" selected></option>
+                  @foreach ($nrcTownships as $nrcTownship)
+                  <option value="{{ $nrcTownship['name_en'] }}">{{ $nrcTownship['name_en'] }}</option>
+                  @endforeach
+
+                </select>
+
+                <select name="nrc3" class="form-control mb-3">
+                  <option value="" selected></option>
+                  <option value="(N)">N</option>
+                  <option value="(M)">M</option>
+                  <option value="(AC)">AC</option>
+                  <option value="(NC)">NC</option>
+                  <option value="(V)">V</option>
+                  <option value="(C)">C</option>
+                </select>
+                <input type="number" class="form-control mb-3" name="nrc4">
               </div>
             </div>
 

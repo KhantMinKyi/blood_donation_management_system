@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Donor\DonorController;
+use App\Http\Controllers\Patient\PatientController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

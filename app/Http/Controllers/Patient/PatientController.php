@@ -159,20 +159,35 @@ class PatientController extends Controller
 
     public function registerForm()
     {
+        $json_data = json_decode(file_get_contents(public_path('json/nrc.json')), true);
+        foreach($json_data as $data) {
+             $nrcTownships = $data;
+        }
         $cities = City::all();
         $townships = Township::all();
         $blood_types = BloodType::all();
-        return view('patient.register', compact('cities', 'townships', 'blood_types'));
+        return view('patient.register', compact('cities', 'townships', 'blood_types', 'nrcTownships'));
     }
+
+    // public function register(StoreUpdatePatientRequest $request)
+    // {
+    //     $validated = $request->validated();
+    //     $validated['patient_id'] = "BD_P" . random_int(100000, 999999);
+    //     $validated['password'] = Hash::make($validated['password']);
+    //     $patient = Patient::create($validated);
+    //     auth('patient')->login($patient);
+    //     return redirect('/patient')->with('success', 'Welcome To Our Website ' . $patient->name);
+    // }
 
     public function register(StoreUpdatePatientRequest $request)
     {
         $validated = $request->validated();
         $validated['patient_id'] = "BD_P" . random_int(100000, 999999);
         $validated['password'] = Hash::make($validated['password']);
+        $validated['nrc'] = $request['nrc1'] . "/" . $request['nrc2'] . $request['nrc3'] . $request['nrc4'];
         $patient = Patient::create($validated);
         auth('patient')->login($patient);
-        return redirect('/patient')->with('success', 'Welcome To Our Website ' . $patient->name);
+        return redirect('/patient')->with('success', 'Welcome To Our Website, ' . $patient->name);
     }
 
     public function emergencyForm()
