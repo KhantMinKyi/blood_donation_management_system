@@ -278,13 +278,13 @@ class DatabaseSeeder extends Seeder
             'longitude' => '96.15071654766246',
         ]);
 
-        DonationRecord::create([
-            'hospital_id' => 1,
-            'admin_id' => 1,
-            'donor_id' => 1,
-            'patient_id' => 1,
-            'type' => 'donor',
-        ]);
+        // DonationRecord::create([
+        //     'hospital_id' => 1,
+        //     'admin_id' => 1,
+        //     'donor_id' => 1,
+        //     'patient_id' => 1,
+        //     'type' => 'donor',
+        // ]);
 
         // ReportDonor::create([
         //     'hospital_id' => 1,

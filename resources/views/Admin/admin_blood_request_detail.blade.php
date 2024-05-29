@@ -285,7 +285,7 @@
                             <div class="cancel_model_btn_div">
                                 <form action="/admin/admin_cancel_report" method="POST">
                                     @csrf
-                                    <input type="hidden" name="admin_report_id" value="{{ $report->id }}">
+                                    <input type="hidden" name="admin_report_id" value="">
                                     <input type="hidden" name="report_type" value="cancel">
                                     <input type="submit" value="Cancel Report" class="btn_cancel_report">
                                 </form>

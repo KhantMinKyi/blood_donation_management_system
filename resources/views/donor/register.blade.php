@@ -126,7 +126,7 @@
                             <div class="row mb-3">
                                 <label class="col-md-4 col-form-label text-md-end">{{ __('NRC') }}</label>
                                 <div class="col-md-6">
-                                <select name="nrc1" class="form-control mb-3">
+                                    <select name="nrc1" class="form-control mb-3">
                                         <option value="" selected></option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -140,17 +140,20 @@
                                         <option value="10">10</option>
                                         <option value="11">11</option>
                                         <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
                                     </select>
                                     <!--<input type="text" class="form-control mb-3" name="nrc2">-->
-                                     
+
                                     <select name="nrc2" class="form-control mb-3">
                                         <option value="" selected></option>
                                         @foreach ($nrcTownships as $nrcTownship)
-                                        <option value="{{ $nrcTownship['name_en'] }}">{{ $nrcTownship['name_en'] }}</option>
+                                            <option value="{{ $nrcTownship['name_en'] }}">{{ $nrcTownship['name_en'] }}
+                                            </option>
                                         @endforeach
-                                        
+
                                     </select>
-                                    
+
                                     <select name="nrc3" class="form-control mb-3">
                                         <option value="" selected></option>
                                         <option value="(N)">N</option>
@@ -164,7 +167,7 @@
                                 </div>
                             </div>
 
-                           
+
 
                             <div class="row mb-3">
                                 <label class="col-md-4 col-form-label text-md-end">{{ __('Your Status') }}</label>
@@ -355,22 +358,22 @@
             long.value = position.coords.longitude;
         }
 
-    //    $(document).ready(function() {
-    //    $.ajax({
-    //        url: '/nrc',
-    //        type: 'GET',
-    //        dataType: 'json',
-    //        success: function(data) {
-    //            // Loop through the JSON data and display it
-    //            $.each(data, function(index, item) {
-    //                // Access JSON properties like item.name_en, item.name_mm, etc.
-    //                console.log(item.name_en);
-    //            });
-    //        },
-    //        error: function(xhr, status, error) {
-    //            console.error("AJAX Error: " + status + " - " + error);
-    //        }
-    //    });
-    //});
+        //    $(document).ready(function() {
+        //    $.ajax({
+        //        url: '/nrc',
+        //        type: 'GET',
+        //        dataType: 'json',
+        //        success: function(data) {
+        //            // Loop through the JSON data and display it
+        //            $.each(data, function(index, item) {
+        //                // Access JSON properties like item.name_en, item.name_mm, etc.
+        //                console.log(item.name_en);
+        //            });
+        //        },
+        //        error: function(xhr, status, error) {
+        //            console.error("AJAX Error: " + status + " - " + error);
+        //        }
+        //    });
+        //});
     </script>
 @endsection

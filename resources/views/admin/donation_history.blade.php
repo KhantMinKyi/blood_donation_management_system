@@ -106,7 +106,13 @@
                                     @else
                                         <td>{{ $donation_record->admin_report->patient_name }} </td>
                                     @endif
-                                    <td>{{ $donation_record->admin_report->blood_type->name }} </td>
+                                    <td>
+                                        @if (isset($donation_record->admin_report))
+                                            {{ $donation_record->admin_report->blood_type->name }}
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
                                     <td>{{ date('H:m A', strToTime($donation_record->created_at)) }}</td>
                                     <td>{{ date('d.m.Y', strToTime($donation_record->created_at)) }}</td>
                                 </tr>
