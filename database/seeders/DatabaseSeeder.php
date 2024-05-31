@@ -166,7 +166,7 @@ class DatabaseSeeder extends Seeder
             'longitude' => '96.25256042553455',
         ]);
         Admin::create([
-            'name' => '5',
+            'name' => 'admin5',
             'user_name' => 'admin5',
             'admin_id' => 'BD_A0005',
             'email' => 'admin5@gmail.com',
@@ -197,8 +197,8 @@ class DatabaseSeeder extends Seeder
             'township_id' => 1,
             'remark' => 'donor remark',
             'address' => 'thitsar road, tharkayta township, yangon',
-            'latitude' => '16.839244639989772',
-            'longitude' => '96.17032880169396',
+            'latitude' => '16.792324064179855',
+            'longitude' => '96.19670629740229',
         ]);
         Donor::create([
             'name' => 'Kyaw Si Thu',
