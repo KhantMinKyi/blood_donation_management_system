@@ -11,8 +11,10 @@ use App\Models\DonationRecord;
 use App\Models\Donor;
 use App\Models\Hospital;
 use App\Models\Patient;
+use App\Models\ReportAdmin;
 use App\Models\ReportDonor;
 use App\Models\Township;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -278,28 +280,56 @@ class DatabaseSeeder extends Seeder
             'longitude' => '96.15071654766246',
         ]);
 
-        // DonationRecord::create([
-        //     'hospital_id' => 1,
-        //     'admin_id' => 1,
-        //     'donor_id' => 1,
-        //     'patient_id' => 1,
-        //     'type' => 'donor',
-        // ]);
-
-        // ReportDonor::create([
-        //     'hospital_id' => 1,
-        //     'admin_report_id' => 1,
-        //     'admin_id' => 1,
-        //     'donor_id' => 1,
-        //     'patient_id' => 1,
-        //     'status' => 'pending',
-        //     'type' => 'normal',
-        //     'report_type' => 'website',
-        //     'donor_confirm' => 'undone',
-        //     'report_date_time' => \Carbon\Carbon::now()->toDateTimeString(),
-        // ]);
+        Donor::create([
+            'name' => 'donor',
+            'user_name' => 'donor',
+            'donor_id' => 'BD_P0003',
+            'email' => 'donor@gmail.com',
+            'password' => Hash::make('donor'),
+            'phone' => '09250859898',
+            'gender' => 'male',
+            'dob' => '1998.03.08',
+            'nrc' => '12/YKN(N)09785789',
+            'status' => 'active',
+            'blood_type_id' => 1,
+            'city_id' => 1,
+            'township_id' => 1,
+            'remark' => 'donor remark',
+            'address' => 'Thanlyin',
+            'latitude' => '16.77875476501006',
+            'longitude' => '96.15071654766246',
+        ]);
 
         \App\Models\Donor::factory(20)->create();
         \App\Models\Patient::factory(20)->create();
+
+        ReportAdmin::create([
+            'hospital_id' => '3',
+            'patient_id' => '1',
+            'patient_name' => 'patient',
+            'blood_type_id' => '1',
+            'admin_id' => '3',
+            'phone' => '09899889989',
+            'latitude' => '16.77875476501006',
+            'longitude' => '96.15071654766246',
+            'report_date_time' => \Carbon\Carbon::now()->toDateTimeString(),
+        ]);
+
+
+
+
+
+        //ReportDonor::create([
+        //    'hospital_id' => 3,
+        //    'admin_report_id' => 1,
+        //    'admin_id' => 3,
+        //    'donor_id' => 3,
+        //    'patient_id' => 1,
+        //    'status' => 'pending',
+        //    'type' => 'normal',
+        //    'report_type' => 'website',
+        //    'donor_confirm' => 'undone',
+        //    'report_date_time' => \Carbon\Carbon::now()->toDateTimeString(),
+        //]);
     }
 }
